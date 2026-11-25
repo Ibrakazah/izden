@@ -21,7 +21,8 @@ def load_bank(lang):
 
 def new_state(params):
     return {"v": 2, "skills": {s: {"p": params["p_init"], "n": 0, "c": 0} for s in SKILLS},
-            "traps": {t: 0 for t in TRAPS}, "diag": {d: 0 for d in DIAGNOSES}, "done": {}, "answered": 0}
+            "traps": {t: 0 for t in TRAPS}, "exposure": {t: 0 for t in TRAPS}, "diag": {d: 0 for d in DIAGNOSES},
+            "done": {}, "answered": 0}
 
 
 def slip_guess(params, difficulty):
@@ -75,6 +76,10 @@ def apply_answer(state, params, question, correct, trap=None, evidence_ok=None):
         sk["c"] += 1
     if not correct and trap in state["traps"]:
         state["traps"][trap] += 1
+    offered = {o["trap"] for o in question["options"] if not o["correct"]}
+    for t in TRAPS:
+        if t in offered:
+            state["exposure"][t] += 1
     state["answered"] += 1
     return {"skill": question["process"], "before": before, "after": sk["p"]}
 

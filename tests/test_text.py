@@ -27,8 +27,7 @@ def test_split_matches_js():
     paras = paragraphs()
     py = [sentences(p) for p in paras]
     if not shutil.which("osascript"):
-        print("SKIPPED: osascript (macOS JavaScriptCore) not found, JS side not checked")
-        return
+        raise SystemExit("FAILED: osascript (macOS JavaScriptCore) not found - the JS side was NOT verified")
     js_src = (ROOT / "js/text.js").read_text(encoding="utf-8")
     js_src = re.sub(r"^export\s+", "", js_src, flags=re.M)
     src = js_src + f"\nvar P = {json.dumps(paras, ensure_ascii=False)};\nJSON.stringify(P.map(splitSentences));\n"

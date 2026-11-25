@@ -16,7 +16,7 @@ var TRAPS = ['word_match','near_detail','outside_knowledge','overgeneralize','op
 var DIAGNOSES = ['understood','guessed','found_wrong','not_found'];
 var st = {skills:{locate:{p:0.62,n:9,c:6},understand:{p:0.48,n:7,c:3},evaluate:{p:0.31,n:6,c:2}},
           traps:{word_match:1,near_detail:4,outside_knowledge:0,overgeneralize:1,opposite:2,misread_table:3},
-          diag:{understood:9,guessed:3,found_wrong:2,not_found:4}, done:{a:1,b:1}};
+          diag:{understood:9,guessed:3,found_wrong:2,not_found:4}, exposure:{word_match:10,near_detail:14,outside_knowledge:9,overgeneralize:6,opposite:8,misread_table:11}, done:{a:1,b:1}};
 var prof = {name:'Айгерім', grade:8, lang:'kk'};
 var code = encodeShortCode(prof, st);
 var back = decodeShortCode(code, 'Айгерім');
@@ -40,8 +40,7 @@ JSON.stringify({code: code, back: back, typos: typos, typosCaught: typosCaught, 
 
 def test_short_code_and_payload():
     if not shutil.which("osascript"):
-        print("SKIPPED: osascript (macOS JavaScriptCore) not found")
-        return
+        raise SystemExit("FAILED: osascript (macOS JavaScriptCore) not found - the JS side was NOT verified")
     src = (ROOT / "js/qr.js").read_text(encoding="utf-8")
     src = re.sub(r"^import .*$", "", src, flags=re.M)
     src = re.sub(r"^export\s+", "", src, flags=re.M)
@@ -56,6 +55,7 @@ def test_short_code_and_payload():
     assert r["swapsCaught"] >= 0.95 * r["swaps"], f"adjacent swaps caught {r['swapsCaught']}/{r['swaps']}"
     assert r["zero"] is None, "all-zero code must be rejected"
     assert r["payloadBytes"] <= 300 and r["payloadBack"]["name"] == "Айгерім" and r["tampered"] is None
+    assert r["payloadBack"]["exposure"] == [10, 14, 9, 6, 8, 11]
     print(f"OK: short code {r['code']}; typos caught {r['typosCaught']}/{r['typos']}, adjacent swaps "
           f"{r['swapsCaught']}/{r['swaps']}; zero code rejected; IZ1 payload {r['payloadBytes']} bytes, checksum works")
 

@@ -17,7 +17,18 @@ const LS = {
     const s = JSON.stringify(v);
     mem.set(k, s);
     if (!storageOk) return;
-    try { localStorage.setItem('izden.' + k, s); } catch (e) { storageOk = false; toast(t('noStorage')); }
+    try { localStorage.setItem('izden.' + k, s); } catch (e) {
+      // first failure: keep everything already saved (profile, progress) in memory before switching over
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('izden.') && !mem.has(key.slice(6))) mem.set(key.slice(6), localStorage.getItem(key));
+        }
+      } catch (e2) { /* storage unreadable too */ }
+      mem.set(k, s);
+      storageOk = false;
+      toast(t('noStorage'));
+    }
   },
   del(k) { mem.delete(k); try { if (storageOk) localStorage.removeItem('izden.' + k); } catch (e) { /* ignore */ } },
 };
@@ -42,6 +53,7 @@ const profile = () => LS.get('profile', null);
 function loadState(lang) {
   const s = LS.get('state.' + lang, null);
   if (!s || s.v !== 2) return E.newState(params);
+  if (!s.exposure) s.exposure = E.newState(params).exposure; // saved before exposure counting existed
   return s;
 }
 const saveState = (lang, s) => LS.set('state.' + lang, s);
@@ -229,46 +241,48 @@ function runQuestion(unit, ses, st, lang) {
   const reader = document.getElementById('reader');
   const q = unit.questions.find(x => x.id === ses.qids[ses.i]);
   const n = ses.qids.length;
-  let phase = 'evidence';
-  let tap = null;
-  let choice = null;
-  let first = null; // {correct, evOk, diag}
-  let hintsShown = 0;
-  let collapsed = false;
-  let extraLast;
-  const disabled = new Set();
   const correctId = q.options.find(o => o.correct).id;
   const order = displayOrder(unit.id, q);
+  ses.answered = ses.answered || {};
+  // rec = everything about this question after the first check; persisted so that a reload or a visit to
+  // another screen resumes in the same phase (retry / prove / done) and never counts the answer twice.
+  let rec = ses.answered[q.id] || null;
+  let phase = rec ? rec.phase : 'evidence';
+  let tap = null;
+  let choice = rec ? (rec.phase === 'retry' ? null : rec.retryChoice || rec.choice) : null;
+  let collapsed = false;
+  let extraLast = rec ? rec.extra : undefined;
+  const disabled = new Set(rec ? rec.disabled : []);
+
+  const persist = () => { ses.answered[q.id] = rec; LS.set('session.' + lang, ses); };
+  const markPicked = ref => {
+    reader.querySelectorAll('.picked').forEach(x => x.classList.remove('picked'));
+    const el = ref && reader.querySelector(`[data-ev="${CSS.escape(ref)}"]`);
+    if (el) el.classList.add('picked');
+  };
 
   clearEvidence(reader);
-  reader.classList.add('picking');
-  ses.answered = ses.answered || {};
-  // Already answered (reload, or came back from another screen): show the result, never count it again.
-  const prev = ses.answered[q.id];
-  if (prev) {
-    first = prev;
-    choice = prev.choice;
-    phase = 'done';
-    if (!prev.correct) disabled.add(prev.choice);
-    reader.classList.remove('picking');
-    showEvidence(reader, q.evidence);
+  reader.classList.toggle('picking', phase === 'evidence' || phase === 'answer' || phase === 'prove');
+  if (rec) {
+    if (phase === 'retry') markPicked(rec.evOk ? rec.tap : null);
+    if (phase === 'done' || rec.helped) showEvidence(reader, q.evidence);
   }
 
   const onTap = ev => {
     const el = ev.target.closest('.tap');
     if (!el || !reader.contains(el)) return;
     if (phase === 'evidence' || phase === 'answer') {
-      reader.querySelectorAll('.picked').forEach(x => x.classList.remove('picked'));
-      el.classList.add('picked');
+      markPicked(el.dataset.ev);
       tap = el.dataset.ev;
       if (phase === 'evidence') { phase = 'answer'; draw(); scrollPanel(); } else draw();
     } else if (phase === 'prove') {
-      reader.querySelectorAll('.picked').forEach(x => x.classList.remove('picked'));
-      el.classList.add('picked');
+      markPicked(el.dataset.ev);
       const ok = evidenceMatches(el.dataset.ev, q.evidence);
       const firstEl = showEvidence(reader, q.evidence);
+      reader.classList.remove('picking');
       phase = 'done';
-      draw(ok ? 'proved' : 'provedNot');
+      rec.phase = 'done'; rec.extra = ok ? 'proved' : 'provedNot'; persist();
+      draw(rec.extra);
       if (!ok && firstEl) scrollToEl(firstEl);
     }
   };
@@ -298,15 +312,22 @@ function runQuestion(unit, ses, st, lang) {
   }
 
   function hintsHtml() {
-    const hs = q.hint_steps.slice(0, hintsShown).map((h, i) => `<li>${esc(h)}</li>`).join('');
-    const more = hintsShown < q.hint_steps.length ? `<button type="button" class="btn ghost small" id="hint-more">${t('hintShow')} (${hintsShown + 1}/${q.hint_steps.length})</button>` : '';
-    return `<div class="hints"><b>${t('hint')}</b>${hs ? `<ol>${hs}</ol>` : ''}${more}</div>`;
+    const shown = rec.hintsShown;
+    const hs = q.hint_steps.slice(0, shown).map(h => `<li>${esc(h)}</li>`).join('');
+    const more = shown < q.hint_steps.length ? `<button type="button" class="btn ghost small" id="hint-more">${t('hintShow')} (${shown + 1}/${q.hint_steps.length})</button>` : '';
+    const help = rec.helped ? `<p class="small muted">${t('evidenceShown')}</p>`
+      : `<button type="button" class="btn ghost small" id="show-ev">${t('showEvidence')}</button>`;
+    return `<div class="hints"><b>${t('hint')}</b>${hs ? `<ol>${hs}</ol>` : ''}<div class="btnrow">${more}${help}</div></div>`;
   }
 
   function diagHtml(d) {
     const [h, p] = tv('diag')[d];
-    return `<div class="diag d-${d}"><span class="diag-ico" aria-hidden="true"></span><div><b>${esc(h)}</b><p>${esc(p)}</p></div></div>`;
+    const text = (d === 'not_found' && phase === 'retry' && !rec.helped) ? t('notFoundHint') : p;
+    return `<div class="diag d-${d}"><span class="diag-ico" aria-hidden="true"></span><div><b>${esc(h)}</b><p>${esc(text)}</p></div></div>`;
   }
+
+  const okMsg = txt => `<div class="diag d-understood"><span class="diag-ico"></span><div><b>${txt}</b></div></div>`;
+  const badMsg = txt => `<div class="diag d-not_found"><span class="diag-ico"></span><div><b>${txt}</b></div></div>`;
 
   function draw(extra) {
     extraLast = extra;
@@ -319,17 +340,18 @@ function runQuestion(unit, ses, st, lang) {
       body = `<p class="instr small muted">${tap ? t('changeEvidence') : ''}</p>${optionsHtml(false)}
         <button type="button" class="btn primary" id="check" ${choice ? '' : 'disabled'}>${t('check')}</button>`;
     } else if (phase === 'retry') {
-      body = diagHtml(first.diag) + trapHtml(first.choice) + hintsHtml() + optionsHtml(false)
+      body = diagHtml(rec.diag) + trapHtml(rec.choice) + hintsHtml() + optionsHtml(false)
         + `<button type="button" class="btn primary" id="check" ${choice && !disabled.has(choice) ? '' : 'disabled'}>${t('check')}</button>`;
     } else if (phase === 'prove') {
       body = diagHtml('guessed') + optionsHtml(true);
     } else if (phase === 'done') {
-      let msg = '';
-      if (extra === 'proved') msg = `<div class="diag d-understood"><span class="diag-ico"></span><div><b>${t('proved')}</b></div></div>`;
-      else if (extra === 'provedNot') msg = `<div class="diag d-not_found"><span class="diag-ico"></span><div><b>${t('provedNot')}</b></div></div>`;
-      else if (extra === 'second') msg = `<div class="diag d-understood"><span class="diag-ico"></span><div><b>${t('correctSecond')}</b></div></div>`;
-      else if (extra === 'final') msg = `<div class="diag d-not_found"><span class="diag-ico"></span><div><b>${t('wrongFinal')}</b></div></div>` + trapHtml(choice);
-      else msg = diagHtml(first.diag);
+      let msg;
+      const helped = rec.helped ? ` <span class="tag">${t('withHelp')}</span>` : '';
+      if (extra === 'proved') msg = okMsg(t('proved'));
+      else if (extra === 'provedNot') msg = badMsg(t('provedNot'));
+      else if (extra === 'second') msg = okMsg(t('correctSecond') + helped);
+      else if (extra === 'final') msg = badMsg(t('wrongFinal')) + trapHtml(rec.retryChoice);
+      else msg = diagHtml(rec.diag);
       const last = ses.i + 1 >= n;
       body = msg + optionsHtml(true) + `<div class="explain"><p>${esc(q.explain)}</p></div>`
         + `<button type="button" class="btn primary" id="next">${last ? t('unitDone') + ' →' : t('next')}</button>`;
@@ -345,12 +367,20 @@ function runQuestion(unit, ses, st, lang) {
     panel.querySelector('#fold').addEventListener('click', () => { collapsed = !collapsed; draw(extraLast); });
     panel.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', () => {
       choice = b.dataset.opt;
-      draw();
+      draw(extraLast);
     }));
     const noEv = panel.querySelector('#no-ev');
     if (noEv) noEv.addEventListener('click', () => { tap = null; phase = 'answer'; draw(); });
     const hm = panel.querySelector('#hint-more');
-    if (hm) hm.addEventListener('click', () => { hintsShown++; draw(); });
+    if (hm) hm.addEventListener('click', () => { rec.hintsShown++; persist(); draw(); });
+    const se = panel.querySelector('#show-ev');
+    if (se) se.addEventListener('click', () => {
+      // asking to see the evidence is recorded as "with help"
+      rec.helped = true; persist();
+      const el = showEvidence(reader, q.evidence);
+      draw();
+      if (el) scrollToEl(el);
+    });
     const ck = panel.querySelector('#check');
     if (ck) ck.addEventListener('click', check);
     const nx = panel.querySelector('#next');
@@ -361,41 +391,46 @@ function runQuestion(unit, ses, st, lang) {
     if (!choice) return;
     const correct = choice === correctId;
     if (phase === 'answer') {
+      if (ses.answered[q.id]) return; // first attempt is recorded exactly once
       const evOk = evidenceMatches(tap, q.evidence);
       const diag = E.diagnose(correct, evOk);
       const wrongOpt = q.options.find(o => o.id === choice);
       const before = st.skills[q.process].p;
-      if (ses.answered[q.id]) return; // first attempt is recorded exactly once
-      first = { correct, evOk, diag, choice };
-      ses.answered[q.id] = first;
+      rec = { correct, evOk, diag, choice, tap, phase: 'done', disabled: [], hintsShown: 0, helped: false };
       ses.diag.push(diag);
-      LS.set('session.' + lang, ses);
+      if (correct && evOk) {
+        showEvidence(reader, q.evidence);
+        reader.classList.remove('picking');
+      } else if (correct) {
+        markPicked(null);
+        rec.phase = 'prove';
+      } else {
+        // first mistake: text hint first; the evidence is highlighted only on request or after a 2nd mistake
+        disabled.add(choice);
+        rec.disabled = [choice];
+        rec.hintsShown = 1;
+        rec.phase = 'retry';
+        if (!evOk) markPicked(null);
+        reader.classList.remove('picking');
+        choice = null;
+      }
+      persist();
       E.applyAnswer(st, params, q, correct, correct ? null : wrongOpt.trap, evOk);
       saveState(lang, st);
       animateSkill(q.process, before, st.skills[q.process].p);
-      reader.classList.remove('picking');
-      if (correct && evOk) {
-        showEvidence(reader, q.evidence);
-        phase = 'done';
-        draw();
-      } else if (correct) {
-        reader.querySelectorAll('.picked').forEach(x => x.classList.remove('picked'));
-        reader.classList.add('picking');
-        phase = 'prove';
-        draw();
-      } else {
-        disabled.add(choice);
-        choice = null;
-        const el = showEvidence(reader, q.evidence);
-        hintsShown = 1;
-        phase = 'retry';
-        draw();
-        if (el) scrollToEl(el);
-      }
+      phase = rec.phase;
+      draw();
     } else if (phase === 'retry') {
-      phase = 'done';
       if (!correct) disabled.add(choice);
-      draw(correct ? 'second' : 'final');
+      rec.disabled = [...disabled];
+      rec.retryChoice = choice;
+      rec.phase = 'done';
+      rec.extra = correct ? 'second' : 'final';
+      persist();
+      phase = 'done';
+      const el = showEvidence(reader, q.evidence);
+      draw(rec.extra);
+      if (!correct && el) scrollToEl(el);
     }
   }
 
@@ -410,7 +445,7 @@ function runQuestion(unit, ses, st, lang) {
     unitSummary(unit, ses, st, lang);
   }
 
-  draw();
+  draw(extraLast);
 }
 
 // Scroll so the element sits near the top (on phones the question panel covers the bottom half).
@@ -505,6 +540,17 @@ const DEMO = [
 
 async function teacher() {
   const lang = getLang();
+  // share of bank questions offering each trap type: estimates exposure for students added by short code
+  const trapShareInBank = {};
+  for (const l of ['kk', 'ru']) {
+    const qs = (await bank(l)).flatMap(u => u.questions);
+    trapShareInBank[l] = E.TRAPS.map(tp => qs.filter(q => q.options.some(o => !o.correct && o.trap === tp)).length / qs.length);
+  }
+  const exposureOf = s => {
+    if (s.exposure) return { ex: s.exposure, est: false };
+    const nTot = s.n.reduce((a, b) => a + b, 0) || (s.diag || []).reduce((a, b) => a + b, 0);
+    return { ex: trapShareInBank[s.lang].map(x => Math.round(x * nTot)), est: true };
+  };
   app.innerHTML = `
     <section class="card pad"><h1>${t('teacherTitle')}</h1><p class="muted">${t('teacherLead')}</p>
       <div class="btnrow">
@@ -584,8 +630,18 @@ async function teacher() {
     const avg = [0, 1, 2].map(i => list.reduce((a, [, s]) => a + s.p[i], 0) / list.length);
     const weakIdx = avg.indexOf(Math.min(...avg));
     const weakSkill = E.SKILLS[weakIdx];
-    const trapShare = E.TRAPS.map((k, i) => [k, list.filter(([, s]) => s.traps[i] > 0).length / list.length, list.reduce((a, [, s]) => a + s.traps[i], 0)])
-      .sort((a, b) => b[1] - a[1] || b[2] - a[2]);
+    // trap rate = wrong answers into this trap / all class answers to questions that offered this trap
+    let estimated = false;
+    const trapStats = E.TRAPS.map((k, i) => {
+      let falls = 0, exposed = 0;
+      for (const [, s] of list) {
+        const { ex, est } = exposureOf(s);
+        if (est) estimated = true;
+        falls += s.traps[i];
+        exposed += Math.max(ex[i], s.traps[i]);
+      }
+      return { k, falls, exposed, rate: exposed ? falls / exposed : 0, students: list.filter(([, s]) => s.traps[i] > 0).length };
+    }).filter(x => x.falls > 0).sort((a, b) => b.rate - a.rate || b.falls - a.falls);
     const cell = v => `<td class="heat ${v < 40 ? 'h-low' : v < 70 ? 'h-mid' : 'h-high'}">${v}</td>`;
     const rows = list.map(([key, s]) => {
       const ti = s.traps.indexOf(Math.max(...s.traps));
@@ -600,10 +656,11 @@ async function teacher() {
       <div class="insight"><p>${esc(t('classWeak', tr('skills', weakSkill)))}</p>
         <a class="btn ghost small" href="#/print/${weakSkill}">${t('printForSkill')}</a></div>
       <h2>${t('classTraps')}</h2>
-      <ul class="class-traps">${trapShare.filter(x => x[2] > 0).slice(0, 3).map(([k, sh], i) => `<li class="${i === 0 ? 'top' : ''}">
-        <div class="bar-line"><span style="width:${pct(sh)}%"></span></div>
-        <p>${esc(t('classTrapLine', pct(sh), tr('traps', k)))}</p>
-        <a class="btn ${i === 0 ? 'primary' : 'ghost'} small" href="#/trap/${k}">${t('tomorrow')} →</a></li>`).join('')}</ul>
+      <ul class="class-traps">${trapStats.slice(0, 3).map((x, i) => `<li class="${i === 0 ? 'top' : ''}">
+        <div class="bar-line"><span style="width:${pct(x.rate)}%"></span></div>
+        <p>${esc(t('trapRate', tr('traps', x.k), pct(x.rate), x.students, list.length))}</p>
+        <a class="btn ${i === 0 ? 'primary' : 'ghost'} small" href="#/trap/${x.k}">${t('tomorrow')} →</a></li>`).join('')}</ul>
+      ${estimated ? `<p class="muted small">* ${t('trapRateEst')}</p>` : ''}
       <div class="btnrow">${demoBtn}<button class="btn ghost small" id="csv" type="button">${t('exportCsv')}</button>
         <button class="btn ghost small danger" id="clear" type="button">${t('clearClass')}</button></div>`;
     el.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
@@ -621,7 +678,11 @@ async function teacher() {
     });
   }
   function addDemo() {
-    DEMO.forEach(([name, grade, p, traps, diag]) => addStudent({ name, grade, lang, p, n: [0, 0, 0], c: [0, 0, 0], traps, diag, units: 0, date: '', source: 'demo' }));
+    DEMO.forEach(([name, grade, p, traps, diag]) => {
+      const nTot = diag.reduce((a, b) => a + b, 0);
+      const exposure = trapShareInBank[lang].map((x, i) => Math.max(traps[i], Math.round(x * nTot)));
+      addStudent({ name, grade, lang, p, n: [0, 0, 0], c: [0, 0, 0], traps, diag, exposure, units: 0, date: '', source: 'demo' });
+    });
     drawReport();
   }
 }
@@ -651,14 +712,35 @@ async function trapPage(type) {
 }
 
 // ---------- paper mode ----------
+// A sheet is its own document: spread the correct answers over A-D (balanced, shuffled in blocks of 4)
+// by rotating each question's options; the sheet's key uses exactly the same order.
+function sheetTargets(count, seedText) {
+  let seed = 0;
+  for (let i = 0; i < seedText.length; i++) seed = (seed * 31 + seedText.charCodeAt(i)) >>> 0;
+  const rnd = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+  const out = [];
+  while (out.length < count) {
+    const block = [0, 1, 2, 3];
+    for (let i = 3; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [block[i], block[j]] = [block[j], block[i]]; }
+    out.push(...block);
+  }
+  return out;
+}
+
 function sheetHtml(items, { key, sheet, title, tip }) {
+  const total = items.reduce((a, it) => a + it.qs.length, 0);
+  const targets = sheetTargets(total, items.map(it => it.unit.id).join('|') + title);
   const head = `<header class="sheet-head"><h1>Ізден · ${esc(title)}</h1><p>${t('studentLine')}</p>${tip ? `<p class="tip">${esc(tip)}</p>` : ''}<p class="small">${t('evNumsNote')}</p></header>`;
   let qn = 0;
   const keyRows = [];
   const body = items.map(({ unit, qs }) => {
     const qh = qs.map(q => {
       qn += 1;
-      const opts = displayOrder(unit.id, q).map(k => q.options[k]); // same order as on screen
+      const base = displayOrder(unit.id, q).map(k => q.options[k]);
+      const nOpt = base.length;
+      const want = targets[qn - 1] % nOpt;
+      const shift = (base.findIndex(o => o.correct) - want + nOpt) % nOpt;
+      const opts = base.map((_, i) => base[(i + shift) % nOpt]);
       const ci = opts.findIndex(o => o.correct);
       keyRows.push(`<tr><td>${qn}</td><td>${'ABCD'[ci]}</td><td>${esc(evidenceLabel(unit, q.evidence))}</td><td>${esc(tr('skills', q.process))}</td></tr>`);
       return `<li class="pq"><p><b>${qn}.</b> ${esc(q.stem)}</p><ol class="popts">${opts.map((o, i) => `<li><b>${'ABCD'[i]}</b> ${esc(o.text)}</li>`).join('')}</ol></li>`;

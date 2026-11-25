@@ -13,7 +13,9 @@ export function newState(params) {
   for (const t of TRAPS) traps[t] = 0;
   const diag = {};
   for (const d of DIAGNOSES) diag[d] = 0;
-  return { v: 2, skills, traps, diag, done: {}, answered: 0 };
+  const exposure = {};
+  for (const t of TRAPS) exposure[t] = 0;
+  return { v: 2, skills, traps, exposure, diag, done: {}, answered: 0 };
 }
 
 function clamp(x, lo, hi) { return Math.min(hi, Math.max(lo, x)); }
@@ -68,6 +70,10 @@ export function applyAnswer(state, params, question, correct, trap, evidenceOk =
   sk.n += 1;
   if (correct) sk.c += 1;
   if (!correct && trap && Object.prototype.hasOwnProperty.call(state.traps, trap)) state.traps[trap] += 1;
+  // exposure: how many answered questions offered a distractor of each trap type (denominator for trap rates)
+  if (!state.exposure) { state.exposure = {}; for (const t of TRAPS) state.exposure[t] = 0; }
+  const offered = new Set(question.options.filter(o => !o.correct).map(o => o.trap));
+  for (const t of TRAPS) if (offered.has(t)) state.exposure[t] += 1;
   state.answered += 1;
   return { skill: question.process, before, after: sk.p };
 }

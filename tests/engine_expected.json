@@ -367,6 +367,14 @@
    "opposite": 0,
    "misread_table": 5
   },
+  "exposure": {
+   "word_match": 13,
+   "near_detail": 25,
+   "outside_knowledge": 9,
+   "overgeneralize": 8,
+   "opposite": 7,
+   "misread_table": 13
+  },
   "diag": {
    "understood": 14,
    "guessed": 8,

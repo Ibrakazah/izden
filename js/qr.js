@@ -14,34 +14,37 @@ function cleanName(name) {
   return String(name || '').replace(/[|\n\r]/g, ' ').trim().slice(0, 24) || '?';
 }
 
-// IZ1|name|grade|lang|pL.pU.pE|nL.nU.nE|cL.cU.cE|t1..t6|d1..d4|units|yymmdd|CHK  (d = understood.guessed.found_wrong.not_found)
+// IZ1|name|grade|lang|pL.pU.pE|nL.nU.nE|cL.cU.cE|t1..t6|d1..d4|units|yymmdd|e1..e6|CHK  (e = trap exposure)  (d = understood.guessed.found_wrong.not_found)
 export function encodePayload(profile, state, date = new Date()) {
   const p = SKILLS.map(s => pct(state.skills[s].p)).join('.');
   const n = SKILLS.map(s => state.skills[s].n).join('.');
   const c = SKILLS.map(s => state.skills[s].c).join('.');
   const t = TRAPS.map(k => state.traps[k] || 0).join('.');
   const dg = DIAGNOSES.map(k => (state.diag && state.diag[k]) || 0).join('.');
+  const ex = TRAPS.map(k => (state.exposure && state.exposure[k]) || 0).join('.');
   const units = Object.keys(state.done).length;
   const d = `${String(date.getFullYear()).slice(2)}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
-  const body = ['IZ1', cleanName(profile.name), profile.grade, profile.lang, p, n, c, t, dg, units, d].join('|');
+  const body = ['IZ1', cleanName(profile.name), profile.grade, profile.lang, p, n, c, t, dg, units, d, ex].join('|');
   return `${body}|${checksum(body)}`;
 }
 
 export function decodePayload(str) {
   const s = String(str || '').trim();
   const parts = s.split('|');
-  if (parts.length !== 12 || parts[0] !== 'IZ1') return null;
-  const body = parts.slice(0, 11).join('|');
-  if (checksum(body) !== parts[11]) return null;
+  // 12 parts (v1, no exposure) or 13 parts (exposure appended before the checksum)
+  if ((parts.length !== 12 && parts.length !== 13) || parts[0] !== 'IZ1') return null;
+  const last = parts.length - 1;
+  if (checksum(parts.slice(0, last).join('|')) !== parts[last]) return null;
   const nums = (x, k) => {
     const a = x.split('.').map(v => parseInt(v, 10));
     return a.length === k && a.every(v => Number.isFinite(v) && v >= 0) ? a : null;
   };
   const p = nums(parts[4], 3), n = nums(parts[5], 3), c = nums(parts[6], 3), t = nums(parts[7], 6), dg = nums(parts[8], 4);
+  const ex = parts.length === 13 ? nums(parts[11], 6) : null;
   const grade = parseInt(parts[2], 10);
   if (!p || !n || !c || !t || !dg || ![7, 8, 9].includes(grade) || !['kk', 'ru'].includes(parts[3])) return null;
   return {
-    name: parts[1], grade, lang: parts[3], p: p.map(v => Math.min(100, v)), n, c, traps: t, diag: dg,
+    name: parts[1], grade, lang: parts[3], p: p.map(v => Math.min(100, v)), n, c, traps: t, diag: dg, exposure: ex,
     units: parseInt(parts[9], 10) || 0, date: parts[10], source: 'qr',
   };
 }
