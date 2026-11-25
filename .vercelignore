@@ -4,3 +4,7 @@ __pycache__
 submission/
 docs/
 evals/
+CLAUDE.md
+scripts/
+tests/
+data/staging/

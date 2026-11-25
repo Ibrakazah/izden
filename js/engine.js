@@ -1,4 +1,4 @@
-// Izden on-device "AI": Bayesian Knowledge Tracing over three PISA reading processes
+// Izden adaptive model (not generative AI): Bayesian Knowledge Tracing over three PISA reading processes
 // plus next-text selection for the weakest skill.
 // Mirrored 1:1 in evals/engine.py; tests/test_engine.py runs both on the same scenario.
 // Keep this file free of DOM / fetch so it can be evaluated outside the browser.
