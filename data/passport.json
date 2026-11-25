@@ -1,0 +1,1154 @@
+{
+"kk-akimat-03": {
+"lang": "kk",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 2
+},
+"fixed": 5,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-canteen-17": {
+"lang": "kk",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 4
+},
+"fixed": 3,
+"skipped": 1
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.94,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-clinic-13": {
+"lang": "kk",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 3
+},
+"fixed": 3,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-library-08": {
+"lang": "kk",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.75,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-sport-11": {
+"lang": "kk",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 4,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-bees-14": {
+"lang": "kk",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 3
+},
+"fixed": 4,
+"skipped": 0
+},
+"deep_proofread": 5,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-bus-01": {
+"lang": "kk",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 6
+},
+"fixed": 6,
+"skipped": 0
+},
+"deep_proofread": 18,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.56,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-fire-12": {
+"lang": "kk",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 4
+},
+"fixed": 6,
+"skipped": 0
+},
+"deep_proofread": 5,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-milk-10": {
+"lang": "kk",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "fix",
+"language_score": 3,
+"issues": {
+"critical": 1,
+"major": 3,
+"minor": 3
+},
+"fixed": 10,
+"skipped": 0
+},
+"deep_proofread": 12,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.69,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-nauryz-18": {
+"lang": "kk",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": 7,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-weather-04": {
+"lang": "kk",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 2
+},
+"fixed": 4,
+"skipped": 0
+},
+"deep_proofread": 5,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.69,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-well-09": {
+"lang": "kk",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 2
+},
+"fixed": 5,
+"skipped": 0
+},
+"deep_proofread": 10,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-egov-05": {
+"lang": "kk",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 3
+},
+"fixed": 5,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.75,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-harvest-07": {
+"lang": "kk",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 3,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.75,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-mobile-15": {
+"lang": "kk",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-opinion-06": {
+"lang": "kk",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 4
+},
+"fixed": 5,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-tea-16": {
+"lang": "kk",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 1
+},
+"fixed": 1,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.94,
+"personas": 4
+},
+"native_review": "needed"
+},
+"kk-vet-02": {
+"lang": "kk",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 4
+},
+"fixed": 5,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "needed"
+},
+"ru-akimat-04": {
+"lang": "ru",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 4
+},
+"fixed": 4,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-farm-11": {
+"lang": "ru",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-library-13": {
+"lang": "ru",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 1
+},
+"fixed": 1,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.75,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-potato-09": {
+"lang": "ru",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 3
+},
+"fixed": 3,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-bus-01": {
+"lang": "ru",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.69,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-drip-06": {
+"lang": "ru",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 3
+},
+"fixed": 3,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-egov-07": {
+"lang": "ru",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 3
+},
+"fixed": 4,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-fever-12": {
+"lang": "ru",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 4
+},
+"fixed": 5,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.75,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-hay-03": {
+"lang": "ru",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "fix",
+"language_score": 4,
+"issues": {
+"critical": 1,
+"major": 3,
+"minor": 5
+},
+"fixed": 9,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-reading-14": {
+"lang": "ru",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-train-16": {
+"lang": "ru",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.75,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-fertilizer-15": {
+"lang": "ru",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 3
+},
+"fixed": 2,
+"skipped": 1
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.81,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-flood-10": {
+"lang": "ru",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 3
+},
+"fixed": 2,
+"skipped": 1
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-milk-18": {
+"lang": "ru",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 2
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-saiga-17": {
+"lang": "ru",
+"batch": "C",
+"round": 2,
+"blind_round1": null,
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 2,
+"verdict": "ok",
+"language_score": 5,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 1
+},
+"fixed": 2,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.94,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-school-05": {
+"lang": "ru",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 5
+},
+"fixed": 5,
+"skipped": 1
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.94,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-tariff-08": {
+"lang": "ru",
+"batch": "B",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 1,
+"minor": 3
+},
+"fixed": 4,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.69,
+"personas": 4
+},
+"native_review": "not_needed"
+},
+"ru-vaccine-02": {
+"lang": "ru",
+"batch": "A",
+"round": 1,
+"blind_round1": {
+"match": 4,
+"total": 4
+},
+"blind_final": {
+"match": 4,
+"ambiguous": 0,
+"total": 4
+},
+"review": {
+"round": 1,
+"verdict": "ok",
+"language_score": 4,
+"issues": {
+"critical": 0,
+"major": 0,
+"minor": 6
+},
+"fixed": 6,
+"skipped": 0
+},
+"deep_proofread": null,
+"rejected": 0,
+"ai_students": {
+"p_ai": 0.88,
+"personas": 4
+},
+"native_review": "not_needed"
+}
+}

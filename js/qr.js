@@ -1,6 +1,6 @@
 // Offline student -> teacher transfer: compact "IZ1|…" string in a QR code, plus a short typed code.
 // Uses vendor/qrcode.js (global `qrcode`, kazuhikoarase/qrcode-generator) and vendor/jsQR.js (global `jsQR`).
-import { SKILLS, TRAPS } from './engine.js';
+import { SKILLS, TRAPS, DIAGNOSES } from './engine.js';
 
 const pct = p => Math.max(0, Math.min(100, Math.round(p * 100)));
 
@@ -14,34 +14,35 @@ function cleanName(name) {
   return String(name || '').replace(/[|\n\r]/g, ' ').trim().slice(0, 24) || '?';
 }
 
-// IZ1|name|grade|lang|pL.pU.pE|nL.nU.nE|cL.cU.cE|t1..t6|units|yymmdd|CHK
+// IZ1|name|grade|lang|pL.pU.pE|nL.nU.nE|cL.cU.cE|t1..t6|d1..d4|units|yymmdd|CHK  (d = understood.guessed.found_wrong.not_found)
 export function encodePayload(profile, state, date = new Date()) {
   const p = SKILLS.map(s => pct(state.skills[s].p)).join('.');
   const n = SKILLS.map(s => state.skills[s].n).join('.');
   const c = SKILLS.map(s => state.skills[s].c).join('.');
   const t = TRAPS.map(k => state.traps[k] || 0).join('.');
+  const dg = DIAGNOSES.map(k => (state.diag && state.diag[k]) || 0).join('.');
   const units = Object.keys(state.done).length;
   const d = `${String(date.getFullYear()).slice(2)}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
-  const body = ['IZ1', cleanName(profile.name), profile.grade, profile.lang, p, n, c, t, units, d].join('|');
+  const body = ['IZ1', cleanName(profile.name), profile.grade, profile.lang, p, n, c, t, dg, units, d].join('|');
   return `${body}|${checksum(body)}`;
 }
 
 export function decodePayload(str) {
   const s = String(str || '').trim();
   const parts = s.split('|');
-  if (parts.length !== 11 || parts[0] !== 'IZ1') return null;
-  const body = parts.slice(0, 10).join('|');
-  if (checksum(body) !== parts[10]) return null;
+  if (parts.length !== 12 || parts[0] !== 'IZ1') return null;
+  const body = parts.slice(0, 11).join('|');
+  if (checksum(body) !== parts[11]) return null;
   const nums = (x, k) => {
     const a = x.split('.').map(v => parseInt(v, 10));
     return a.length === k && a.every(v => Number.isFinite(v) && v >= 0) ? a : null;
   };
-  const p = nums(parts[4], 3), n = nums(parts[5], 3), c = nums(parts[6], 3), t = nums(parts[7], 6);
+  const p = nums(parts[4], 3), n = nums(parts[5], 3), c = nums(parts[6], 3), t = nums(parts[7], 6), dg = nums(parts[8], 4);
   const grade = parseInt(parts[2], 10);
-  if (!p || !n || !c || !t || ![7, 8, 9].includes(grade) || !['kk', 'ru'].includes(parts[3])) return null;
+  if (!p || !n || !c || !t || !dg || ![7, 8, 9].includes(grade) || !['kk', 'ru'].includes(parts[3])) return null;
   return {
-    name: parts[1], grade, lang: parts[3], p: p.map(v => Math.min(100, v)), n, c, traps: t,
-    units: parseInt(parts[8], 10) || 0, date: parts[9], source: 'qr',
+    name: parts[1], grade, lang: parts[3], p: p.map(v => Math.min(100, v)), n, c, traps: t, diag: dg,
+    units: parseInt(parts[9], 10) || 0, date: parts[10], source: 'qr',
   };
 }
 
@@ -60,16 +61,17 @@ export function encodeShortCode(profile, state) {
   put(nTot, 8);
   put(cTot, 8);
   TRAPS.forEach(k => put(Math.min(31, state.traps[k] || 0), 5));
+  put(Math.min(31, (state.diag && state.diag.guessed) || 0), 5);
   const chk = Number(v % 31n);
   put(chk, 5);
   let out = '';
-  for (let i = 0; i < 15; i++) { out = B32[Number(v & 31n)] + out; v >>= 5n; }
-  return `${out.slice(0, 5)}-${out.slice(5, 10)}-${out.slice(10)}`;
+  for (let i = 0; i < 16; i++) { out = B32[Number(v & 31n)] + out; v >>= 5n; }
+  return out.match(/.{4}/g).join('-');
 }
 
 export function decodeShortCode(code, name) {
   const s = String(code || '').toUpperCase().replace(/[\s-]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
-  if (!/^[0-9A-Z]{15}$/.test(s)) return null;
+  if (!/^[0-9A-Z]{16}$/.test(s)) return null;
   let v = 0n;
   for (const ch of s) {
     const i = B32.indexOf(ch);
@@ -78,6 +80,7 @@ export function decodeShortCode(code, name) {
   }
   const take = bits => { const x = Number(v & ((1n << BigInt(bits)) - 1n)); v >>= BigInt(bits); return x; };
   const chk = take(5);
+  const guessed = take(5);
   const traps = []; for (let i = 0; i < 6; i++) traps.unshift(take(5));
   const cTot = take(8), nTot = take(8);
   const p = []; for (let i = 0; i < 3; i++) p.unshift(take(7));
@@ -87,11 +90,11 @@ export function decodeShortCode(code, name) {
   // recompute checksum over the data part
   let d = 0n;
   const put = (val, bits) => { d = (d << BigInt(bits)) | BigInt(val); };
-  put(g, 2); put(lang === 'ru' ? 1 : 0, 1); p.forEach(x => put(x, 7)); put(nTot, 8); put(cTot, 8); traps.forEach(x => put(x, 5));
+  put(g, 2); put(lang === 'ru' ? 1 : 0, 1); p.forEach(x => put(x, 7)); put(nTot, 8); put(cTot, 8); traps.forEach(x => put(x, 5)); put(guessed, 5);
   if (Number(d % 31n) !== chk) return null;
   return {
     name: cleanName(name), grade: g + 7, lang, p, n: [nTot, 0, 0], c: [cTot, 0, 0], nTotalOnly: true,
-    traps, units: 0, date: '', source: 'code',
+    traps, diag: [0, guessed, 0, 0], units: 0, date: '', source: 'code',
   };
 }
 

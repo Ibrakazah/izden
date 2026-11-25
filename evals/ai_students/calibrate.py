@@ -95,7 +95,9 @@ def main():
         c, n = by_d["know"][d]
         slip.append(round(clamp(shrink(n - c, n, PRIOR["slip"][d - 1]), 0.03, 0.2), 3))
     eg = round(clamp(shrink(ev["weak"][0], ev["weak"][1], PRIOR["evidence_guess"]), 0.15, 0.7), 3)
-    em = round(clamp(shrink(ev["know"][1] - ev["know"][0], ev["know"][1], PRIOR["evidence_miss"]), 0.03, 0.25), 3)
+    # Floor 0.15: real pupils mis-tap neighbouring sentences far more often than AI personas, and a right
+    # answer with wrong evidence must stay weak positive evidence ("guessed - prove it"), not a penalty.
+    em = round(clamp(shrink(ev["know"][1] - ev["know"][0], ev["know"][1], PRIOR["evidence_miss"]), 0.15, 0.3), 3)
     params.update({"slip_by_difficulty": slip, "guess_by_difficulty": guess, "evidence_guess": eg, "evidence_miss": em,
                    "calibrated_from": "evals/ai_students (4 AI-student personas x 2 languages); see evals/ai_students_report.md"})
     params["comment"] = ("BKT parameters shared by js/engine.js and evals/engine.py. slip/guess/evidence estimated from "
@@ -155,7 +157,9 @@ def report(out):
     L.append(f"- guess по сложности 1/2/3: {p['guess_by_difficulty']} (точность слабой персоны, сжатие к априорным [0.3, 0.22, 0.15]);")
     L.append(f"- slip по сложности 1/2/3: {p['slip_by_difficulty']} (ошибки средней+сильной, сжатие к [0.05, 0.1, 0.15]);")
     L.append(f"- evidence_guess = {p['evidence_guess']} — вероятность ткнуть в верное доказательство, не владея навыком;")
-    L.append(f"- evidence_miss = {p['evidence_miss']} — вероятность промахнуться с доказательством, владея навыком.")
+    L.append(f"- evidence_miss = {p['evidence_miss']} — вероятность промахнуться с доказательством, владея навыком. "
+             "У ИИ-персон она почти нулевая, поэтому стоит нижний порог 0,15: дети чаще промахиваются соседним "
+             "предложением, а верный ответ без доказательства должен оставаться слабым плюсом, а не штрафом.")
     L.append("\nОграничения: 4 персоны — мало; персоны — модели, а не дети; p_init и p_learn остаются априорными. "
              "Цель — разумный старт, а не точная психометрия.")
     (ROOT / "evals/ai_students_report.md").write_text("\n".join(L) + "\n", encoding="utf-8")

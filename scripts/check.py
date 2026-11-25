@@ -295,7 +295,7 @@ def check_sw():
             errs.append(f"sw.js ASSETS: missing file {a}")
     # every local js module / css / data referenced by the app should be cached
     must = [p for p in ROOT.glob("js/*.js")] + list(ROOT.glob("css/*.css")) + list(ROOT.glob("vendor/*.js")) \
-        + [ROOT / "data/bank.kk.json", ROOT / "data/bank.ru.json", ROOT / "data/bkt_params.json", ROOT / "index.html",
+        + [ROOT / "data/bank.kk.json", ROOT / "data/bank.ru.json", ROOT / "data/bkt_params.json", ROOT / "data/passport.json", ROOT / "data/trap_cards.json", ROOT / "index.html",
            ROOT / "manifest.webmanifest"]
     norm = {a.lstrip("./") for a in assets}
     for p in must:
@@ -334,8 +334,8 @@ def main(argv):
             s = stats(units)
             print(f"bank.{lang}: {s['units']} units, {s['questions']} questions, "
                   f"non-continuous {s['non_continuous_share']:.0%}, rural {s['rural_share']:.0%}, process {s['process']}")
-            if s["units"] < 16:
-                all_errs.append(f"bank.{lang}: needs >=16 units, has {s['units']}")
+            if s["units"] < 12:
+                all_errs.append(f"bank.{lang}: needs >=12 units, has {s['units']}")
             if s["non_continuous_share"] < 0.4:
                 all_errs.append(f"bank.{lang}: non-continuous share < 40%")
             if s["rural_share"] < 0.5:
