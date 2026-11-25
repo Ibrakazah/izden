@@ -256,7 +256,7 @@ def teacher(p, y4m):
     page.wait_for_timeout(3000)
     c.mark("class_traps")
     shot(page, "t04_traps")
-    slow_click(page, ".class-traps li.top a", 1500)
+    slow_click(page, ".class-traps li.top-trap a", 1500)
     page.evaluate("window.scrollTo(0,0)")
     page.wait_for_timeout(2500)
     c.mark("trap_card")

@@ -45,7 +45,7 @@ button, input, select { font: inherit; color: inherit; }
 .pad { padding: 18px; }
 
 /* ---- top bar ---- */
-.top {
+header.top {
   position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px;
   padding: 8px 14px; background: rgba(247, 242, 232, .94); backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
@@ -55,7 +55,7 @@ button, input, select { font: inherit; color: inherit; }
 .brand b { display: block; font-size: 1.15rem; letter-spacing: .01em; }
 .brand > span { min-width: 0; overflow: hidden; }
 .brand small { display: block; color: var(--muted); font-size: .72rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.top { min-height: 52px; max-height: 64px; }
+header.top { min-height: 52px; max-height: 64px; }
 .pill { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: .72rem; font-weight: 600; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
 .pill-ico { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .pill-short { display: none; }
@@ -313,7 +313,7 @@ table.report td, table.report th { vertical-align: middle; }
 .insight p { margin: 0 0 8px; font-weight: 600; }
 .class-traps { list-style: none; padding: 0; display: grid; gap: 12px; }
 .class-traps li { display: block; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; }
-.class-traps li.top { border-color: var(--coral); background: #fff7f3; }
+.class-traps li.top-trap { border-color: var(--coral); background: #fff7f3; }
 .class-traps p { margin: 6px 0; font-weight: 600; }
 .bar-line { height: 8px; background: var(--paper-2); border-radius: 99px; overflow: hidden; }
 .bar-line span { display: block; height: 100%; background: var(--coral); }
@@ -351,7 +351,7 @@ table.report td, table.report th { vertical-align: middle; }
 @media print {
   @page { size: A4; margin: 14mm; }
   body { background: #fff; padding: 0; font-size: 12pt; }
-  .noprint, .top, .nav, .toast, main > section.card, .dlg { display: none !important; }
+  .noprint, header.top, .nav, .toast, main > section.card, .dlg { display: none !important; }
   main { max-width: none; padding: 0; }
   .paper { border: 0; box-shadow: none; padding: 0; max-width: none; font-size: 11.5pt; }
   .paper .table-scroll { overflow: visible; border-color: #999; }

@@ -651,8 +651,14 @@ async function teacher() {
     }).filter(x => x.falls > 0).sort((a, b) => b.rate - a.rate || b.falls - a.falls);
     const cell = v => `<td class="heat ${v < 40 ? 'h-low' : v < 70 ? 'h-mid' : 'h-high'}">${v}</td>`;
     const rows = list.map(([key, s]) => {
-      const ti = s.traps.indexOf(Math.max(...s.traps));
-      const top = Math.max(...s.traps) > 0 ? tr('traps', E.TRAPS[ti]) : '—';
+      // same metric as the class list: share of this student's answers (on questions offering the trap) that fell into it
+      const { ex } = exposureOf(s);
+      let ti = -1, best = 0;
+      s.traps.forEach((f, i) => {
+        const r = f > 0 ? f / Math.max(ex[i], f) : 0;
+        if (r > best || (r === best && r > 0 && f > s.traps[ti])) { best = r; ti = i; }
+      });
+      const top = ti >= 0 ? `${tr('traps', E.TRAPS[ti])} · ${pct(best)}%` : '—';
       return `<tr><th scope="row">${esc(s.name)}${s.source === 'demo' ? ` <span class="tag">${t('demoMark')}</span>` : ''}<small>${t('gradeN', s.grade)} · ${s.lang === 'kk' ? 'қаз' : 'рус'}</small></th>
         ${s.p.map(cell).join('')}<td>${s.diag ? s.diag[1] : '—'}</td><td class="small">${esc(top)}</td>
         <td><button class="x" data-del="${esc(key)}" aria-label="${t('removeStudent')}" type="button">×</button></td></tr>`;
@@ -663,7 +669,7 @@ async function teacher() {
       <div class="insight"><p>${esc(t('classWeak', tr('skills', weakSkill)))}</p>
         <a class="btn ghost small" href="#/print/${weakSkill}">${t('printForSkill')}</a></div>
       <h2>${t('classTraps')}</h2>
-      <ul class="class-traps">${trapStats.slice(0, 3).map((x, i) => `<li class="${i === 0 ? 'top' : ''}">
+      <ul class="class-traps">${trapStats.slice(0, 3).map((x, i) => `<li class="${i === 0 ? 'top-trap' : ''}" data-trap="${x.k}">
         <div class="bar-line"><span style="width:${pct(x.rate)}%"></span></div>
         <p>${esc(t('trapRate', tr('traps', x.k), pct(x.rate), x.students, list.length))}</p>
         <a class="btn ${i === 0 ? 'primary' : 'ghost'} small" href="#/trap/${x.k}">${t('tomorrow')} →</a></li>`).join('')}</ul>
