@@ -1,0 +1,419 @@
+{
+ "trace": [
+  {
+   "unit": "ru-bus-01",
+   "reason": {
+    "kind": "start",
+    "skill": null,
+    "p": null,
+    "count": 0
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.680377358490566
+    ],
+    [
+     "q2",
+     "locate",
+     0.30867009132420087
+    ],
+    [
+     "q3",
+     "understand",
+     0.680377358490566
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.7433333333333334
+    ]
+   ],
+   "level": {
+    "level": 3,
+    "avg": 0.5774602610493668
+   }
+  },
+  {
+   "unit": "ru-egov-07",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.30867009132420087,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.14719753933795984
+    ],
+    [
+     "q2",
+     "locate",
+     0.1390517361030667
+    ],
+    [
+     "q3",
+     "understand",
+     0.9093556803608543
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.9494579811039284
+    ]
+   ],
+   "level": {
+    "level": 3,
+    "avg": 0.6659551325226164
+   }
+  },
+  {
+   "unit": "ru-fever-12",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.1390517361030667,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.417776963236542
+    ],
+    [
+     "q2",
+     "locate",
+     0.19413492232508506
+    ]
+   ],
+   "level": {
+    "level": 3,
+    "avg": 0.6843161945966226
+   }
+  },
+  {
+   "unit": "ru-train-16",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.19413492232508506,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.5008106035201654
+    ],
+    [
+     "q2",
+     "locate",
+     0.8275927955081621
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.8954688189909817
+   }
+  },
+  {
+   "unit": "ru-drip-06",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.8275927955081621,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.3446885770936462
+    ],
+    [
+     "q2",
+     "understand",
+     0.9790678213501207
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.7577381265158984
+   }
+  },
+  {
+   "unit": "ru-hay-03",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.3446885770936462,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.6698730728585545
+    ],
+    [
+     "q2",
+     "evaluate",
+     0.7418143168852086
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.7969184036979612
+   }
+  },
+  {
+   "unit": "ru-reading-14",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.6698730728585545,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.23139971431014927
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.9490780864822055
+    ]
+   ],
+   "level": {
+    "level": 3,
+    "avg": 0.7198485407141585
+   }
+  },
+  {
+   "unit": "ru-library-13",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.23139971431014927,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.5494981037729997
+    ],
+    [
+     "q2",
+     "locate",
+     0.8190242725832274
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.9157233934718513
+   }
+  },
+  {
+   "unit": "ru-akimat-04",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.8190242725832274,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.33497440908688114
+    ],
+    [
+     "q2",
+     "locate",
+     0.7124744129755352
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.8802067736026205
+   }
+  },
+  {
+   "unit": "ru-tariff-08",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.7124744129755352,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.900529520950976
+    ],
+    [
+     "q3",
+     "evaluate",
+     0.7948260299903015
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.891474457430466
+   }
+  },
+  {
+   "unit": "ru-flood-10",
+   "reason": {
+    "kind": "weak",
+    "skill": "evaluate",
+    "p": 0.7948260299903015,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q3",
+     "evaluate",
+     0.9616594011021462
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.9938518036157938
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.9578163819722968
+   }
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.900529520950976,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.46558474136017436
+    ],
+    [
+     "q2",
+     "understand",
+     0.9049072000269195
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.7881145816676293
+   }
+  },
+  {
+   "unit": "ru-farm-11",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.46558474136017436,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.7658835286817878
+    ],
+    [
+     "q2",
+     "understand",
+     0.9779610284634369
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.9125654535870061
+   }
+  },
+  {
+   "unit": "ru-potato-09",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.7658835286817878,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.9225308768854662
+    ],
+    [
+     "q2",
+     "understand",
+     0.8684406432245598
+    ]
+   ],
+   "level": {
+    "level": 4,
+    "avg": 0.9282744412419399
+   }
+  }
+ ],
+ "final": {
+  "v": 1,
+  "skills": {
+   "locate": {
+    "p": 0.9225308768854662,
+    "n": 19,
+    "c": 11
+   },
+   "understand": {
+    "p": 0.8684406432245598,
+    "n": 6,
+    "c": 4
+   },
+   "evaluate": {
+    "p": 0.9938518036157938,
+    "n": 7,
+    "c": 5
+   }
+  },
+  "traps": {
+   "word_match": 1,
+   "near_detail": 8,
+   "outside_knowledge": 0,
+   "overgeneralize": 1,
+   "opposite": 0,
+   "misread_table": 2
+  },
+  "done": {
+   "ru-bus-01": 1,
+   "ru-egov-07": 1,
+   "ru-fever-12": 1,
+   "ru-train-16": 1,
+   "ru-drip-06": 1,
+   "ru-hay-03": 1,
+   "ru-reading-14": 1,
+   "ru-library-13": 1,
+   "ru-akimat-04": 1,
+   "ru-tariff-08": 1,
+   "ru-flood-10": 1,
+   "ru-vaccine-02": 1,
+   "ru-farm-11": 1,
+   "ru-potato-09": 1
+  },
+  "answered": 32
+ }
+}
