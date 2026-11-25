@@ -16,6 +16,19 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import sentences, load_units  # noqa: E402
+from shuffle import display_order  # noqa: E402
+
+LETTERS = "ABCD"
+
+
+def letter_to_id(unit_id, q, letter):
+    """Blind files show options shuffled (same order as the app) with letters A-D; map back to option id."""
+    letter = str(letter or "").strip().upper()
+    if letter not in LETTERS:
+        return str(letter).lower()  # legacy files answered with option ids
+    order = display_order(unit_id, q)
+    i = LETTERS.index(letter)
+    return q["options"][order[i]]["id"] if i < len(order) else None
 
 
 def render_text(u):
@@ -51,8 +64,8 @@ def blind(src, dst):
         out.append("")
         for q in u["questions"]:
             out.append(f"--- {u['id']} {q['id']}: {q['stem']}")
-            for o in q["options"]:
-                out.append(f"    ({o['id']}) {o['text']}")
+            for i, k in enumerate(display_order(u["id"], q)):
+                out.append(f"    ({LETTERS[i]}) {q['options'][k]['text']}")
         out.append("")
     Path(dst).parent.mkdir(parents=True, exist_ok=True)
     Path(dst).write_text("\n".join(out), encoding="utf-8")
@@ -61,11 +74,13 @@ def blind(src, dst):
 
 def score(src, answers_path):
     units, _ = load_units(src)
-    key = {}
+    key, qmap = {}, {}
     for u in units:
         for q in u["questions"]:
             corr = next(o["id"] for o in q["options"] if o["correct"])
             key[(u["id"], q["id"])] = (corr, q["evidence"])
+            qmap[(u["id"], q["id"])] = q
+    shuffled = "--letters" in sys.argv
     ans = json.loads(Path(answers_path).read_text(encoding="utf-8"))["answers"]
     seen = set()
     res = {"total": len(key), "answered": 0, "match": 0, "mismatch": [], "ambiguous": [], "evidence_block_match": 0}
@@ -76,10 +91,12 @@ def score(src, answers_path):
         seen.add(k)
         res["answered"] += 1
         corr, ev = key[k]
-        if a.get("answer") == corr:
+        given = letter_to_id(k[0], qmap[k], a.get("answer")) if shuffled else a.get("answer")
+        a["answer_id"] = given
+        if given == corr:
             res["match"] += 1
         else:
-            res["mismatch"].append({"unit": k[0], "q": k[1], "key": corr, "solver": a.get("answer"),
+            res["mismatch"].append({"unit": k[0], "q": k[1], "key": corr, "solver": given,
                                     "note": a.get("note", "")})
         if a.get("ambiguous"):
             res["ambiguous"].append({"unit": k[0], "q": k[1], "note": a.get("note", "")})

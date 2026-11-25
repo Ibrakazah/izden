@@ -15,10 +15,13 @@ Method (simple and transparent, 4 personas x 2 languages):
 - evidence_guess = share of right evidence taps by `weak`; evidence_miss = share of wrong taps by `average`+`strong`.
 """
 import json
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "scripts"))
+from pipeline import letter_to_id  # noqa: E402
 RAW = ROOT / "evals/ai_students/raw"
 PERSONAS = ["weak", "below", "average", "strong"]
 PRIOR = {"slip": [0.05, 0.1, 0.15], "guess": [0.3, 0.22, 0.15], "evidence_miss": 0.1, "evidence_guess": 0.35}
@@ -55,7 +58,13 @@ def main():
         answers = {}
         for p in PERSONAS:
             f = RAW / f"{lang}_{p}.json"
-            answers[p] = {(a["unit"], a["q"]): a for a in json.loads(f.read_text(encoding="utf-8"))["answers"]}
+            answers[p] = {}
+            for a in json.loads(f.read_text(encoding="utf-8"))["answers"]:
+                q = qmap.get((a["unit"], a["q"]))
+                if q is None:
+                    continue
+                a = dict(a, answer=letter_to_id(a["unit"], q, a.get("answer")))  # shuffled A-D -> option id
+                answers[p][(a["unit"], a["q"])] = a
         for p in PERSONAS:
             ok = sum(1 for k, q in qmap.items() if k in answers[p] and
                      answers[p][k]["answer"] == next(o["id"] for o in q["options"] if o["correct"]))

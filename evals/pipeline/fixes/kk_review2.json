@@ -1,0 +1,127 @@
+{
+ "length_fixed": [
+  "kk-bus-01/q1",
+  "kk-bus-01/q4",
+  "kk-akimat-03/q1",
+  "kk-akimat-03/q2",
+  "kk-akimat-03/q3",
+  "kk-vet-02/q2",
+  "kk-egov-05/q4",
+  "kk-harvest-07/q3",
+  "kk-harvest-07/q4",
+  "kk-library-08/q2",
+  "kk-library-08/q4",
+  "kk-well-09/q2",
+  "kk-well-09/q4",
+  "kk-milk-10/q2",
+  "kk-milk-10/q4",
+  "kk-fire-12/q1",
+  "kk-fire-12/q2",
+  "kk-fire-12/q4",
+  "kk-clinic-13/q3",
+  "kk-clinic-13/q4",
+  "kk-bees-14/q1",
+  "kk-bees-14/q3",
+  "kk-bees-14/q4",
+  "kk-mobile-15/q1",
+  "kk-mobile-15/q4",
+  "kk-tea-16/q3",
+  "kk-canteen-17/q4",
+  "kk-nauryz-18/q2"
+ ],
+ "relabeled": [
+  {
+   "q": "kk-bus-01/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-vet-02/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-akimat-03/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-weather-04/q3",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-egov-05/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-library-08/q4",
+   "from": "evaluate",
+   "to": "locate"
+  },
+  {
+   "q": "kk-milk-10/q3",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-milk-10/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-sport-11/q4",
+   "from": "evaluate",
+   "to": "locate"
+  },
+  {
+   "q": "kk-fire-12/q3",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-clinic-13/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-mobile-15/q3",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "kk-nauryz-18/q4",
+   "from": "evaluate",
+   "to": "understand"
+  }
+ ],
+ "added": [
+  "kk-bus-01/q5",
+  "kk-vet-02/q5",
+  "kk-akimat-03/q5",
+  "kk-weather-04/q5",
+  "kk-egov-05/q5",
+  "kk-library-08/q5",
+  "kk-milk-10/q5",
+  "kk-sport-11/q5",
+  "kk-fire-12/q5",
+  "kk-clinic-13/q5",
+  "kk-mobile-15/q5",
+  "kk-nauryz-18/q5"
+ ],
+ "other": [
+  {
+   "q": "kk-fire-12/q3",
+   "what": "«шөп шамамен үш метр жерде жанып жатыр» (қашықтық па, көлем бе — екіұшты) → «өрт үш метрдей жерді алып жатыр»; why (a) мен explain сәйкестендірілді"
+  },
+  {
+   "q": "kk-vet-02",
+   "what": "соңына b5 блогы қосылды: «Бұл — оқу мәтіні, мөлшерді нақты емдеуге қолданбаңыз.»"
+  },
+  {
+   "q": "kk-tea-16",
+   "what": "соңына b9 блогы қосылды: «Бұл — оқу мәтіні: тауар мен компания ойдан шығарылған.»"
+  }
+ ]
+}

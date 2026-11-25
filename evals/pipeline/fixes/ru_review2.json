@@ -1,0 +1,90 @@
+{
+ "length_fixed": [
+  "ru-vaccine-02/q2",
+  "ru-akimat-04/q4",
+  "ru-school-05/q1",
+  "ru-school-05/q2",
+  "ru-school-05/q3",
+  "ru-drip-06/q4",
+  "ru-egov-07/q2",
+  "ru-flood-10/q3",
+  "ru-farm-11/q1",
+  "ru-farm-11/q3",
+  "ru-farm-11/q4",
+  "ru-library-13/q4",
+  "ru-saiga-17/q4",
+  "ru-milk-18/q4"
+ ],
+ "relabeled": [
+  {
+   "q": "ru-bus-01/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-hay-03/q2",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-akimat-04/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-drip-06/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-egov-07/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-tariff-08/q3",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-potato-09/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-fever-12/q4",
+   "from": "evaluate",
+   "to": "understand"
+  },
+  {
+   "q": "ru-library-13/q4",
+   "from": "evaluate",
+   "to": "understand"
+  }
+ ],
+ "added": [
+  "ru-bus-01/q5",
+  "ru-hay-03/q5",
+  "ru-akimat-04/q5",
+  "ru-drip-06/q5",
+  "ru-egov-07/q5",
+  "ru-tariff-08/q5",
+  "ru-potato-09/q5",
+  "ru-fever-12/q5",
+  "ru-library-13/q5"
+ ],
+ "other": [
+  {
+   "q": "ru-vaccine-02/q4",
+   "what": "дистрактор a («научить самим делать укол») заменён на «предупредить о вспышке сибирской язвы», trap outside_knowledge"
+  },
+  {
+   "q": "ru-vaccine-02/q3",
+   "what": "вариант d переформулирован: «Этого телёнка не прививают вообще»"
+  },
+  {
+   "q": "ru-fertilizer-15",
+   "what": "добавлен блок b7: «Учебный текст: товар и компания вымышлены.»; в ru-fever-12 пометка уже есть (b2:s5)"
+  }
+ ]
+}
