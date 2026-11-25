@@ -164,7 +164,7 @@
 "round": 2,
 "blind_round1": null,
 "blind_final": {
-"match": 4,
+"match": 3,
 "ambiguous": 0,
 "total": 4
 },
@@ -488,7 +488,7 @@
 "total": 4
 },
 "blind_final": {
-"match": 4,
+"match": 3,
 "ambiguous": 0,
 "total": 4
 },
@@ -1028,7 +1028,7 @@
 "round": 2,
 "blind_round1": null,
 "blind_final": {
-"match": 4,
+"match": 3,
 "ambiguous": 0,
 "total": 4
 },
