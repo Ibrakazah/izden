@@ -12,408 +12,378 @@
     [
      "q1",
      "locate",
-     0.680377358490566
+     0.6447430128652006
     ],
     [
      "q2",
      "locate",
-     0.30867009132420087
+     0.1277850065749042
     ],
     [
      "q3",
      "understand",
-     0.680377358490566
+     0.5740425531914893
     ],
     [
      "q4",
      "evaluate",
-     0.7433333333333334
+     0.6898732728847875
     ]
-   ],
-   "level": {
-    "level": 3,
-    "avg": 0.5774602610493668
-   }
-  },
-  {
-   "unit": "ru-egov-07",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.30867009132420087,
-    "count": 2
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.14719753933795984
-    ],
-    [
-     "q2",
-     "locate",
-     0.1390517361030667
-    ],
-    [
-     "q3",
-     "understand",
-     0.9093556803608543
-    ],
-    [
-     "q4",
-     "evaluate",
-     0.9494579811039284
-    ]
-   ],
-   "level": {
-    "level": 3,
-    "avg": 0.6659551325226164
-   }
-  },
-  {
-   "unit": "ru-fever-12",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.1390517361030667,
-    "count": 2
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.417776963236542
-    ],
-    [
-     "q2",
-     "locate",
-     0.19413492232508506
-    ]
-   ],
-   "level": {
-    "level": 3,
-    "avg": 0.6843161945966226
-   }
+   ]
   },
   {
    "unit": "ru-train-16",
    "reason": {
     "kind": "weak",
     "skill": "locate",
-    "p": 0.19413492232508506,
+    "p": 0.1277850065749042,
     "count": 2
    },
    "answers": [
     [
      "q1",
      "locate",
-     0.5008106035201654
+     0.12070266880254416
     ],
     [
      "q2",
      "locate",
-     0.8275927955081621
+     0.12815614508277018
+    ],
+    [
+     "q3",
+     "understand",
+     0.8701723229415421
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.9164907237322623
     ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.8954688189909817
-   }
+   ]
+  },
+  {
+   "unit": "ru-egov-07",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.12815614508277018,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.14702684242367506
+    ],
+    [
+     "q2",
+     "locate",
+     0.12739723254293933
+    ]
+   ]
+  },
+  {
+   "unit": "ru-fever-12",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.12739723254293933,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.3872251180488145
+    ],
+    [
+     "q2",
+     "locate",
+     0.23952402066397716
+    ]
+   ]
   },
   {
    "unit": "ru-drip-06",
    "reason": {
     "kind": "weak",
     "skill": "locate",
-    "p": 0.8275927955081621,
+    "p": 0.23952402066397716,
     "count": 1
    },
    "answers": [
     [
      "q1",
      "locate",
-     0.3446885770936462
+     0.14046259058201038
     ],
     [
      "q2",
      "understand",
-     0.9790678213501207
+     0.9634860268626794
     ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.7577381265158984
-   }
-  },
-  {
-   "unit": "ru-hay-03",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.3446885770936462,
-    "count": 1
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.6698730728585545
-    ],
-    [
-     "q2",
-     "evaluate",
-     0.7418143168852086
-    ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.7969184036979612
-   }
-  },
-  {
-   "unit": "ru-reading-14",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.6698730728585545,
-    "count": 1
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.23139971431014927
-    ],
-    [
-     "q4",
-     "evaluate",
-     0.9490780864822055
-    ]
-   ],
-   "level": {
-    "level": 3,
-    "avg": 0.7198485407141585
-   }
+   ]
   },
   {
    "unit": "ru-library-13",
    "reason": {
     "kind": "weak",
     "skill": "locate",
-    "p": 0.23139971431014927,
+    "p": 0.14046259058201038,
     "count": 2
    },
    "answers": [
     [
      "q1",
      "locate",
-     0.5494981037729997
+     0.40865082398138214
     ],
     [
      "q2",
      "locate",
-     0.8190242725832274
+     0.1233045755715198
     ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.9157233934718513
-   }
+   ]
   },
   {
    "unit": "ru-akimat-04",
    "reason": {
     "kind": "weak",
     "skill": "locate",
-    "p": 0.8190242725832274,
+    "p": 0.1233045755715198,
     "count": 2
    },
    "answers": [
     [
      "q1",
      "locate",
-     0.33497440908688114
+     0.12669965822205734
     ],
     [
      "q2",
      "locate",
-     0.7124744129755352
+     0.4133435235071391
     ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.8802067736026205
-   }
+   ]
+  },
+  {
+   "unit": "ru-hay-03",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.4133435235071391,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.23602826062874416
+    ],
+    [
+     "q2",
+     "evaluate",
+     0.9773339497840317
+    ]
+   ]
+  },
+  {
+   "unit": "ru-reading-14",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.23602826062874416,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.14008060151312757
+    ],
+    [
+     "q2",
+     "understand",
+     0.9904288063122227
+    ]
+   ]
+  },
+  {
+   "unit": "ru-milk-18",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.14008060151312757,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.14985203830777644
+    ],
+    [
+     "q3",
+     "evaluate",
+     0.7760011846179493
+    ]
+   ]
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "reason": {
+    "kind": "weak",
+    "skill": "locate",
+    "p": 0.14985203830777644,
+    "count": 1
+   },
+   "answers": [
+    [
+     "q1",
+     "locate",
+     0.4235190764357122
+    ],
+    [
+     "q3",
+     "evaluate",
+     0.5752713918990411
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.2194952344311564
+    ]
+   ]
+  },
+  {
+   "unit": "ru-school-05",
+   "reason": {
+    "kind": "weak",
+    "skill": "evaluate",
+    "p": 0.2194952344311564,
+    "count": 2
+   },
+   "answers": [
+    [
+     "q1",
+     "evaluate",
+     0.13654827434283182
+    ],
+    [
+     "q2",
+     "evaluate",
+     0.4755829046928601
+    ],
+    [
+     "q4",
+     "locate",
+     0.2403056809492673
+    ]
+   ]
   },
   {
    "unit": "ru-tariff-08",
    "reason": {
     "kind": "weak",
     "skill": "locate",
-    "p": 0.7124744129755352,
+    "p": 0.2403056809492673,
     "count": 1
    },
    "answers": [
     [
      "q1",
      "locate",
-     0.900529520950976
+     0.4767644747470001
     ],
     [
      "q3",
      "evaluate",
-     0.7948260299903015
+     0.1892033029370406
+    ],
+    [
+     "q4",
+     "evaluate",
+     0.1792603664827348
     ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.891474457430466
-   }
+   ]
   },
   {
    "unit": "ru-flood-10",
    "reason": {
     "kind": "weak",
     "skill": "evaluate",
-    "p": 0.7948260299903015,
+    "p": 0.1792603664827348,
     "count": 2
    },
    "answers": [
     [
+     "q1",
+     "locate",
+     0.7635486473865902
+    ],
+    [
      "q3",
      "evaluate",
-     0.9616594011021462
+     0.1377251552701006
     ],
     [
      "q4",
      "evaluate",
-     0.9938518036157938
+     0.47769243180784277
     ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.9578163819722968
-   }
-  },
-  {
-   "unit": "ru-vaccine-02",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.900529520950976,
-    "count": 1
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.46558474136017436
-    ],
-    [
-     "q2",
-     "understand",
-     0.9049072000269195
-    ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.7881145816676293
-   }
-  },
-  {
-   "unit": "ru-farm-11",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.46558474136017436,
-    "count": 1
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.7658835286817878
-    ],
-    [
-     "q2",
-     "understand",
-     0.9779610284634369
-    ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.9125654535870061
-   }
-  },
-  {
-   "unit": "ru-potato-09",
-   "reason": {
-    "kind": "weak",
-    "skill": "locate",
-    "p": 0.7658835286817878,
-    "count": 1
-   },
-   "answers": [
-    [
-     "q1",
-     "locate",
-     0.9225308768854662
-    ],
-    [
-     "q2",
-     "understand",
-     0.8684406432245598
-    ]
-   ],
-   "level": {
-    "level": 4,
-    "avg": 0.9282744412419399
-   }
+   ]
   }
  ],
  "final": {
-  "v": 1,
+  "v": 2,
   "skills": {
    "locate": {
-    "p": 0.9225308768854662,
-    "n": 19,
-    "c": 11
+    "p": 0.7635486473865902,
+    "n": 20,
+    "c": 12
    },
    "understand": {
-    "p": 0.8684406432245598,
-    "n": 6,
+    "p": 0.9904288063122227,
+    "n": 4,
     "c": 4
    },
    "evaluate": {
-    "p": 0.9938518036157938,
-    "n": 7,
-    "c": 5
+    "p": 0.47769243180784277,
+    "n": 12,
+    "c": 7
    }
   },
   "traps": {
-   "word_match": 1,
-   "near_detail": 8,
+   "word_match": 2,
+   "near_detail": 6,
    "outside_knowledge": 0,
-   "overgeneralize": 1,
+   "overgeneralize": 0,
    "opposite": 0,
-   "misread_table": 2
+   "misread_table": 5
+  },
+  "diag": {
+   "understood": 14,
+   "guessed": 7,
+   "found_wrong": 7,
+   "not_found": 3
   },
   "done": {
    "ru-bus-01": 1,
+   "ru-train-16": 1,
    "ru-egov-07": 1,
    "ru-fever-12": 1,
-   "ru-train-16": 1,
    "ru-drip-06": 1,
-   "ru-hay-03": 1,
-   "ru-reading-14": 1,
    "ru-library-13": 1,
    "ru-akimat-04": 1,
+   "ru-hay-03": 1,
+   "ru-reading-14": 1,
+   "ru-milk-18": 1,
+   "ru-fertilizer-15": 1,
+   "ru-school-05": 1,
    "ru-tariff-08": 1,
-   "ru-flood-10": 1,
-   "ru-vaccine-02": 1,
-   "ru-farm-11": 1,
-   "ru-potato-09": 1
+   "ru-flood-10": 1
   },
-  "answered": 32
+  "answered": 36
  }
 }

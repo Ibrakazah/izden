@@ -20,8 +20,8 @@ def load_bank(lang):
 
 
 def new_state(params):
-    return {"v": 1, "skills": {s: {"p": params["p_init"], "n": 0, "c": 0} for s in SKILLS},
-            "traps": {t: 0 for t in TRAPS}, "done": {}, "answered": 0}
+    return {"v": 2, "skills": {s: {"p": params["p_init"], "n": 0, "c": 0} for s in SKILLS},
+            "traps": {t: 0 for t in TRAPS}, "diag": {d: 0 for d in DIAGNOSES}, "done": {}, "answered": 0}
 
 
 def slip_guess(params, difficulty):
@@ -41,11 +41,35 @@ def predict_correct(p, slip, guess):
     return p * (1 - slip) + (1 - p) * guess
 
 
-def apply_answer(state, params, question, correct, trap=None):
+DIAGNOSES = ["understood", "guessed", "found_wrong", "not_found"]
+
+
+def bkt_update_evidence(p, correct, evidence_ok, slip, guess, params):
+    lk = (1 - slip) if correct else slip
+    lu = guess if correct else (1 - guess)
+    if evidence_ok is True:
+        lk *= 1 - params["evidence_miss"]
+        lu *= params["evidence_guess"]
+    elif evidence_ok is False:
+        lk *= params["evidence_miss"]
+        lu *= 1 - params["evidence_guess"]
+    post = (p * lk) / (p * lk + (1 - p) * lu)
+    return post + (1 - post) * params["p_learn"]
+
+
+def diagnose(correct, evidence_ok):
+    if correct:
+        return "guessed" if evidence_ok is False else "understood"
+    return "found_wrong" if evidence_ok is True else "not_found"
+
+
+def apply_answer(state, params, question, correct, trap=None, evidence_ok=None):
     sk = state["skills"][question["process"]]
     slip, guess = slip_guess(params, question["difficulty"])
     before = sk["p"]
-    sk["p"] = bkt_update(sk["p"], bool(correct), slip, guess, params["p_learn"])
+    sk["p"] = bkt_update_evidence(sk["p"], bool(correct), evidence_ok, slip, guess, params)
+    if evidence_ok is not None:
+        state["diag"][diagnose(bool(correct), evidence_ok)] += 1
     sk["n"] += 1
     if correct:
         sk["c"] += 1
@@ -76,12 +100,16 @@ def _order_key(u):
     return (_unit_number(u["id"]), u["id"])
 
 
+def difficulty_of(q):
+    return q.get("cal_difficulty") or q["difficulty"]
+
+
 def unit_score(state, params, unit, grade):
     s = 0.0
     for q in unit["questions"]:
         p = state["skills"][q["process"]]["p"]
         target = 1 + 2 * p
-        closeness = 1 - abs(q["difficulty"] - target) / 2
+        closeness = 1 - abs(difficulty_of(q) - target) / 2
         s += (1 - p) ** 2 * (0.5 + 0.5 * closeness)
     s = s / len(unit["questions"])
     s -= params["grade_penalty"] * abs(unit["grade"] - grade)
@@ -114,12 +142,3 @@ def select_questions(state, params, unit):
         return keep
     ranked = sorted(range(len(qs)), key=lambda i: (state["skills"][qs[i]["process"]]["p"], i))[:2]
     return [qs[i] for i in sorted(ranked)]
-
-
-def conditional_level(state, params):
-    avg = sum(state["skills"][s]["p"] for s in SKILLS) / len(SKILLS)
-    level = 1
-    for cut in params["level_cuts"]:
-        if avg >= cut:
-            level += 1
-    return {"level": level, "avg": avg}

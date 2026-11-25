@@ -47,14 +47,14 @@ def run(policy, student, units, params):
     snaps, useful, asked, reach = {}, 0, 0, None
     step = 0
     while asked < N_QUESTIONS:
-        if policy == "adaptive":
+        if policy in ("adaptive", "adaptive_noev"):
             unit = E.select_next_unit(state, params, units, student["grade"])["unit"]
         elif policy == "fixed":
             unit = fixed[step % len(fixed)]
         else:
             unit = shuffled[step % len(shuffled)]
         step += 1
-        qs = E.select_questions(state, params, unit) if policy == "adaptive" else unit["questions"]
+        qs = E.select_questions(state, params, unit) if policy in ("adaptive", "adaptive_noev") else unit["questions"]
         for q in qs:
             if asked >= N_QUESTIONS:
                 break
@@ -64,7 +64,9 @@ def run(policy, student, units, params):
                 useful += 1
             ok = rng.random() < ((1 - slip) if known[s] else guess)
             wrong = next(o for o in q["options"] if not o["correct"])
-            E.apply_answer(state, params, q, ok, None if ok else wrong["trap"])
+            ev_right = rng.random() < ((1 - params["evidence_miss"]) if known[s] else params["evidence_guess"])
+            E.apply_answer(state, params, q, ok, None if ok else wrong["trap"],
+                           None if policy == "adaptive_noev" else ev_right)
             if not known[s] and rng.random() < TRUE_LEARN:
                 known[s] = True
             asked += 1
@@ -102,7 +104,7 @@ def main():
         units = E.load_bank(lang)
         students = make_students(random.Random(SEED))
         all_res[lang] = {p: summarize([run(p, s, units, params) for s in students])
-                         for p in ("adaptive", "fixed", "random")}
+                         for p in ("adaptive", "adaptive_noev", "fixed", "random")}
     (Path(__file__).parent / "bkt_results.json").write_text(json.dumps(all_res, indent=1), encoding="utf-8")
     write_report(all_res, params)
     for lang, res in all_res.items():
@@ -127,6 +129,8 @@ def write_report(res, params):
     L.append("## Постановка\n")
     L.append(f"- {N_STUDENTS} синтетических учеников, у каждого скрытое состояние «знает / не знает» по трём навыкам "
              "(найти, понять, оценить); доля изначально знающих зависит от «силы читателя» ученика.")
+    L.append("- На каждом вопросе ученик сначала отмечает доказательство: верно с вероятностью 1 − evidence_miss, "
+             "если навык известен, и evidence_guess, если нет.")
     L.append(f"- Каждый ученик отвечает на {N_QUESTIONS} вопросов (около 10 текстов). Ответ верен с вероятностью "
              f"1 − slip, если навык известен, и guess, если нет (slip/guess по сложности: "
              f"{params['slip_by_difficulty']} / {params['guess_by_difficulty']}).")
@@ -134,6 +138,7 @@ def write_report(res, params):
     L.append("- Три политики выбора следующего текста на одних и тех же учениках и случайных числах: "
              "**адаптивная** (как в приложении: текст под слабейший навык + сложность ≈ уровню + свой класс; "
              "вопросы по уже освоенному навыку (p ≥ 0,85) пропускаются, но не меньше 2 вопросов на текст), "
+             "та же адаптивная, но **без доказательства** (учитывается только ответ — как в обычном тесте), "
              "**фиксированная** (как в сборнике: свой класс по порядку), **случайная**.\n")
     L.append("Метрики:")
     L.append("- **MAE** — средняя ошибка оценки p(знает) против скрытого состояния (0 или 1), меньше — лучше;")
@@ -144,8 +149,8 @@ def write_report(res, params):
              "от истины, и медиана числа вопросов до этого.\n")
     for lang, r in res.items():
         L.append(f"## Банк `{lang}`\n")
-        L.append("| Метрика | Адаптивная | Фиксированная | Случайная |")
-        L.append("|---|---|---|---|")
+        L.append("| Метрика | Адаптивная (ответ + доказательство) | Адаптивная (только ответ) | Фиксированная | Случайная |")
+        L.append("|---|---|---|---|---|")
         for cp in CHECKPOINTS:
             L.append(f"| MAE после {cp} вопросов | " + " | ".join(f"{r[p][f'mae@{cp}']:.3f}" for p in r) + " |")
         for cp in (16, 40):
@@ -167,8 +172,13 @@ def write_report(res, params):
              f"модели к концу освоено больше навыков ({pct(a['known_end'])} против {pct(f['known_end'])}).")
     L.append("- Разница ограничена устройством банка: в каждом тексте 4 вопроса разных процессов (2 вопроса "
              "доминирующего), поэтому выбор текста лишь смещает долю практики, а не делает её чистой.")
-    L.append("- Параметры BKT заданы вручную (априорные значения из литературы по BKT), а не обучены на реальных "
-             "ответах. Следующий шаг — пилот в 2–3 классах и подгонка параметров по реальным логам.")
+    nv = res["ru"]["adaptive_noev"]
+    L.append(f"- Отметка доказательства («сначала докажи») добавляет второе наблюдение на вопрос: ошибка оценки после "
+             f"16 вопросов {a['mae@16']:.3f} против {nv['mae@16']:.3f} без него (ru). Вклад скромный, потому что по "
+             f"калибровке ИИ-учеников слабые читатели часто всё же находят нужное место (evidence_guess = "
+             f"{params['evidence_guess']}).")
+    L.append("- slip/guess и параметры доказательства откалиброваны по ИИ-ученикам (evals/ai_students_report.md), "
+             "p_init и p_learn — априорные; на реальных ответах модель не обучалась. Следующий шаг — пилот в 2–3 классах и подгонка параметров по реальным логам.")
     (Path(__file__).parent / "bkt_report.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
 

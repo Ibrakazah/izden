@@ -11,12 +11,12 @@ function runScenario(units, params, scenario) {
       const ok = scenario.pattern[k % scenario.pattern.length] === 1;
       k += 1;
       const wrong = q.options.find(o => !o.correct);
-      const r = applyAnswer(state, params, q, ok, ok ? null : wrong.trap);
+      const ev = scenario.evidence[k % scenario.evidence.length];
+      const r = applyAnswer(state, params, q, ok, ok ? null : wrong.trap, ev === 2 ? null : ev === 1);
       answers.push([q.id, r.skill, r.after]);
     }
     markUnitDone(state, sel.unit.id);
-    trace.push({ unit: sel.unit.id, reason: sel.reason, answers,
-                 level: conditionalLevel(state, params) });
+    trace.push({ unit: sel.unit.id, reason: sel.reason, answers });
   }
   return { trace, final: state };
 }

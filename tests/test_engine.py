@@ -19,7 +19,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "evals"))
 import engine as E  # noqa: E402
 
-SCENARIO = {"lang": "ru", "grade": 8, "units": 14, "pattern": [1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1]}
+SCENARIO = {"lang": "ru", "grade": 8, "units": 14, "pattern": [1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1],
+            "evidence": [1, 1, 0, 2, 1, 0, 1]}  # 1 = right evidence, 0 = wrong, 2 = not collected
 EXPECTED = ROOT / "tests/engine_expected.json"
 
 
@@ -35,11 +36,11 @@ def run_python():
             ok = SCENARIO["pattern"][k % len(SCENARIO["pattern"])] == 1
             k += 1
             wrong = next(o for o in q["options"] if not o["correct"])
-            r = E.apply_answer(state, params, q, ok, None if ok else wrong["trap"])
+            ev = SCENARIO["evidence"][k % len(SCENARIO["evidence"])]
+            r = E.apply_answer(state, params, q, ok, None if ok else wrong["trap"], None if ev == 2 else ev == 1)
             answers.append([q["id"], r["skill"], r["after"]])
         E.mark_unit_done(state, sel["unit"]["id"])
-        trace.append({"unit": sel["unit"]["id"], "reason": sel["reason"], "answers": answers,
-                      "level": E.conditional_level(state, params)})
+        trace.append({"unit": sel["unit"]["id"], "reason": sel["reason"], "answers": answers})
     return {"trace": trace, "final": state}
 
 
@@ -102,6 +103,10 @@ def test_bkt_direction():
     s, g = E.slip_guess(params, 2)
     assert E.bkt_update(0.3, True, s, g, params["p_learn"]) > 0.3
     assert E.bkt_update(0.3, False, s, g, 0.0) < 0.3
+    proved = E.bkt_update_evidence(0.3, True, True, s, g, params)
+    guessed = E.bkt_update_evidence(0.3, True, False, s, g, params)
+    assert proved > guessed, "right answer without evidence must count less"
+    assert E.diagnose(True, False) == "guessed" and E.diagnose(False, True) == "found_wrong"
 
 
 if __name__ == "__main__":

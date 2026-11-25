@@ -1,0 +1,1159 @@
+{
+ "per_question": {
+  "kk-akimat-03/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-akimat-03/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-akimat-03/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-akimat-03/q4": {
+   "p_ai": 0.25,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "b": 3
+   }
+  },
+  "kk-canteen-17/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-canteen-17/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-canteen-17/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-canteen-17/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-clinic-13/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-clinic-13/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-clinic-13/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-clinic-13/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "kk-library-08/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-library-08/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-library-08/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "kk-library-08/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-sport-11/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-sport-11/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-sport-11/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "kk-sport-11/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "kk-bees-14/q1": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "kk-bees-14/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-bees-14/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "c": 1,
+    "a": 1
+   }
+  },
+  "kk-bees-14/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "kk-bus-01/q1": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "kk-bus-01/q2": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 2
+   }
+  },
+  "kk-bus-01/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 2
+   }
+  },
+  "kk-bus-01/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-fire-12/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-fire-12/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-fire-12/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "kk-fire-12/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "kk-milk-10/q1": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "kk-milk-10/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-milk-10/q3": {
+   "p_ai": 0.25,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 3
+   }
+  },
+  "kk-milk-10/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "kk-nauryz-18/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-nauryz-18/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-nauryz-18/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-nauryz-18/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-weather-04/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-weather-04/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "kk-weather-04/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "c": 1,
+    "a": 1
+   }
+  },
+  "kk-weather-04/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "d": 1,
+    "a": 1
+   }
+  },
+  "kk-well-09/q1": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-well-09/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-well-09/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-well-09/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-egov-05/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-egov-05/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-egov-05/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-egov-05/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "b": 2
+   }
+  },
+  "kk-harvest-07/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-harvest-07/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "c": 1
+   }
+  },
+  "kk-harvest-07/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1,
+    "b": 1
+   }
+  },
+  "kk-harvest-07/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-mobile-15/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-mobile-15/q2": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1,
+    "b": 1
+   }
+  },
+  "kk-mobile-15/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "kk-mobile-15/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "kk-opinion-06/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-opinion-06/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-opinion-06/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "kk-opinion-06/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "kk-tea-16/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "kk-tea-16/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-tea-16/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-tea-16/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "kk-vet-02/q1": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-vet-02/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "kk-vet-02/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "kk-vet-02/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "c": 1
+   }
+  },
+  "ru-akimat-04/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-akimat-04/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-akimat-04/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-akimat-04/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-farm-11/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-farm-11/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-farm-11/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "c": 1
+   }
+  },
+  "ru-farm-11/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-library-13/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-library-13/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-library-13/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-library-13/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-potato-09/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-potato-09/q2": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 2
+   }
+  },
+  "ru-potato-09/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-potato-09/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-bus-01/q1": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-bus-01/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-bus-01/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "ru-bus-01/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-drip-06/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-drip-06/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-drip-06/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "ru-drip-06/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-egov-07/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-egov-07/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-egov-07/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-egov-07/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-fever-12/q1": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-fever-12/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-fever-12/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-fever-12/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-hay-03/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-hay-03/q2": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-hay-03/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-hay-03/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-reading-14/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-reading-14/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-reading-14/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-reading-14/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "ru-train-16/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-train-16/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-train-16/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-train-16/q4": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "b": 2
+   }
+  },
+  "ru-fertilizer-15/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-fertilizer-15/q2": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-fertilizer-15/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-fertilizer-15/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "c": 1
+   }
+  },
+  "ru-flood-10/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-flood-10/q2": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-flood-10/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-flood-10/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-milk-18/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-milk-18/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-milk-18/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-milk-18/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-saiga-17/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-saiga-17/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-saiga-17/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-saiga-17/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-school-05/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 2,
+   "wrong_picks": {}
+  },
+  "ru-school-05/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-school-05/q3": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-school-05/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "a": 1
+   }
+  },
+  "ru-tariff-08/q1": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 1,
+   "wrong_picks": {
+    "b": 1
+   }
+  },
+  "ru-tariff-08/q2": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "c": 2
+   }
+  },
+  "ru-tariff-08/q3": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "ru-tariff-08/q4": {
+   "p_ai": 0.75,
+   "cal_difficulty": 2,
+   "author_difficulty": 3,
+   "wrong_picks": {
+    "d": 1
+   }
+  },
+  "ru-vaccine-02/q1": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 1,
+   "wrong_picks": {}
+  },
+  "ru-vaccine-02/q2": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  },
+  "ru-vaccine-02/q3": {
+   "p_ai": 0.5,
+   "cal_difficulty": 3,
+   "author_difficulty": 2,
+   "wrong_picks": {
+    "a": 2
+   }
+  },
+  "ru-vaccine-02/q4": {
+   "p_ai": 1.0,
+   "cal_difficulty": 1,
+   "author_difficulty": 3,
+   "wrong_picks": {}
+  }
+ },
+ "persona_accuracy": {
+  "kk_weak": {
+   "acc": 0.3888888888888889,
+   "evidence": 0.6805555555555556,
+   "n": 72
+  },
+  "kk_below": {
+   "acc": 0.8194444444444444,
+   "evidence": 0.9444444444444444,
+   "n": 72
+  },
+  "kk_average": {
+   "acc": 0.9444444444444444,
+   "evidence": 0.9722222222222222,
+   "n": 72
+  },
+  "kk_strong": {
+   "acc": 1.0,
+   "evidence": 0.9861111111111112,
+   "n": 72
+  },
+  "ru_weak": {
+   "acc": 0.5555555555555556,
+   "evidence": 0.7777777777777778,
+   "n": 72
+  },
+  "ru_below": {
+   "acc": 0.7638888888888888,
+   "evidence": 0.8888888888888888,
+   "n": 72
+  },
+  "ru_average": {
+   "acc": 1.0,
+   "evidence": 1.0,
+   "n": 72
+  },
+  "ru_strong": {
+   "acc": 1.0,
+   "evidence": 1.0,
+   "n": 72
+  }
+ },
+ "trap_attractiveness": {
+  "misread_table": {
+   "picked": 26,
+   "offered": 304
+  },
+  "word_match": {
+   "picked": 13,
+   "offered": 244
+  },
+  "near_detail": {
+   "picked": 43,
+   "offered": 476
+  },
+  "outside_knowledge": {
+   "picked": 1,
+   "offered": 248
+  },
+  "opposite": {
+   "picked": 13,
+   "offered": 224
+  },
+  "overgeneralize": {
+   "picked": 14,
+   "offered": 176
+  }
+ },
+ "by_difficulty": {
+  "weak": {
+   "1": [
+    27,
+    35
+   ],
+   "2": [
+    24,
+    58
+   ],
+   "3": [
+    17,
+    51
+   ]
+  },
+  "know": {
+   "1": [
+    70,
+    70
+   ],
+   "2": [
+    116,
+    116
+   ],
+   "3": [
+    98,
+    102
+   ]
+  }
+ },
+ "evidence": {
+  "weak": [
+   105,
+   144
+  ],
+  "know": [
+   285,
+   288
+  ]
+ },
+ "params": {
+  "slip_by_difficulty": [
+   0.03,
+   0.03,
+   0.047
+  ],
+  "guess_by_difficulty": [
+   0.45,
+   0.39,
+   0.308
+  ],
+  "evidence_guess": 0.7,
+  "evidence_miss": 0.03
+ }
+}

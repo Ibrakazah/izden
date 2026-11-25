@@ -11,7 +11,9 @@ export function newState(params) {
   for (const s of SKILLS) skills[s] = { p: params.p_init, n: 0, c: 0 };
   const traps = {};
   for (const t of TRAPS) traps[t] = 0;
-  return { v: 1, skills, traps, done: {}, answered: 0 };
+  const diag = {};
+  for (const d of DIAGNOSES) diag[d] = 0;
+  return { v: 2, skills, traps, diag, done: {}, answered: 0 };
 }
 
 function clamp(x, lo, hi) { return Math.min(hi, Math.max(lo, x)); }
@@ -37,12 +39,32 @@ export function predictCorrect(p, slip, guess) {
   return p * (1 - slip) + (1 - p) * guess;
 }
 
+// BKT step with two observations: the answer and the evidence the student tapped first.
+// evidenceOk: true / false, or null when evidence was not collected (paper mode).
+// A right answer without the right evidence is weak evidence of knowing ("guessed - prove it").
+export function bktUpdateEvidence(p, correct, evidenceOk, slip, guess, params) {
+  let lk = correct ? 1 - slip : slip;
+  let lu = correct ? guess : 1 - guess;
+  if (evidenceOk === true) { lk *= 1 - params.evidence_miss; lu *= params.evidence_guess; }
+  if (evidenceOk === false) { lk *= params.evidence_miss; lu *= 1 - params.evidence_guess; }
+  const post = (p * lk) / (p * lk + (1 - p) * lu);
+  return post + (1 - post) * params.p_learn;
+}
+
+// 2x2 diagnosis: answer right? x evidence right?
+export function diagnose(correct, evidenceOk) {
+  if (correct) return evidenceOk === false ? 'guessed' : 'understood';
+  return evidenceOk === true ? 'found_wrong' : 'not_found';
+}
+export const DIAGNOSES = ['understood', 'guessed', 'found_wrong', 'not_found'];
+
 // Only the FIRST attempt of a question is evidence for BKT (second attempt is learning support).
-export function applyAnswer(state, params, question, correct, trap) {
+export function applyAnswer(state, params, question, correct, trap, evidenceOk = null) {
   const sk = state.skills[question.process];
   const [slip, guess] = slipGuess(params, question.difficulty);
   const before = sk.p;
-  sk.p = bktUpdate(sk.p, !!correct, slip, guess, params.p_learn);
+  sk.p = bktUpdateEvidence(sk.p, !!correct, evidenceOk, slip, guess, params);
+  if (evidenceOk !== null) state.diag[diagnose(!!correct, evidenceOk)] += 1;
   sk.n += 1;
   if (correct) sk.c += 1;
   if (!correct && trap && Object.prototype.hasOwnProperty.call(state.traps, trap)) state.traps[trap] += 1;
@@ -65,12 +87,15 @@ function unitNumber(id) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
+// Calibrated difficulty from AI-student runs if present, otherwise the author's estimate.
+export function difficultyOf(q) { return q.cal_difficulty || q.difficulty; }
+
 export function unitScore(state, params, unit, grade) {
   let s = 0;
   for (const q of unit.questions) {
     const p = state.skills[q.process].p;
     const target = 1 + 2 * p;
-    const closeness = 1 - Math.abs(q.difficulty - target) / 2;
+    const closeness = 1 - Math.abs(difficultyOf(q) - target) / 2;
     s += (1 - p) * (1 - p) * (0.5 + 0.5 * closeness);
   }
   s = s / unit.questions.length;
@@ -109,13 +134,4 @@ export function selectQuestions(state, params, unit) {
     .sort((a, b) => (state.skills[qs[a].process].p - state.skills[qs[b].process].p) || (a - b))
     .slice(0, 2).sort((a, b) => a - b);
   return ranked.map(i => qs[i]);
-}
-
-export function conditionalLevel(state, params) {
-  let sum = 0;
-  for (const s of SKILLS) sum += state.skills[s].p;
-  const avg = sum / SKILLS.length;
-  let level = 1;
-  for (const cut of params.level_cuts) if (avg >= cut) level += 1;
-  return { level, avg };
 }

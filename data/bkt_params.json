@@ -1,12 +1,26 @@
 {
-  "comment": "BKT parameters shared by js/engine.js and evals/engine.py. Hand-set priors (no real student data yet).",
-  "skills": ["locate", "understand", "evaluate"],
+  "comment": "BKT parameters shared by js/engine.js and evals/engine.py. slip/guess/evidence estimated from AI-student runs with shrinkage to hand-set priors; p_init/p_learn are priors (no real data yet).",
+  "skills": [
+    "locate",
+    "understand",
+    "evaluate"
+  ],
   "p_init": 0.3,
   "p_learn": 0.12,
-  "slip_by_difficulty": [0.05, 0.1, 0.15],
-  "guess_by_difficulty": [0.3, 0.22, 0.15],
+  "slip_by_difficulty": [
+    0.03,
+    0.03,
+    0.047
+  ],
+  "guess_by_difficulty": [
+    0.45,
+    0.39,
+    0.308
+  ],
   "mastery": 0.85,
   "grade_penalty": 0.15,
   "repeat_penalty": 1.0,
-  "level_cuts": [0.35, 0.55, 0.75]
+  "evidence_miss": 0.03,
+  "evidence_guess": 0.7,
+  "calibrated_from": "evals/ai_students (4 AI-student personas x 2 languages); see evals/ai_students_report.md"
 }
