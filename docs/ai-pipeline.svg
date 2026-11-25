@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif">
+  <title>Где ИИ в Ізден</title>
+  <rect width="960" height="300" fill="#f7f2e8"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#16524d"/></marker>
+  </defs>
+  <g font-size="14" fill="#1d2a29">
+    <rect x="16" y="40" width="210" height="150" rx="14" fill="#fffdf8" stroke="#16524d" stroke-width="2"/>
+    <text x="32" y="70" font-weight="700" font-size="16" fill="#16524d">1. ИИ пишет тексты</text>
+    <text x="32" y="96">на местном материале:</text>
+    <text x="32" y="116">автобус в райцентр,</text>
+    <text x="32" y="136">памятка ветстанции,</text>
+    <text x="32" y="156">объявление акимата</text>
+    <text x="32" y="178" fill="#6b7672" font-size="12">kk и ru пишутся отдельно</text>
+
+    <rect x="258" y="40" width="210" height="150" rx="14" fill="#fffdf8" stroke="#16524d" stroke-width="2"/>
+    <text x="274" y="70" font-weight="700" font-size="16" fill="#16524d">2. Независимая проверка</text>
+    <text x="274" y="96">другой ИИ решает задания,</text>
+    <text x="274" y="116">не видя ответов; редактор</text>
+    <text x="274" y="136">проверяет язык и ловушки</text>
+    <text x="274" y="160" font-weight="700">165/165 совпали с ключом</text>
+    <text x="274" y="178" fill="#6b7672" font-size="12">исправлено 28% текстов</text>
+
+    <rect x="500" y="40" width="210" height="150" rx="14" fill="#fffdf8" stroke="#16524d" stroke-width="2"/>
+    <text x="516" y="70" font-weight="700" font-size="16" fill="#16524d">3. ИИ-ученики</text>
+    <text x="516" y="96">4 «ученика» от слабого</text>
+    <text x="516" y="116">до сильного решают всё;</text>
+    <text x="516" y="136">по их ошибкам ставится</text>
+    <text x="516" y="156">сложность вопросов</text>
+    <text x="516" y="178" fill="#6b7672" font-size="12">это имитация, не дети</text>
+
+    <rect x="742" y="40" width="202" height="150" rx="14" fill="#fdf0cf" stroke="#d79b12" stroke-width="2"/>
+    <text x="758" y="70" font-weight="700" font-size="16" fill="#8a5a00">4. Учитель вычитывает</text>
+    <text x="758" y="96">перед уроком читает</text>
+    <text x="758" y="116">«паспорт» текста и сам</text>
+    <text x="758" y="136">текст; казахский —</text>
+    <text x="758" y="156">обязательно носитель</text>
+    <text x="758" y="178" fill="#6b7672" font-size="12">ещё не сделано: пилот</text>
+  </g>
+  <g stroke="#16524d" stroke-width="2.5" fill="none" marker-end="url(#ar)">
+    <path d="M228 115h26"/><path d="M470 115h26"/><path d="M712 115h26"/>
+  </g>
+  <rect x="16" y="214" width="928" height="70" rx="14" fill="#dcebe7"/>
+  <text x="32" y="242" font-size="15" font-weight="700" fill="#16524d">На телефоне ученика ИИ ничего не генерирует.</text>
+  <text x="32" y="266" font-size="14" fill="#1d2a29">Там работает небольшая модель навыков: по ответам и отмеченным доказательствам оценивает «Найти / Понять / Оценить» и подбирает следующий текст — без интернета.</text>
+</svg>
