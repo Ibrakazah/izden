@@ -1,0 +1,144 @@
+{
+ "issues": [
+  {
+   "unit": "ru-saiga-17",
+   "q": "q2",
+   "field": "stem/explain",
+   "severity": "major",
+   "problem": "Текст не называет причину охраны прямо; вопрос «почему инспекторы…» требует мнения автора, а explain добавляет «беззащитных», чего в тексте нет.",
+   "fix": "Переформулировать stem: «Какой факт из статьи объясняет…»; в explain убрать «беззащитных»."
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q4",
+   "field": "evidence",
+   "severity": "minor",
+   "problem": "Угрозу суровых зим и болезней подтверждает ещё b5:s3.",
+   "fix": "Добавить b5:s3 в evidence."
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "field": "options.c.trap",
+   "severity": "minor",
+   "problem": "Таблицы в юните нет, trap misread_table не соответствует: ошибка в выборе старой цены из соседнего предложения.",
+   "fix": "trap -> near_detail."
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "field": "stem",
+   "severity": "minor",
+   "problem": "Акционная цена действует только до конца недели, в вопросе этого условия нет.",
+   "fix": "Добавить «пока действует акция»."
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": null,
+   "field": "blocks",
+   "severity": "minor",
+   "problem": "Текст 159 слов для 9 класса — у нижней границы, вопрос q1 очень простой.",
+   "fix": "Допустимо, не править (индексы evidence стабильны)."
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q3",
+   "field": "stem",
+   "severity": "minor",
+   "problem": "«Лучше всего» опирается на условия Тимура, но в вопросе они не упомянуты.",
+   "fix": "Добавить «с учётом всех его условий»."
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q4",
+   "field": "options",
+   "severity": "minor",
+   "problem": "Верный вариант равен по длине самым длинным (37 символов).",
+   "fix": "Удлинить вариант b до 41."
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q3",
+   "field": "options.c.trap",
+   "severity": "minor",
+   "problem": "trap opposite не соответствует: вариант цепляется за слово «соцсети» из текста.",
+   "fix": "trap -> word_match."
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q4",
+   "field": "stem",
+   "severity": "minor",
+   "problem": "Догадка касается сравнения групп, а вопрос про «новый вопрос в опросе» не уточняет, что его зададут всем классам.",
+   "fix": "Добавить «заданный ученикам всех классов»."
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q4",
+   "field": "options.a.trap",
+   "severity": "minor",
+   "problem": "trap opposite не соответствует: ученик цепляется за число 10 из текста.",
+   "fix": "trap -> word_match."
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q2",
+   "field": "options.d.why",
+   "severity": "minor",
+   "problem": "why утверждает «кооператив сдаёт молоко весь год», чего в тексте нет прямо.",
+   "fix": "Опереться на диаграмму: цены указаны и для летних месяцев."
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": null,
+   "field": "format",
+   "severity": "minor",
+   "problem": "Формат mixed — это текст + таблица/список, а здесь диаграмма.",
+   "fix": "format -> chart."
+  }
+ ],
+ "unit_verdicts": [
+  {
+   "unit": "ru-library-13",
+   "verdict": "ok",
+   "grade_fit": "ok",
+   "language_score": 5,
+   "comment": "Чистый язык, арифметика 14+7 верна, ловушки живые."
+  },
+  {
+   "unit": "ru-reading-14",
+   "verdict": "ok",
+   "grade_fit": "ok",
+   "language_score": 5,
+   "comment": "Арифметика разностей верна, evidence точное; мелкие правки trap и stem."
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "verdict": "ok",
+   "grade_fit": "ok",
+   "language_score": 5,
+   "comment": "Корректный разбор рекламы; 3×4 900 = 14 700 верно; текст короткий для 9 класса."
+  },
+  {
+   "unit": "ru-train-16",
+   "verdict": "ok",
+   "grade_fit": "ok",
+   "language_score": 5,
+   "comment": "Расписание и время в пути сходятся, ответ q3 единственный."
+  },
+  {
+   "unit": "ru-saiga-17",
+   "verdict": "ok",
+   "grade_fit": "ok",
+   "language_score": 5,
+   "comment": "Фактура без выдуманной статистики; q2 переформулирован."
+  },
+  {
+   "unit": "ru-milk-18",
+   "verdict": "ok",
+   "grade_fit": "ok",
+   "language_score": 5,
+   "comment": "Данные согласованы, q3/q4 различимы."
+  }
+ ]
+}

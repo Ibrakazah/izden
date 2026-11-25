@@ -1,0 +1,78 @@
+{
+ "applied": [
+  {
+   "unit": "ru-saiga-17",
+   "q": "q2",
+   "severity": "major",
+   "what": "Переформулировать stem: «Какой факт из статьи объясняет…»; в explain убрать «беззащитных»."
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q4",
+   "severity": "minor",
+   "what": "Добавить b5:s3 в evidence."
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "severity": "minor",
+   "what": "trap -> near_detail."
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "severity": "minor",
+   "what": "Добавить «пока действует акция»."
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q3",
+   "severity": "minor",
+   "what": "Добавить «с учётом всех его условий»."
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q4",
+   "severity": "minor",
+   "what": "Удлинить вариант b до 41."
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q3",
+   "severity": "minor",
+   "what": "trap -> word_match."
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q4",
+   "severity": "minor",
+   "what": "Добавить «заданный ученикам всех классов»."
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q4",
+   "severity": "minor",
+   "what": "trap -> word_match."
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q2",
+   "severity": "minor",
+   "what": "Опереться на диаграмму: цены указаны и для летних месяцев."
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": null,
+   "severity": "minor",
+   "what": "format -> chart."
+  }
+ ],
+ "skipped": [
+  {
+   "unit": "ru-fertilizer-15",
+   "q": null,
+   "severity": "minor",
+   "reason": "Текст 159 слов укладывается в 150–260; дописывать не нужно."
+  }
+ ]
+}

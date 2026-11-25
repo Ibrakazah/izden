@@ -1,0 +1,365 @@
+{
+ "applied": [
+  {
+   "unit": "kk-bus-01",
+   "q": "q2",
+   "severity": "minor",
+   "what": "why b: «бүкіл рейсін» → «барлық рейсті»"
+  },
+  {
+   "unit": "kk-bus-01",
+   "q": "q3",
+   "severity": "minor",
+   "what": "explain: орфография «Экспреске»"
+  },
+  {
+   "unit": "kk-bus-01",
+   "q": "q3",
+   "severity": "minor",
+   "what": "evidence: добавлена цена №106 (b3:r3)"
+  },
+  {
+   "unit": "kk-bus-01",
+   "q": "q3",
+   "severity": "minor",
+   "what": "hint 1: калька «тап және оқы» → деепричастие"
+  },
+  {
+   "unit": "kk-bus-01",
+   "q": "q4",
+   "severity": "minor",
+   "what": "trap d: misread_table → near_detail"
+  },
+  {
+   "unit": "kk-bus-01",
+   "q": "q4",
+   "severity": "minor",
+   "what": "stem: достроена вторая часть вопроса"
+  },
+  {
+   "unit": "kk-vet-02",
+   "q": "q1",
+   "severity": "minor",
+   "what": "why a: грамматика «бір жол жоғарыдағы»"
+  },
+  {
+   "unit": "kk-vet-02",
+   "q": "q1",
+   "severity": "minor",
+   "what": "trap b: overgeneralize → outside_knowledge"
+  },
+  {
+   "unit": "kk-vet-02",
+   "q": null,
+   "severity": "minor",
+   "what": "«ветдәрігер» → «мал дәрігері» во всём юните (и в kk-milk-10 b5:i6)"
+  },
+  {
+   "unit": "kk-vet-02",
+   "q": "q4",
+   "severity": "minor",
+   "what": "вариант b (верный) укорочен до длины остальных"
+  },
+  {
+   "unit": "kk-akimat-03",
+   "q": "q3",
+   "severity": "major",
+   "what": "why c: убрано ложное «әр көшеге су күн ара беріледі»"
+  },
+  {
+   "unit": "kk-akimat-03",
+   "q": "q4",
+   "severity": "minor",
+   "what": "why a: снята двусмысленность «барлық көшелерге су берілмейді»"
+  },
+  {
+   "unit": "kk-akimat-03",
+   "q": "q1",
+   "severity": "minor",
+   "what": "why d: мн. число «күндер»"
+  },
+  {
+   "unit": "kk-akimat-03",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный d укорочен (был 60 зн. при 39–46 у остальных)"
+  },
+  {
+   "unit": "kk-akimat-03",
+   "q": "q2",
+   "severity": "minor",
+   "what": "длина: верный c укорочен"
+  },
+  {
+   "unit": "kk-weather-04",
+   "q": "q4",
+   "severity": "major",
+   "what": "верный b: исправлена двойная изафетная цепочка, вариант укорочен"
+  },
+  {
+   "unit": "kk-weather-04",
+   "q": "q4",
+   "severity": "minor",
+   "what": "вариант d: убрано «Шілдеде» (нет в тексте)"
+  },
+  {
+   "unit": "kk-weather-04",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: a и c выровнены по длине с верным"
+  },
+  {
+   "unit": "kk-weather-04",
+   "q": "q1",
+   "severity": "minor",
+   "what": "why c: объяснено, чем вариант привлекателен"
+  },
+  {
+   "unit": "kk-egov-05",
+   "q": null,
+   "severity": "minor",
+   "what": "«жаднама» → «жадынама» во всём юните"
+  },
+  {
+   "unit": "kk-egov-05",
+   "q": "q4",
+   "severity": "minor",
+   "what": "trap c: opposite → outside_knowledge, why переписан"
+  },
+  {
+   "unit": "kk-egov-05",
+   "q": "q1",
+   "severity": "minor",
+   "what": "вопрос усложнён под 9 класс: нужно связать b2:s3 и b2:s4 (условие SMS-входа); старый why d с «өз тәжірибеңнен» ушёл вместе с вариантом"
+  },
+  {
+   "unit": "kk-egov-05",
+   "q": "q2",
+   "severity": "minor",
+   "what": "вопрос усложнён: нужно найти и место, и формат (PDF) после шага подписи"
+  },
+  {
+   "unit": "kk-egov-05",
+   "q": "q3",
+   "severity": "minor",
+   "what": "вопрос усложнён: время через границу часа (14:58→15:04 = 6 мин), варианты выровнены по длине"
+  },
+  {
+   "unit": "kk-opinion-06",
+   "q": null,
+   "severity": "minor",
+   "what": "b3:s1: калька → «18 жылдан бері жұмыс істеймін»"
+  },
+  {
+   "unit": "kk-opinion-06",
+   "q": null,
+   "severity": "minor",
+   "what": "b5:s1: «сөздігінің екі данасы ғана бар»"
+  },
+  {
+   "unit": "kk-opinion-06",
+   "q": "q2",
+   "severity": "minor",
+   "what": "explain: калька «сыныптың дауысы» убрана"
+  },
+  {
+   "unit": "kk-opinion-06",
+   "q": "q3",
+   "severity": "minor",
+   "what": "stem: «санап-өлшенген» → «санап тексеруге болатын»"
+  },
+  {
+   "unit": "kk-opinion-06",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный b укорочен (был 55 зн. при 33–43)"
+  },
+  {
+   "unit": "kk-harvest-07",
+   "q": null,
+   "severity": "minor",
+   "what": "«сеялка» → «тұқым сепкіш» в тексте и вопросах"
+  },
+  {
+   "unit": "kk-harvest-07",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный b укорочен"
+  },
+  {
+   "unit": "kk-harvest-07",
+   "q": "q3",
+   "severity": "minor",
+   "what": "длина: верный d укорочен (был 66 зн. при 37–47); не было в замечаниях, найдено при проверке"
+  },
+  {
+   "unit": "kk-library-08",
+   "q": "q3",
+   "severity": "minor",
+   "what": "explain и why a: «шамамен 5 күн» → точно 5 дней"
+  },
+  {
+   "unit": "kk-library-08",
+   "q": null,
+   "severity": "minor",
+   "what": "b5:s2: плеоназм «әр … сайын»"
+  },
+  {
+   "unit": "kk-well-09",
+   "q": "q3",
+   "severity": "major",
+   "what": "why d: убрано утверждение вне текста про фильтр и химию"
+  },
+  {
+   "unit": "kk-well-09",
+   "q": "q3",
+   "severity": "minor",
+   "what": "explain: «сүзгі лайды ұстайды», а не «жояды»"
+  },
+  {
+   "unit": "kk-well-09",
+   "q": null,
+   "severity": "minor",
+   "what": "b1:s3: олицетворение-калька заменено"
+  },
+  {
+   "unit": "kk-well-09",
+   "q": "q2",
+   "severity": "minor",
+   "what": "длина: верный a укорочен, b и d чуть удлинены (не было в замечаниях)"
+  },
+  {
+   "unit": "kk-well-09",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный b укорочен (не было в замечаниях)"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": null,
+   "severity": "major",
+   "what": "«тенге» → «теңге» во всём юните (14 замен)"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q3",
+   "severity": "critical",
+   "what": "stem: добавлено условие «қышқылдығы қалыпты» — ключ стал доказуем по b5:i2"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q3",
+   "severity": "minor",
+   "what": "длина: верный b (14 зн.) выровнен с остальными"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q3",
+   "severity": "minor",
+   "what": "explain: «3,6%-дан жоғары» → «3,6% және одан жоғары»"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q2",
+   "severity": "major",
+   "what": "stem: оговорена одинаковая жирность; вариант a переписан, т.к. старый («майлылығы әрдайым төмен») противоречил новому условию"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q4",
+   "severity": "major",
+   "what": "вариант b: «сиырдың майлылығы» → «сүттің майлылығы»"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q1",
+   "severity": "minor",
+   "what": "why b: «3,6% және одан жоғары» как в таблице"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": null,
+   "severity": "minor",
+   "what": "b5:i7: плеоназм «әр … сайын»"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный c укорочен, все варианты в одной форме (инфинитив) и близкой длины"
+  },
+  {
+   "unit": "kk-sport-11",
+   "q": "q4",
+   "severity": "minor",
+   "what": "why c: косноязычие исправлено"
+  },
+  {
+   "unit": "kk-sport-11",
+   "q": "q1",
+   "severity": "minor",
+   "what": "why b: названы обе причины привлекательности"
+  },
+  {
+   "unit": "kk-sport-11",
+   "q": "q3",
+   "severity": "minor",
+   "what": "длина: верный c (8 зн.) выровнен с вариантами-обоснованиями (не было в замечаниях)"
+  },
+  {
+   "unit": "kk-fire-12",
+   "q": null,
+   "severity": "minor",
+   "what": "b6:i4: безопасность — «жасыл бұтақпен»"
+  },
+  {
+   "unit": "kk-fire-12",
+   "q": "q3",
+   "severity": "minor",
+   "what": "stem: естественный порядок слов"
+  },
+  {
+   "unit": "kk-fire-12",
+   "q": "q3",
+   "severity": "minor",
+   "what": "вариант b: повтор «қарай» убран"
+  },
+  {
+   "unit": "kk-fire-12",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный a укорочен, c чуть удлинён"
+  },
+  {
+   "unit": "kk-fire-12",
+   "q": "q2",
+   "severity": "minor",
+   "what": "длина: верный b укорочен (был 68 зн. при 30–38; не было в замечаниях)"
+  },
+  {
+   "unit": "kk-fire-12",
+   "q": "q1",
+   "severity": "minor",
+   "what": "длина: верный c укорочен (не было в замечаниях)"
+  },
+  {
+   "unit": "kk-vet-02",
+   "q": "q2",
+   "severity": "minor",
+   "what": "длина: верный a чуть укорочен (найдено при проверке)"
+  },
+  {
+   "unit": "kk-milk-10",
+   "q": "q2",
+   "severity": "minor",
+   "what": "длина: верный b укорочен (64 зн. при 31–38), c и d чуть удлинены (найдено при проверке)"
+  },
+  {
+   "unit": "kk-sport-11",
+   "q": "q4",
+   "severity": "minor",
+   "what": "длина: верный b укорочен (найдено при проверке)"
+  }
+ ],
+ "skipped": []
+}

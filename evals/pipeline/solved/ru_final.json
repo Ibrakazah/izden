@@ -1,0 +1,580 @@
+{
+ "answers": [
+  {
+   "unit": "ru-akimat-04",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b5:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b5:s2",
+   "ambiguous": false,
+   "note": "Мелочь: «старше 18 лет» формально исключает самих 18-летних; на ответ не влияет"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b5:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b3:s5",
+   "ambiguous": false,
+   "note": "Схватки около 4:00, ягнёнок через 40 минут (<1 часа)"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b4:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b2:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b4:i1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b6:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q3",
+   "answer": "d",
+   "evidence": "b4:i2",
+   "ambiguous": false,
+   "note": "14 + 7 = 21"
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b6:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": "Высокая устойчивость: Жайлау 42, Степной 48"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b2",
+   "ambiguous": false,
+   "note": "Созревание 60/70/75/85/95 — урожай 30/42/45/48/55, монотонно"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q4",
+   "answer": "d",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": "103: 12:30→14:10, пн–пт (среда); 105 прибывает 15:20"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": "107 прибывает 18:10, в субботу обратно только 108 (20:30)"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b1:s4",
+   "ambiguous": false,
+   "note": "(800−200)×2 = 1200"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": "103 прибывает 14:10, 104 15:00→16:40 < 17:00"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q2",
+   "answer": "b",
+   "evidence": "b6:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q3",
+   "answer": "c",
+   "evidence": "b8:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b8:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b5:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b3:i4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q3",
+   "answer": "d",
+   "evidence": "b5:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": "1 сентября в пределах срока (до 10.09), 14 лет в пределах 7–17"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b4:i1",
+   "ambiguous": false,
+   "note": "08:00 + 6 ч = 14:00"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": "Доза по массе (b2:s3): 24 кг → 22–29 кг → 10 мл"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b6:i2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": "Три сухих дня подряд только Пт–Сб–Вс; Вт–Ср прерывает Чт (4 мм)"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": "Прогноз составлен в понедельник, воскресенье — самый дальний день"
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q2",
+   "answer": "a",
+   "evidence": "b2:r1",
+   "ambiguous": false,
+   "note": "34 − 14 = 20 (b2:r1, b2:r3)"
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b4:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b4:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:r1",
+   "ambiguous": false,
+   "note": "Суббота: №215 не ходит, №047 прибывает 18:50, №119 на другой день; №081 сидячий 2 100 — самый дешёвый"
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": "Плацкарт №119 4 100 (max), в пути 7 ч 30 мин (max); время в пути пересчитано, всё сходится"
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "answer": "b",
+   "evidence": "b6:s2",
+   "ambiguous": false,
+   "note": "3 × 4 900 = 14 700, четвёртый в подарок"
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q3",
+   "answer": "c",
+   "evidence": "b2:s7",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q1",
+   "answer": "d",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q2",
+   "answer": "b",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": "Порог >320 см (b3:s2): 4 апр 300, 5 апр 340. Рост 180→340 = 160 см, совпадает с b5:s2"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b5:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b6:i4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q2",
+   "answer": "b",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b4:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q4",
+   "answer": "d",
+   "evidence": "b4:s6",
+   "ambiguous": false,
+   "note": "Мелочь: на диаграмме только нечётные месяцы, «самая низкая в июле» проверяется лишь по ним"
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b1:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b3:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": "Также b5:s4, b3:s3"
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q4",
+   "answer": "d",
+   "evidence": "b7:s5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b4:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": "(c) — довод директора, не Ерлана"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b6:s5",
+   "ambiguous": false,
+   "note": "Также b4:s1–s5"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b6:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q2",
+   "answer": "a",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": "150×30 + 150×12 = 4500 + 1800 = 6300"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q3",
+   "answer": "c",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": "Ким: 250×30 + 50×12 = 8100 > 7500; Ахметовы 7200, Сериковы 6300"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b1:s4",
+   "ambiguous": false,
+   "note": "Экономия 7500 − 7200 = 300 тг/мес; 18 000 / 300 = 60 мес = 5 лет"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q2",
+   "answer": "a",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": "Также b2:s3"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q4",
+   "answer": "d",
+   "evidence": "b2:s1",
+   "ambiguous": false,
+   "note": ""
+  }
+ ]
+}

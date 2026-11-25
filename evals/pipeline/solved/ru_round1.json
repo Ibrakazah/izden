@@ -1,0 +1,388 @@
+{
+ "answers": [
+  {
+   "unit": "ru-bus-01",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": "12:30+1:40=14:10 < 15:00, пн–пт включает среду; 105 прибывает 15:20"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": "107 прибывает 18:10, 108 в 20:30 по сб, вс"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b1:s4",
+   "ambiguous": false,
+   "note": "(800-200)*2=1200"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": "103 12:30→14:10, 104 15:00→16:40 < 17:00; 106 прибывает 20:40"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q2",
+   "answer": "a",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": "самопрививка → нет отметки ветврача → не допустят на пастбища и к продаже (вывод через b2:s3+b2:s4)"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q4",
+   "answer": "d",
+   "evidence": "b2:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": "Пт, Сб, Вс — 0 мм; Вт/Ср прерывает Чт 4 мм. Если день покоса не входит в 3 дня сушки, нужен ещё пн след. недели (нет в прогнозе), но среди вариантов d единственный подходящий"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": "прогноз от понедельника, воскресенье дальше всех"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b5:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b5:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b5:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b4:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b6:s5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b6:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q2",
+   "answer": "b",
+   "evidence": "b6:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q3",
+   "answer": "c",
+   "evidence": "b8:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b8:s2",
+   "ambiguous": false,
+   "note": "без фильтра и промывки → засор (b8:s1, b8:s3)"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b5:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b3:i4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q3",
+   "answer": "d",
+   "evidence": "b5:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": "1 сентября запись ещё идёт (до 10.09), поэтому (a) неверно"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q1",
+   "answer": "c",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q2",
+   "answer": "a",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": "150*30+150*12=4500+1800=6300"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q3",
+   "answer": "c",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": "Ким: 250*30+50*12=8100 > 7500; Ахметовы 7200, Сериковы 6300"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b3:r1",
+   "ambiguous": false,
+   "note": "Ахметовы: 200*30+100*12=7200, экономия 300/мес; 18000/300=60 мес=5 лет"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": "высокая устойчивость: Жайлау 42, Степной 48"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": "урожай растёт монотонно со сроком созревания (60→30 ... 95→55)"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q4",
+   "answer": "d",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": "с учётом предупреждения учителя b3:s2"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q1",
+   "answer": "d",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q2",
+   "answer": "b",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": "340>320 впервые 5 апр; рост 340-180=160 совпадает с b5:s2"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b5:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b6:i4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b2:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q2",
+   "answer": "d",
+   "evidence": "b3:s5",
+   "ambiguous": false,
+   "note": "40 минут < часа"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q3",
+   "answer": "a",
+   "evidence": "b4:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q4",
+   "answer": "c",
+   "evidence": "b2:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q1",
+   "answer": "b",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q2",
+   "answer": "c",
+   "evidence": "b4:i1",
+   "ambiguous": false,
+   "note": "08:00+6ч=14:00"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q3",
+   "answer": "b",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": "доза по массе (b2:s3): 24 кг → 22–29 → 10 мл"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q4",
+   "answer": "b",
+   "evidence": "b6:i2",
+   "ambiguous": false,
+   "note": "\"третий день\" ≈ после 3 дней приёма; также b4:i3 запрещает дольше 3 дней"
+  }
+ ]
+}

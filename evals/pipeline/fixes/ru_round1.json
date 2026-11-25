@@ -1,0 +1,312 @@
+{
+ "applied": [
+  {
+   "unit": "ru-bus-01",
+   "q": "q3",
+   "severity": "minor",
+   "what": "q3.d trap -> near_detail"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": null,
+   "severity": "minor",
+   "what": "why переписаны без рода (q1.a, q1.d, q2.a, q3.a, q3.d, q4.a)"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q4",
+   "severity": "minor",
+   "what": "evidence q4 -> b2:s1, b3, b4:s1"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q2",
+   "severity": "minor",
+   "what": "текст верного варианта укорочен до «Корову не пустят на пастбище и не дадут продать»"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q2",
+   "severity": "minor",
+   "what": "explain q2 дополнен звеном «отметки у самопривитой коровы не будет»"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": null,
+   "severity": "minor",
+   "what": "b2:s5 -> «...на последнем месяце стельности...»"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q1",
+   "severity": "minor",
+   "what": "q2 поднят до difficulty 3 (вывод из b2:s3+b2:s4, условие про пастбище в stem); q4 b сделан тоньше (near_detail), evidence q4 исправлен"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": null,
+   "severity": "minor",
+   "what": "why q1.b, q3.c без рода; q2.b/c/d и q4.b/c — императивы/безличные формулировки"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "severity": "critical",
+   "what": "b1:s4 переформулирован: день покоса входит в три сухих дня; ключ q2 однозначен"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "severity": "major",
+   "what": "evidence q2 -> b1:s2, b1:s4, b2:r5..r7; explain и hint обновлены"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q3",
+   "severity": "major",
+   "what": "q3.b -> «Тимур верит примете, а прогноз показывает осадки»"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q3",
+   "severity": "major",
+   "what": "q3.c заменён на «Метеостанция стоит ближе к аулу...», trap outside_knowledge, why обновлён"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q1",
+   "severity": "minor",
+   "what": "q1.a trap misread_table, why по замечанию"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2.c trap misread_table, why уточнён"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4.b why без двусмысленности «большой дождь»"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": null,
+   "severity": "minor",
+   "what": "b1 дополнен до 138 слов (последствия дождя, зачем знать день)"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": null,
+   "severity": "minor",
+   "what": "s4 переписан (вместе с пунктом 8)"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4.d trap overgeneralize, why уточнён"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2.b -> «До 18 апреля», near_detail, why про возраст"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q1",
+   "severity": "minor",
+   "what": "q1.c -> «На школьном стадионе», outside_knowledge"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": null,
+   "severity": "minor",
+   "what": "b2 +2 предложения (длительность, парковка), b5 +1 (протокол); 129 слов; ответы не затронуты"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q2",
+   "severity": "major",
+   "what": "q2.d -> «В январе трассу закрывали на четыре дня»"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q1",
+   "severity": "minor",
+   "what": "q1.d trap near_detail, why по замечанию"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2.b trap overgeneralize, why по замечанию"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q3",
+   "severity": "minor",
+   "what": "q3 stem -> «О чём больше всего беспокоится каждый из авторов?»; why q3.a без рода"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4 stem -> «К какому времени...», b -> «К 12:30» outside_knowledge"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2.a why уточнён"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q3",
+   "severity": "minor",
+   "what": "q3 difficulty 2"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q3",
+   "severity": "minor",
+   "what": "q3.d trap outside_knowledge, why уточнён"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2.a why: свидетельство или удостоверение личности"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q3",
+   "severity": "major",
+   "what": "q3.b why без «самой»; в b5:s4 убрано «самому»"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4 stem -> «Почему у него это не получится?»; c заменён на «Для секции бокса ему ещё мало лет» (opposite)"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": null,
+   "severity": "minor",
+   "what": "why q1.a без рода"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q4",
+   "severity": "major",
+   "what": "q4.b -> «Ставить можно, но выгода мала: окупится за 5 лет»"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2.d trap misread_table, why без рода"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q3",
+   "severity": "minor",
+   "what": "q3 stem упрощён"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": null,
+   "severity": "minor",
+   "what": "b1 +2 предложения (дата платежа, раздельный учёт счётчика), 120 слов"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2 stem -> «...дал самый большой урожай?»"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4.d -> «Степной: засухоустойчив и урожайный»"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": null,
+   "severity": "minor",
+   "what": "+2 предложения вступления в b1 (абзац про методику не добавлялся)"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4.a trap near_detail"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": null,
+   "severity": "minor",
+   "what": "телефон заменён на 112"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q2",
+   "severity": "minor",
+   "what": "q2 stem -> «Почему Тимур вообще не позвонил деду?», d -> «Ягнёнок родился меньше чем через час»"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q4",
+   "severity": "minor",
+   "what": "q4.c -> «Чтобы потом показать, как изменилось отношение деда»... (51 знак)"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q4",
+   "severity": "major",
+   "what": "q4 stem: «Мама уже три дня даёт Ерлану сироп...»"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q4",
+   "severity": "minor",
+   "what": "hint_steps q4 шаг 2 больше не называет ответ"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q3",
+   "severity": "minor",
+   "what": "q3.c trap outside_knowledge, why по замечанию"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": null,
+   "severity": "minor",
+   "what": "название -> «Жарсин детский, сироп»; в b2 добавлена пометка об учебном тексте"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": null,
+   "severity": "minor",
+   "what": "why q2.a, q3.a без рода (в остальных why рода нет)"
+  }
+ ],
+ "skipped": [
+  {
+   "unit": "ru-school-05",
+   "q": "q4",
+   "severity": "minor",
+   "reason": "Замена на вопрос-сопоставление b4:s3/b6:s4 рискованна: «больше часа в день» (Ерлан) и расписание 7:30–15:30 (директор) нельзя сопоставить однозначно, ключ мог бы стать спорным. Для 9 класса юнит остаётся достаточно сложным за счёт q1–q3 (difficulty 2–3)."
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q1",
+   "severity": "minor",
+   "reason": "Проверяющий сам предлагает оставить q1 как разогрев; q2–q4 основные."
+  }
+ ]
+}
