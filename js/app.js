@@ -130,7 +130,7 @@ async function home() {
   if (!pr) {
     top = `<section class="hero">
       <div class="pick-lang" role="group" aria-label="Тіл / Язык">${Object.entries(LANGS).map(([k, v]) => `<button type="button" data-pick="${k}" aria-pressed="${k === lang}">${v}</button>`).join('')}</div>
-      <p class="bilingual"><span lang="kk">Алдымен дәлелде → сосын жауап бер · интернетсіз жұмыс істейді · тапсырмаларды ИИ жасап, тексерген</span>
+      <p class="bilingual"><span lang="kk">Алдымен дәлелде → сосын жауап бер · интернетсіз жұмыс істейді · тапсырмаларды ЖИ жасап, тексерген</span>
         <span lang="ru">Докажи → ответь · работает без интернета · банк заданий от ИИ с проверкой</span></p>
       <h1>${t('welcomeTitle')}</h1>
       <p class="lead">${t('welcomeLead')}</p>
