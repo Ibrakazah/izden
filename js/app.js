@@ -81,9 +81,16 @@ function markNav() {
 function updateNetPill() {
   const el = document.getElementById('net');
   const ready = !!(navigator.serviceWorker && navigator.serviceWorker.controller);
-  if (!navigator.onLine) { el.textContent = t('offlineNow'); el.className = 'pill off'; }
-  else if (ready) { el.textContent = t('offlineReady'); el.className = 'pill ok'; }
-  else { el.textContent = ''; el.className = 'pill'; }
+  // compact on phones: icon + short word; the full sentence is in title / for screen readers
+  const set = (cls, short, full) => {
+    el.className = cls;
+    el.title = full;
+    el.setAttribute('aria-label', full);
+    el.innerHTML = `<span class="pill-ico" aria-hidden="true"></span><span class="pill-short">${esc(short)}</span><span class="pill-long">${esc(full)}</span>`;
+  };
+  if (!navigator.onLine) set('pill off', t('offlineShort'), t('offlineNow'));
+  else if (ready) set('pill ok', t('offlineShort'), t('offlineReady'));
+  else { el.innerHTML = ''; el.className = 'pill'; el.removeAttribute('title'); }
 }
 
 function toast(msg) {

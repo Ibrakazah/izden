@@ -53,12 +53,18 @@ button, input, select { font: inherit; color: inherit; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); margin-right: auto; min-width: 0; }
 .brand svg { width: 36px; height: 36px; flex: none; }
 .brand b { display: block; font-size: 1.15rem; letter-spacing: .01em; }
-.brand small { display: block; color: var(--muted); font-size: .72rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 46vw; }
-.pill { font-size: .72rem; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
+.brand > span { min-width: 0; overflow: hidden; }
+.brand small { display: block; color: var(--muted); font-size: .72rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top { min-height: 52px; max-height: 64px; }
+.pill { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: .72rem; font-weight: 600; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
+.pill-ico { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.pill-short { display: none; }
+@media (max-width: 600px) { .pill-long { display: none; } .pill-short { display: inline; } }
+.seg { flex: none; }
 .pill:empty { display: none; }
 .pill.ok { background: var(--teal-soft); color: var(--teal); }
 .pill.off { background: var(--marker-soft); color: #6b4d00; }
-@media (max-width: 480px) { .pill.ok { display: none; } }
+@media (max-width: 480px) { .pill.ok { display: none; } .brand small { display: none; } }
 .seg { display: flex; background: var(--paper-2); border-radius: 10px; padding: 3px; }
 .seg button { border: 0; background: none; padding: 5px 10px; border-radius: 8px; font-size: .85rem; font-weight: 600; color: var(--muted); cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--card); color: var(--teal); box-shadow: var(--shadow); }
