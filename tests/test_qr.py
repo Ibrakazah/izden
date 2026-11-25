@@ -54,7 +54,7 @@ def test_short_code_and_payload():
     assert r["typosCaught"] == r["typos"], f"single-symbol typos accepted: {r['typos'] - r['typosCaught']}"
     assert r["swapsCaught"] >= 0.95 * r["swaps"], f"adjacent swaps caught {r['swapsCaught']}/{r['swaps']}"
     assert r["zero"] is None, "all-zero code must be rejected"
-    assert r["payloadBytes"] <= 300 and r["payloadBack"]["name"] == "Айгерім" and r["tampered"] is None
+    assert r["payloadBytes"] <= 300 and r["payloadBack"]["name"].startswith("А.#") and "Айгерім" not in r["payload"] and r["tampered"] is None
     assert r["payloadBack"]["exposure"] == [10, 14, 9, 6, 8, 11]
     print(f"OK: short code {r['code']}; typos caught {r['typosCaught']}/{r['typos']}, adjacent swaps "
           f"{r['swapsCaught']}/{r['swaps']}; zero code rejected; IZ1 payload {r['payloadBytes']} bytes, checksum works")

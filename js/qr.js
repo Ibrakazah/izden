@@ -14,7 +14,14 @@ function cleanName(name) {
   return String(name || '').replace(/[|\n\r]/g, ' ').trim().slice(0, 24) || '?';
 }
 
-// IZ1|name|grade|lang|pL.pU.pE|nL.nU.nE|cL.cU.cE|t1..t6|d1..d4|units|yymmdd|e1..e6|CHK  (e = trap exposure)  (d = understood.guessed.found_wrong.not_found)
+// The QR carries initials plus a 2-character tag (so two students with equal initials stay distinct); the full name never leaves the device.
+export function qrName(name) {
+  const words = String(name || '').replace(/[|#\n\r]/g, ' ').trim().split(/\s+/).filter(Boolean);
+  const ini = words.slice(0, 3).map(w => Array.from(w)[0].toUpperCase() + '.').join('');
+  return `${ini || '?'}#${checksum(String(name || '').trim().toLowerCase())}`;
+}
+
+// IZ1|initials#tag|grade|lang|pL.pU.pE|nL.nU.nE|cL.cU.cE|t1..t6|d1..d4|units|yymmdd|e1..e6|CHK  (e = trap exposure)  (d = understood.guessed.found_wrong.not_found)
 export function encodePayload(profile, state, date = new Date()) {
   const p = SKILLS.map(s => pct(state.skills[s].p)).join('.');
   const n = SKILLS.map(s => state.skills[s].n).join('.');
@@ -24,7 +31,7 @@ export function encodePayload(profile, state, date = new Date()) {
   const ex = TRAPS.map(k => (state.exposure && state.exposure[k]) || 0).join('.');
   const units = Object.keys(state.done).length;
   const d = `${String(date.getFullYear()).slice(2)}${String(date.getMonth() + 1).padStart(2, '0')}${String(date.getDate()).padStart(2, '0')}`;
-  const body = ['IZ1', cleanName(profile.name), profile.grade, profile.lang, p, n, c, t, dg, units, d, ex].join('|');
+  const body = ['IZ1', qrName(profile.name), profile.grade, profile.lang, p, n, c, t, dg, units, d, ex].join('|');
   return `${body}|${checksum(body)}`;
 }
 
