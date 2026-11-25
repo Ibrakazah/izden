@@ -1,2 +1,3 @@
 .vercel
 tests/out/
+__pycache__/
