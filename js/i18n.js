@@ -101,6 +101,7 @@ const STR = {
     diagGuessedCol: 'Дәлелсіз дұрыс',
     topTrap: 'Негізгі қақпан',
     back: 'Артқа',
+    themeLabel: 'Түс тақырыбы', themeAuto: 'Авто', themeLight: 'Жарық', themeDark: 'Күңгірт',
   },
   ru: {
     appTagline: 'Тренажёр чтения и понимания текстов',
@@ -203,6 +204,7 @@ const STR = {
     diagGuessedCol: 'Верно без доказ.',
     topTrap: 'Главная ловушка',
     back: 'Назад',
+    themeLabel: 'Тема оформления', themeAuto: 'Авто', themeLight: 'Светлая', themeDark: 'Тёмная',
   },
 };
 

@@ -59,6 +59,33 @@ function loadState(lang) {
 const saveState = (lang, s) => LS.set('state.' + lang, s);
 const pct = p => Math.round(p * 100);
 
+// ---------- theme: auto (device) -> light -> dark ----------
+const THEME_NEXT = { auto: 'light', light: 'dark', dark: 'auto' };
+const THEME_COLOR = { light: '#16524d', dark: '#121819' };
+const themeMode = () => { const v = LS.get('theme', 'auto'); return v === 'light' || v === 'dark' ? v : 'auto'; };
+function applyTheme(mode) {
+  const root = document.documentElement;
+  if (mode === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', mode);
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+    // forced theme: both media variants carry the chosen colour; auto: back to light/dark by media
+    const dark = (m.getAttribute('media') || '').includes('dark');
+    m.setAttribute('content', mode === 'auto' ? THEME_COLOR[dark ? 'dark' : 'light'] : THEME_COLOR[mode]);
+  });
+  renderThemeBtn(mode);
+}
+function renderThemeBtn(mode = themeMode()) {
+  const b = document.getElementById('theme-btn');
+  if (!b) return;
+  const name = t({ auto: 'themeAuto', light: 'themeLight', dark: 'themeDark' }[mode]);
+  const label = `${t('themeLabel')}: ${name}`;
+  b.dataset.mode = mode;
+  b.title = label;
+  b.setAttribute('aria-label', label);
+  b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><g class="t-auto"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></g>'
+    + '<g class="t-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>'
+    + '<g class="t-moon"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></g></svg>';
+}
+
 // ---------- shell ----------
 function renderShell() {
   const lang = getLang();
@@ -71,6 +98,7 @@ function renderShell() {
     ['#/print', 'navPrint', 'M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z'],
   ].map(([h, k, d]) => `<a href="${h}" data-route="${h}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg><span>${t(k)}</span></a>`).join('');
   document.getElementById('tagline').textContent = t('appTagline');
+  renderThemeBtn();
   markNav();
   updateNetPill();
 }
@@ -810,6 +838,12 @@ async function boot() {
   const p = profile();
   setLang((p && p.lang) || LS.get('lang', 'kk'));
   renderShell();
+  applyTheme(themeMode());
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const next = THEME_NEXT[themeMode()];
+    LS.set('theme', next);
+    applyTheme(next);
+  });
   document.getElementById('lang-switch').addEventListener('click', e => {
     const b = e.target.closest('[data-lang]');
     if (b && b.dataset.lang !== getLang()) switchLang(b.dataset.lang);

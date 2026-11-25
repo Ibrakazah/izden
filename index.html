@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ізден — мәтінді оқып түсіну тренажері</title>
 <meta name="description" content="Офлайн-тренажёр читательской грамотности для 7–9 классов на казахском и русском: сначала докажи по тексту, потом ответь.">
-<meta name="theme-color" content="#16524d">
+<meta name="theme-color" content="#16524d" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121819" media="(prefers-color-scheme: dark)">
+<script>
+// set the saved theme before first paint (no flash); no attribute = follow the device
+(function () {
+  try {
+    var v = JSON.parse(localStorage.getItem('izden.theme'));
+    if (v === 'light' || v === 'dark') document.documentElement.setAttribute('data-theme', v);
+  } catch (e) {}
+  var d = document.documentElement.getAttribute('data-theme');
+  if (d) document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', d === 'dark' ? '#121819' : '#16524d'); });
+})();
+</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -21,6 +33,7 @@
     <span><b>Ізден</b><small id="tagline"></small></span>
   </a>
   <span id="net" class="pill"></span>
+  <button id="theme-btn" class="theme-btn" type="button"></button>
   <div id="lang-switch" class="seg" role="group" aria-label="Тіл / Язык"></div>
 </header>
 <main id="app"><noscript>JavaScript керек / нужен JavaScript.</noscript></main>
