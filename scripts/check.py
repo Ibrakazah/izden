@@ -183,6 +183,8 @@ def validate_unit(u, errs, expect_lang=None):
                 bid, part = m.group(1), m.group(2)
                 if bid not in bmap:
                     qe(f"evidence {ref}: no block {bid}")
+                elif bmap[bid].get("type") == "h":
+                    qe(f"evidence {ref}: headings cannot be tapped, point to a sentence/row/item instead")
                 elif part and part not in evidence_targets(bmap[bid]):
                     qe(f"evidence {ref}: {part} not in block {bid} (type {bmap[bid].get('type')}, "
                        f"valid: {sorted(evidence_targets(bmap[bid]), key=lambda s: int(s[1:]))})")
@@ -371,16 +373,13 @@ def main(argv):
                 all_errs.append(f"bank.{lang}: non-continuous share < 40%")
             if s["rural_share"] < 0.5:
                 all_errs.append(f"bank.{lang}: rural share < 50%")
-            # answer-shape cues: warn (not fail) above thresholds
-            from option_stats import stats as ostats
+            # answer-shape cues: no simple strategy (longest, 2nd longest, shortest, closest to mean length)
+            # and no length rank / displayed position may find the key too often
+            from option_stats import stats as ostats, problems as oproblems
             o = ostats(units)[0]
-            pos = o["displayed_positions"]
-            print(f"bank.{lang}: correct option is the longest in {o['correct_longest']}/{o['questions']} "
-                  f"({o['correct_longest_share']:.0%}), displayed positions A-D {pos}")
-            if o["correct_longest_share"] > 0.30:
-                print(f"WARN bank.{lang}: correct option is the longest in more than 30% of questions")
-            if max(pos) > 0.40 * o["questions"]:
-                print(f"WARN bank.{lang}: one answer position holds more than 40% of correct answers")
+            print(f"bank.{lang}: test-wise strategies {o['strategy_accuracy']}, length ranks {o['rank_counts']}, "
+                  f"displayed positions A-D {o['displayed_positions']}")
+            all_errs += [f"bank.{lang}: {p}" for p in oproblems(o)]
     params = ROOT / "data/bkt_params.json"
     if params.exists():
         json.loads(params.read_text(encoding="utf-8"))

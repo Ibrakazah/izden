@@ -1,0 +1,652 @@
+{
+ "answers": [
+  {
+   "unit": "ru-akimat-04",
+   "q": "q1",
+   "answer": "A",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q2",
+   "answer": "A",
+   "evidence": "b5:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b5:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q4",
+   "answer": "C",
+   "evidence": "b5:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q5",
+   "answer": "A",
+   "evidence": "b2:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q1",
+   "answer": "B",
+   "evidence": "b2:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q2",
+   "answer": "B",
+   "evidence": "b3:s5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q3",
+   "answer": "C",
+   "evidence": "b4:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q4",
+   "answer": "B",
+   "evidence": "b2:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q1",
+   "answer": "B",
+   "evidence": "b4:i1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q2",
+   "answer": "A",
+   "evidence": "b6:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b4:i2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q4",
+   "answer": "D",
+   "evidence": "b6:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q5",
+   "answer": "A",
+   "evidence": "b1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q2",
+   "answer": "C",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q3",
+   "answer": "C",
+   "evidence": "b2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q4",
+   "answer": "C",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q5",
+   "answer": "C",
+   "evidence": "b1:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q1",
+   "answer": "D",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q2",
+   "answer": "C",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b1:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q4",
+   "answer": "A",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q5",
+   "answer": "A",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q2",
+   "answer": "C",
+   "evidence": "b6:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b8:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q4",
+   "answer": "A",
+   "evidence": "b8:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q5",
+   "answer": "D",
+   "evidence": "b1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q1",
+   "answer": "A",
+   "evidence": "b5:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q2",
+   "answer": "A",
+   "evidence": "b3:i4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b5:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q4",
+   "answer": "C",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q5",
+   "answer": "D",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q1",
+   "answer": "A",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q2",
+   "answer": "C",
+   "evidence": "b4:i1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q3",
+   "answer": "A",
+   "evidence": "b2:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q4",
+   "answer": "B",
+   "evidence": "b6:i2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q5",
+   "answer": "A",
+   "evidence": "b5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q1",
+   "answer": "A",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "answer": "C",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b3:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q4",
+   "answer": "C",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q5",
+   "answer": "A",
+   "evidence": "b3:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q2",
+   "answer": "A",
+   "evidence": "b2:r1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q3",
+   "answer": "C",
+   "evidence": "b4:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q4",
+   "answer": "B",
+   "evidence": "b4:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b2:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q2",
+   "answer": "A",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b3:r1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q4",
+   "answer": "A",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "answer": "D",
+   "evidence": "b6:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b2:s7",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q4",
+   "answer": "C",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b2:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q2",
+   "answer": "D",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q3",
+   "answer": "A",
+   "evidence": "b5:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q4",
+   "answer": "D",
+   "evidence": "b6:i4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q1",
+   "answer": "B",
+   "evidence": "b2:r5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q2",
+   "answer": "D",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q3",
+   "answer": "C",
+   "evidence": "b4:s1",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q4",
+   "answer": "B",
+   "evidence": "b4:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q1",
+   "answer": "A",
+   "evidence": "b1:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q2",
+   "answer": "B",
+   "evidence": "b3:s3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q3",
+   "answer": "B",
+   "evidence": "b5:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q4",
+   "answer": "D",
+   "evidence": "b7:s5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q1",
+   "answer": "B",
+   "evidence": "b4:s6",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q2",
+   "answer": "C",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b6:s5",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q4",
+   "answer": "B",
+   "evidence": "b6:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q1",
+   "answer": "C",
+   "evidence": "b2:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q2",
+   "answer": "D",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q3",
+   "answer": "A",
+   "evidence": "b3:r3",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q4",
+   "answer": "B",
+   "evidence": "b1:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q5",
+   "answer": "C",
+   "evidence": "b4:s2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q1",
+   "answer": "B",
+   "evidence": "b3:r2",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q2",
+   "answer": "D",
+   "evidence": "b2:s4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q3",
+   "answer": "D",
+   "evidence": "b3:r4",
+   "ambiguous": false,
+   "note": ""
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q4",
+   "answer": "C",
+   "evidence": "b2:s1",
+   "ambiguous": false,
+   "note": ""
+  }
+ ]
+}

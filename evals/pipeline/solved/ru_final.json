@@ -94,7 +94,7 @@
    "answer": "D",
    "evidence": "b4:i2",
    "ambiguous": false,
-   "note": ""
+   "note": "14+7=21"
   },
   {
    "unit": "ru-library-13",
@@ -174,7 +174,7 @@
    "answer": "D",
    "evidence": "b1:s4",
    "ambiguous": false,
-   "note": ""
+   "note": "(800-200)*2=1200"
   },
   {
    "unit": "ru-bus-01",
@@ -182,7 +182,7 @@
    "answer": "A",
    "evidence": "b3:r2",
    "ambiguous": false,
-   "note": ""
+   "note": "103 (12:30→14:10), 104 (15:00→16:40)"
   },
   {
    "unit": "ru-bus-01",
@@ -228,7 +228,7 @@
    "unit": "ru-drip-06",
    "q": "q5",
    "answer": "D",
-   "evidence": "b1",
+   "evidence": "b7",
    "ambiguous": false,
    "note": ""
   },
@@ -286,7 +286,7 @@
    "answer": "C",
    "evidence": "b4:i1",
    "ambiguous": false,
-   "note": ""
+   "note": "08:00+6 ч"
   },
   {
    "unit": "ru-fever-12",
@@ -324,9 +324,9 @@
    "unit": "ru-hay-03",
    "q": "q2",
    "answer": "C",
-   "evidence": "b2:r5",
+   "evidence": "b1:s4",
    "ambiguous": false,
-   "note": ""
+   "note": "Пт–Сб–Вс единственные 3 сухих подряд (Чт 4 мм)"
   },
   {
    "unit": "ru-hay-03",
@@ -366,7 +366,7 @@
    "answer": "A",
    "evidence": "b2:r1",
    "ambiguous": false,
-   "note": ""
+   "note": "34-14=20"
   },
   {
    "unit": "ru-reading-14",
@@ -406,7 +406,7 @@
    "answer": "D",
    "evidence": "b3:r1",
    "ambiguous": false,
-   "note": ""
+   "note": "Сб: №215 не ходит, №047 приезжает 18:50; №081 сидячий 2100 самый дешёвый"
   },
   {
    "unit": "ru-train-16",
@@ -414,7 +414,7 @@
    "answer": "A",
    "evidence": "b3:r2",
    "ambiguous": false,
-   "note": ""
+   "note": "плацкарт №119 4100 — самый дорогой и самый долгий (7:30)"
   },
   {
    "unit": "ru-fertilizer-15",
@@ -430,7 +430,7 @@
    "answer": "D",
    "evidence": "b6:s2",
    "ambiguous": false,
-   "note": ""
+   "note": "3*4900=14700, 4-й в подарок"
   },
   {
    "unit": "ru-fertilizer-15",
@@ -590,7 +590,7 @@
    "answer": "D",
    "evidence": "b3:r2",
    "ambiguous": false,
-   "note": ""
+   "note": "150*30+150*12=6300"
   },
   {
    "unit": "ru-tariff-08",
@@ -598,15 +598,15 @@
    "answer": "A",
    "evidence": "b3:r3",
    "ambiguous": false,
-   "note": ""
+   "note": "Ким: 250*30+50*12=8100>7500"
   },
   {
    "unit": "ru-tariff-08",
    "q": "q4",
    "answer": "B",
-   "evidence": "b1:s4",
+   "evidence": "b3:r1",
    "ambiguous": false,
-   "note": ""
+   "note": "Ахметовы 7200 vs 7500, экономия 300/мес; 18000/300=60 мес=5 лет"
   },
   {
    "unit": "ru-tariff-08",
@@ -644,7 +644,7 @@
    "unit": "ru-vaccine-02",
    "q": "q4",
    "answer": "C",
-   "evidence": "b2:s1",
+   "evidence": "b1",
    "ambiguous": false,
    "note": ""
   }
