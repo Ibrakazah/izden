@@ -1,0 +1,492 @@
+{
+ "persona": "average",
+ "lang": "ru",
+ "answers": [
+  {
+   "unit": "ru-akimat-04",
+   "q": "q1",
+   "evidence": "b2:s3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q2",
+   "evidence": "b5:s3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q3",
+   "evidence": "b5:s2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q4",
+   "evidence": "b5:s3",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-akimat-04",
+   "q": "q5",
+   "evidence": "b2:s1",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q1",
+   "evidence": "b2:s6",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q2",
+   "evidence": "b3:s5",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q3",
+   "evidence": "b4:s4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-farm-11",
+   "q": "q4",
+   "evidence": "b2:s2",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q1",
+   "evidence": "b4:i1",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q2",
+   "evidence": "b6:s3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q3",
+   "evidence": "b4:i2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q4",
+   "evidence": "b6:s4",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-library-13",
+   "q": "q5",
+   "evidence": "b1",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q1",
+   "evidence": "b2:r4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q2",
+   "evidence": "b2:r4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q3",
+   "evidence": "b2:r4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q4",
+   "evidence": "b2:r4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-potato-09",
+   "q": "q5",
+   "evidence": "b1:s4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q1",
+   "evidence": "b2:r2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q2",
+   "evidence": "b3:r4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q3",
+   "evidence": "b1:s4",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q4",
+   "evidence": "b3:r2",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-bus-01",
+   "q": "q5",
+   "evidence": "b4:s2",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q1",
+   "evidence": "b4:s2",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q2",
+   "evidence": "b6:s3",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q3",
+   "evidence": "b8:s2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q4",
+   "evidence": "b8:s3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-drip-06",
+   "q": "q5",
+   "evidence": "b2:s3",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q1",
+   "evidence": "b5:s2",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q2",
+   "evidence": "b3:i4",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q3",
+   "evidence": "b5:s1",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q4",
+   "evidence": "b2:s3",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-egov-07",
+   "q": "q5",
+   "evidence": "b1",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q1",
+   "evidence": "b3:r3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q2",
+   "evidence": "b4:i1",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q3",
+   "evidence": "b2:s3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q4",
+   "evidence": "b6:i2",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-fever-12",
+   "q": "q5",
+   "evidence": "b5",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q1",
+   "evidence": "b2:r4",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q2",
+   "evidence": "b2:r2",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q3",
+   "evidence": "b3:s3",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q4",
+   "evidence": "b3:s2",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-hay-03",
+   "q": "q5",
+   "evidence": "b3:s2",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q1",
+   "evidence": "b2:r2",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q2",
+   "evidence": "b2:r1",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q3",
+   "evidence": "b4:s4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-reading-14",
+   "q": "q4",
+   "evidence": "b4:s3",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q1",
+   "evidence": "b2:r3",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q2",
+   "evidence": "b3:r3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q3",
+   "evidence": "b2:r1",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-train-16",
+   "q": "q4",
+   "evidence": "b2:r4",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q1",
+   "evidence": "b2:s4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q2",
+   "evidence": "b6:s2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q3",
+   "evidence": "b2:s7",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-fertilizer-15",
+   "q": "q4",
+   "evidence": "b2:s4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q1",
+   "evidence": "b2:r4",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q2",
+   "evidence": "b2:r5",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q3",
+   "evidence": "b5:s3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-flood-10",
+   "q": "q4",
+   "evidence": "b6:i4",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q1",
+   "evidence": "b2:r5",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q2",
+   "evidence": "b4:s2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q3",
+   "evidence": "b4:s1",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-milk-18",
+   "q": "q4",
+   "evidence": "b4:s6",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q1",
+   "evidence": "b1:s2",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q2",
+   "evidence": "b3:s3",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q3",
+   "evidence": "b3:s2",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-saiga-17",
+   "q": "q4",
+   "evidence": "b7:s5",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q1",
+   "evidence": "b4:s6",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q2",
+   "evidence": "b4:s2",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q3",
+   "evidence": "b4:s5",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-school-05",
+   "q": "q4",
+   "evidence": "b6:s4",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q1",
+   "evidence": "b2:r2",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q2",
+   "evidence": "b3:r2",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q3",
+   "evidence": "b3:r3",
+   "answer": "A"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q4",
+   "evidence": "b3:r1",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-tariff-08",
+   "q": "q5",
+   "evidence": "b4:s2",
+   "answer": "C"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q1",
+   "evidence": "b3:r2",
+   "answer": "B"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q2",
+   "evidence": "b2:s4",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q3",
+   "evidence": "b3:r4",
+   "answer": "D"
+  },
+  {
+   "unit": "ru-vaccine-02",
+   "q": "q4",
+   "evidence": "b2",
+   "answer": "C"
+  }
+ ]
+}
