@@ -49,6 +49,18 @@ export function decodePayload(str) {
 // ---- short code (typed by the teacher together with the student's name) ----
 const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 
+// Luhn mod 32 check symbol: catches every single-symbol typo and adjacent swaps (a plain sum does not).
+function luhn32(symbols) {
+  let factor = 2, sum = 0;
+  for (let i = symbols.length - 1; i >= 0; i--) {
+    let add = factor * symbols[i];
+    factor = factor === 2 ? 1 : 2;
+    add = Math.floor(add / 32) + (add % 32);
+    sum += add;
+  }
+  return (32 - (sum % 32)) % 32;
+}
+
 export function encodeShortCode(profile, state) {
   const p = SKILLS.map(s => pct(state.skills[s].p));
   const nTot = Math.min(255, SKILLS.reduce((a, s) => a + state.skills[s].n, 0));
@@ -62,36 +74,29 @@ export function encodeShortCode(profile, state) {
   put(cTot, 8);
   TRAPS.forEach(k => put(Math.min(31, state.traps[k] || 0), 5));
   put(Math.min(31, (state.diag && state.diag.guessed) || 0), 5);
-  const chk = Number(v % 31n);
-  put(chk, 5);
-  let out = '';
-  for (let i = 0; i < 16; i++) { out = B32[Number(v & 31n)] + out; v >>= 5n; }
-  return out.match(/.{4}/g).join('-');
+  const sym = [];
+  for (let i = 0; i < 15; i++) { sym.unshift(Number(v & 31n)); v >>= 5n; } // 75 data bits = 15 symbols
+  sym.push(luhn32(sym));
+  return sym.map(i => B32[i]).join('').match(/.{4}/g).join('-');
 }
 
 export function decodeShortCode(code, name) {
   const s = String(code || '').toUpperCase().replace(/[\s-]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
   if (!/^[0-9A-Z]{16}$/.test(s)) return null;
+  const sym = [...s].map(ch => B32.indexOf(ch));
+  if (sym.some(i => i < 0)) return null;
+  if (luhn32(sym.slice(0, 15)) !== sym[15]) return null;
   let v = 0n;
-  for (const ch of s) {
-    const i = B32.indexOf(ch);
-    if (i < 0) return null;
-    v = (v << 5n) | BigInt(i);
-  }
+  for (const i of sym.slice(0, 15)) v = (v << 5n) | BigInt(i);
   const take = bits => { const x = Number(v & ((1n << BigInt(bits)) - 1n)); v >>= BigInt(bits); return x; };
-  const chk = take(5);
   const guessed = take(5);
   const traps = []; for (let i = 0; i < 6; i++) traps.unshift(take(5));
   const cTot = take(8), nTot = take(8);
   const p = []; for (let i = 0; i < 3; i++) p.unshift(take(7));
   const lang = take(1) ? 'ru' : 'kk';
   const g = take(2);
-  if (v !== 0n || g > 2 || p.some(x => x > 100)) return null;
-  // recompute checksum over the data part
-  let d = 0n;
-  const put = (val, bits) => { d = (d << BigInt(bits)) | BigInt(val); };
-  put(g, 2); put(lang === 'ru' ? 1 : 0, 1); p.forEach(x => put(x, 7)); put(nTot, 8); put(cTot, 8); traps.forEach(x => put(x, 5)); put(guessed, 5);
-  if (Number(d % 31n) !== chk) return null;
+  // nothing answered (e.g. 0000-0000-…) or impossible values -> not a real student code
+  if (v !== 0n || g > 2 || p.some(x => x > 100) || nTot === 0 || cTot > nTot) return null;
   return {
     name: cleanName(name), grade: g + 7, lang, p, n: [nTot, 0, 0], c: [cTot, 0, 0], nTotalOnly: true,
     traps, diag: [0, guessed, 0, 0], units: 0, date: '', source: 'code',
@@ -138,7 +143,13 @@ export async function startScanner(video, onText) {
   const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
   video.srcObject = stream;
   video.setAttribute('playsinline', '');
-  await video.play();
+  try {
+    await video.play();
+  } catch (e) {
+    stream.getTracks().forEach(tr => tr.stop()); // do not leave the camera on
+    video.srcObject = null;
+    throw e;
+  }
   const c = document.createElement('canvas');
   const ctx = c.getContext('2d', { willReadFrequently: true });
   let running = true;

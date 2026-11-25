@@ -5,7 +5,11 @@ Reads the QA pipeline artifacts in evals/pipeline/ and evals/ai_students/calibra
 """
 import json
 from collections import Counter
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pipeline import letter_to_id  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 EV = ROOT / "evals/pipeline"
@@ -59,7 +63,9 @@ def main():
             if rnd == 1:
                 r1 = {"match": sum(1 for q in qids if solved_r1.get((uid, q), {}).get("answer") == r1_key.get((uid, q))),
                       "total": len(qids)}
-            fin = {"match": sum(1 for q in qids if solved_fin.get((uid, q), {}).get("answer") == final_key[(uid, q)]),
+            qobj = {q["id"]: q for q in u["questions"]}
+            fin = {"match": sum(1 for q in qids if (uid, q) in solved_fin and
+                                letter_to_id(uid, qobj[q], solved_fin[(uid, q)].get("answer")) == final_key[(uid, q)]),
                    "ambiguous": sum(1 for q in qids if solved_fin.get((uid, q), {}).get("ambiguous")),
                    "total": len(qids)}
             p_ai = [cal.get(f"{uid}/{q}", {}).get("p_ai") for q in qids]

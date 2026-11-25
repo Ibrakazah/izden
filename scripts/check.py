@@ -5,12 +5,14 @@ Usage:
   python3 scripts/check.py                 # full check: banks, sw.js cache list, no external URLs
   python3 scripts/check.py FILE.json ...   # validate only the given bank/staging files
   python3 scripts/check.py --show FILE.json  # print units with numbered sentences/rows (for reviewers)
+  python3 scripts/check.py --stamp           # set CACHE in sw.js to a hash of all cached files (run before deploy)
 
 Sentence rule (shared with js/text.js): a paragraph is split into sentences by
 the regex (?<=[.!?…])\\s+ ; sentences are numbered from 1 (b3:s1).
 Table rows: rows[0] is the header, data rows are numbered from 1 (b2:r1 == rows[1]).
 Chart rows: numbered from 1 (b4:r1 == rows[0]). List items: from 1 (b5:i1 == items[0]).
 """
+import hashlib
 import json
 import re
 import sys
@@ -275,6 +277,29 @@ def check_external():
     return errs
 
 
+def sw_assets(txt):
+    m = re.search(r"const\s+ASSETS\s*=\s*\[(.*?)\];", txt, re.S)
+    return re.findall(r"['\"]([^'\"]+)['\"]", m.group(1)) if m else None
+
+
+def assets_hash(assets):
+    h = hashlib.sha256()
+    for a in sorted(a.lstrip("./") for a in assets):
+        if a and (ROOT / a).is_file():
+            h.update(a.encode())
+            h.update((ROOT / a).read_bytes())
+    return h.hexdigest()[:10]
+
+
+def stamp_sw():
+    sw = ROOT / "sw.js"
+    txt = sw.read_text(encoding="utf-8")
+    cache = f"izden-{assets_hash(sw_assets(txt))}"
+    txt = re.sub(r"const\s+CACHE\s*=\s*['\"][^'\"]*['\"]", f"const CACHE = '{cache}'", txt, count=1)
+    sw.write_text(txt, encoding="utf-8")
+    print(f"sw.js CACHE = {cache}")
+
+
 def check_sw():
     errs = []
     sw = ROOT / "sw.js"
@@ -285,8 +310,11 @@ def check_sw():
     if not m:
         return ["sw.js: cannot find `const ASSETS = [...]`"]
     assets = re.findall(r"['\"]([^'\"]+)['\"]", m.group(1))
-    if not re.search(r"const\s+CACHE\s*=\s*['\"][^'\"]*v\d+", txt):
-        errs.append("sw.js: CACHE name must contain a version like v3")
+    cm = re.search(r"const\s+CACHE\s*=\s*['\"]([^'\"]*)['\"]", txt)
+    want = f"izden-{assets_hash(assets)}"
+    if not cm or cm.group(1) != want:
+        errs.append(f"sw.js: CACHE is {cm.group(1) if cm else None!r} but cached files hash to {want!r} - "
+                    f"run `python3 scripts/check.py --stamp` so phones fetch the new version")
     for a in assets:
         rel = a.lstrip("./")
         if rel in ("", "/"):
@@ -306,6 +334,9 @@ def check_sw():
 
 
 def main(argv):
+    if argv and argv[0] == "--stamp":
+        stamp_sw()
+        return 0
     if argv and argv[0] == "--show":
         for f in argv[1:]:
             show(f)
@@ -340,6 +371,16 @@ def main(argv):
                 all_errs.append(f"bank.{lang}: non-continuous share < 40%")
             if s["rural_share"] < 0.5:
                 all_errs.append(f"bank.{lang}: rural share < 50%")
+            # answer-shape cues: warn (not fail) above thresholds
+            from option_stats import stats as ostats
+            o = ostats(units)[0]
+            pos = o["displayed_positions"]
+            print(f"bank.{lang}: correct option is the longest in {o['correct_longest']}/{o['questions']} "
+                  f"({o['correct_longest_share']:.0%}), displayed positions A-D {pos}")
+            if o["correct_longest_share"] > 0.30:
+                print(f"WARN bank.{lang}: correct option is the longest in more than 30% of questions")
+            if max(pos) > 0.40 * o["questions"]:
+                print(f"WARN bank.{lang}: one answer position holds more than 40% of correct answers")
     params = ROOT / "data/bkt_params.json"
     if params.exists():
         json.loads(params.read_text(encoding="utf-8"))

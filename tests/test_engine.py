@@ -84,9 +84,12 @@ def test_engine_js_python_match():
     js = run_js()
     if js is not None:
         compare(py, js)
-        EXPECTED.write_text(json.dumps(js, ensure_ascii=False, indent=1), encoding="utf-8")
         src = "live JS (osascript/JavaScriptCore)"
+        if "--update" in sys.argv:  # refresh the golden file only on request
+            EXPECTED.write_text(json.dumps(js, ensure_ascii=False, indent=1), encoding="utf-8")
+            src += "; golden file updated"
     else:
+        print("NOTE: osascript not found, comparing with the golden file exported from JS earlier")
         compare(py, json.loads(EXPECTED.read_text(encoding="utf-8")))
         src = "tests/engine_expected.json"
     # sanity: probabilities in range, adaptive selection never repeats a unit within 10 steps

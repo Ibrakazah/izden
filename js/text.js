@@ -37,6 +37,44 @@ export function evidenceNumbers(unit) {
   return m;
 }
 
+// Paper key: block-level refs ("b4") become the number range of that block ("12–17").
+export function evidenceLabel(unit, refs) {
+  const nums = evidenceNumbers(unit);
+  return refs.map(r => {
+    if (nums.has(r)) return String(nums.get(r));
+    const inBlock = [...nums.entries()].filter(([k]) => k.split(':')[0] === r).map(([, v]) => v);
+    if (!inBlock.length) return r;
+    const lo = Math.min(...inBlock), hi = Math.max(...inBlock);
+    return lo === hi ? String(lo) : `${lo}–${hi}`;
+  }).join(', ');
+}
+
+// Deterministic option order (same as scripts/shuffle.py): FNV-1a("unitId/qid") -> mulberry32 -> Fisher-Yates.
+// Removes position cues (the stored correct option is rarely "a") while keeping print sheet and key in sync.
+function fnv1a(s) {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h >>> 0;
+}
+function mulberry32(a) {
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+export function displayOrder(unitId, q) {
+  const idx = q.options.map((_, i) => i);
+  const rnd = mulberry32(fnv1a(`${unitId}/${q.id}`));
+  for (let i = idx.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [idx[i], idx[j]] = [idx[j], idx[i]];
+  }
+  return idx;
+}
+
 // Is the tapped target (e.g. "b2:r3") valid evidence for refs (e.g. ["b2:r3","b2:r4"] or ["b2"])?
 export function evidenceMatches(tap, refs) {
   if (!tap) return false;

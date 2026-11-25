@@ -1,14 +1,25 @@
 // Izden PWA: student practice (evidence first), progress + QR export, teacher class report, paper mode.
 import { t, tr, tv, setLang, getLang, LANGS } from './i18n.js';
 import * as E from './engine.js';
-import { renderBlocks, showEvidence, clearEvidence, evidenceMatches, evidenceNumbers, esc } from './text.js';
+import { renderBlocks, showEvidence, clearEvidence, evidenceMatches, evidenceLabel, displayOrder, esc } from './text.js';
 import * as Q from './qr.js';
 
 const app = document.getElementById('app');
+// localStorage with an in-memory fallback (private mode / blocked storage): the app keeps working, a toast warns.
+const mem = new Map();
+let storageOk = true;
+try { localStorage.setItem('izden.__t', '1'); localStorage.removeItem('izden.__t'); } catch (e) { storageOk = false; }
 const LS = {
-  get(k, d) { try { const v = localStorage.getItem('izden.' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem('izden.' + k, JSON.stringify(v)); } catch (e) { /* storage full or blocked */ } },
-  del(k) { try { localStorage.removeItem('izden.' + k); } catch (e) { /* ignore */ } },
+  get(k, d) {
+    try { const v = storageOk ? localStorage.getItem('izden.' + k) : mem.get(k); return v ? JSON.parse(v) : d; } catch (e) { return d; }
+  },
+  set(k, v) {
+    const s = JSON.stringify(v);
+    mem.set(k, s);
+    if (!storageOk) return;
+    try { localStorage.setItem('izden.' + k, s); } catch (e) { storageOk = false; toast(t('noStorage')); }
+  },
+  del(k) { mem.delete(k); try { if (storageOk) localStorage.removeItem('izden.' + k); } catch (e) { /* ignore */ } },
 };
 
 let params = null;
@@ -86,7 +97,7 @@ async function route() {
     await fn(...parts.slice(1));
   } catch (e) {
     console.error(e);
-    app.innerHTML = `<div class="card pad"><p>Error: ${esc(e.message)}</p></div>`;
+    app.innerHTML = `<div class="card pad"><p>${t('loadError')}</p><p class="muted small">${esc(e.message)}</p></div>`;
   }
   window.scrollTo(0, 0);
 }
@@ -99,13 +110,15 @@ async function home() {
   let top;
   if (!pr) {
     top = `<section class="hero">
+      <div class="pick-lang" role="group" aria-label="Тіл / Язык">${Object.entries(LANGS).map(([k, v]) => `<button type="button" data-pick="${k}" aria-pressed="${k === lang}">${v}</button>`).join('')}</div>
+      <p class="bilingual"><span lang="kk">Алдымен дәлелде → сосын жауап бер · интернетсіз жұмыс істейді · тапсырмаларды ИИ жасап, тексерген</span>
+        <span lang="ru">Докажи → ответь · работает без интернета · банк заданий от ИИ с проверкой</span></p>
       <h1>${t('welcomeTitle')}</h1>
       <p class="lead">${t('welcomeLead')}</p>
       <form id="onb" class="card form">
         <label>${t('yourName')}<input name="name" required maxlength="24" autocomplete="given-name" placeholder="${t('namePh')}"></label>
-        <div class="row2">
+        <div>
           <label>${t('grade')}<select name="grade">${[7, 8, 9].map(g => `<option value="${g}" ${g === 8 ? 'selected' : ''}>${t('gradeN', g)}</option>`).join('')}</select></label>
-          <label>${t('language')}<select name="lang">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === lang ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
         </div>
         <button class="btn primary big" type="submit">${t('start')}</button>
         <p class="muted small">${t('offlineNote')}</p>
@@ -123,24 +136,31 @@ async function home() {
   app.innerHTML = `${top}
     <section class="card pad"><h2>${t('modesTitle')}</h2><ul class="modes">${modes}</ul></section>
     <section class="card pad about"><p>${t('aboutAi')}</p>${lang === 'kk' ? `<p class="muted small">${t('kkNote')}</p>` : ''}</section>`;
+  app.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => switchLang(b.dataset.pick)));
   const f = document.getElementById('onb');
   if (f) f.addEventListener('submit', ev => {
     ev.preventDefault();
     const d = new FormData(f);
-    const p = { name: String(d.get('name')).trim().slice(0, 24), grade: +d.get('grade'), lang: String(d.get('lang')) };
+    const p = { name: String(d.get('name')).trim().slice(0, 24), grade: +d.get('grade'), lang: getLang() };
     LS.set('profile', p);
     switchLang(p.lang, false);
     location.hash = '#/practice';
   });
   const ed = document.getElementById('edit-prof');
-  if (ed) ed.addEventListener('click', () => { LS.del('profile'); home(); });
+  if (ed) ed.addEventListener('click', () => {
+    // a new student on the same phone must not inherit (and send by QR) the previous student's progress
+    if (!confirm(t('changeProfileConfirm'))) return;
+    ['profile', 'state.kk', 'state.ru', 'session.kk', 'session.ru'].forEach(k => LS.del(k));
+    home();
+  });
 }
 
 function skillBars(st, compact = false) {
   return `<div class="skills${compact ? ' compact' : ''}">${E.SKILLS.map(s => {
     const p = st.skills[s].p;
-    return `<div class="skill sk-${s}" data-skill="${s}"><div class="skill-head"><span>${tr('skills', s)}</span><b>${pct(p)}%</b></div>
-      <div class="meter"><span style="width:${pct(p)}%"></span></div>${compact ? '' : `<p class="muted small">${esc(tr('skillsLong', s))}</p>`}</div>`;
+    const rated = st.skills[s].n > 0;
+    return `<div class="skill sk-${s}${rated ? '' : ' unrated'}" data-skill="${s}"><div class="skill-head"><span>${tr('skills', s)}</span><b title="${rated ? '' : t('notRated')}">${rated ? pct(p) + '%' : '—'}</b></div>
+      <div class="meter"><span style="width:${rated ? pct(p) : 0}%"></span></div>${rated || compact ? '' : `<p class="muted small">${t('notRated')}</p>`}${compact ? '' : `<p class="muted small">${esc(tr('skillsLong', s))}</p>`}</div>`;
   }).join('')}</div>`;
 }
 
@@ -218,9 +238,21 @@ function runQuestion(unit, ses, st, lang) {
   let extraLast;
   const disabled = new Set();
   const correctId = q.options.find(o => o.correct).id;
+  const order = displayOrder(unit.id, q);
 
   clearEvidence(reader);
   reader.classList.add('picking');
+  ses.answered = ses.answered || {};
+  // Already answered (reload, or came back from another screen): show the result, never count it again.
+  const prev = ses.answered[q.id];
+  if (prev) {
+    first = prev;
+    choice = prev.choice;
+    phase = 'done';
+    if (!prev.correct) disabled.add(prev.choice);
+    reader.classList.remove('picking');
+    showEvidence(reader, q.evidence);
+  }
 
   const onTap = ev => {
     const el = ev.target.closest('.tap');
@@ -248,7 +280,7 @@ function runQuestion(unit, ses, st, lang) {
   }
 
   function optionsHtml(lock) {
-    return `<div class="opts" role="radiogroup">${q.options.map((o, i) => {
+    return `<div class="opts" role="radiogroup">${order.map(k => q.options[k]).map((o, i) => {
       const cls = ['opt'];
       if (o.id === choice) cls.push('chosen');
       if (disabled.has(o.id)) cls.push('wrong');
@@ -333,11 +365,13 @@ function runQuestion(unit, ses, st, lang) {
       const diag = E.diagnose(correct, evOk);
       const wrongOpt = q.options.find(o => o.id === choice);
       const before = st.skills[q.process].p;
-      E.applyAnswer(st, params, q, correct, correct ? null : wrongOpt.trap, evOk);
-      saveState(lang, st);
+      if (ses.answered[q.id]) return; // first attempt is recorded exactly once
       first = { correct, evOk, diag, choice };
+      ses.answered[q.id] = first;
       ses.diag.push(diag);
       LS.set('session.' + lang, ses);
+      E.applyAnswer(st, params, q, correct, correct ? null : wrongOpt.trap, evOk);
+      saveState(lang, st);
       animateSkill(q.process, before, st.skills[q.process].p);
       reader.classList.remove('picking');
       if (correct && evOk) {
@@ -388,6 +422,7 @@ function scrollToEl(el) {
 function animateSkill(skill, before, after) {
   const el = document.querySelector(`.topline .skill[data-skill="${skill}"]`);
   if (!el) return;
+  el.classList.remove('unrated');
   el.querySelector('b').textContent = `${pct(after)}%`;
   el.querySelector('.meter span').style.width = `${pct(after)}%`;
   el.classList.remove('up', 'down');
@@ -455,14 +490,14 @@ const saveClass = c => LS.set('class', c);
 
 function addStudent(rec) {
   const c = classData();
-  const key = `${rec.name.toLowerCase()}|${rec.grade}|${rec.lang}`;
+  const key = `${rec.source === 'demo' ? 'demo:' : ''}${rec.name.toLowerCase()}|${rec.grade}|${rec.lang}`;
   c.students[key] = { ...rec, ts: Date.now() };
   saveClass(c);
   return rec.name;
 }
 
 const DEMO = [
-  ['Айгерім', 8, [62, 48, 31], [1, 4, 0, 1, 2, 3], [9, 3, 2, 4]], ['Нұрлан', 8, [71, 55, 40], [0, 3, 1, 2, 1, 1], [11, 2, 1, 2]],
+  ['Жансая', 8, [62, 48, 31], [1, 4, 0, 1, 2, 3], [9, 3, 2, 4]], ['Нұрлан', 8, [71, 55, 40], [0, 3, 1, 2, 1, 1], [11, 2, 1, 2]],
   ['Дана', 8, [45, 38, 22], [2, 5, 2, 1, 3, 4], [5, 4, 3, 6]], ['Ерлан', 8, [80, 66, 52], [0, 1, 0, 2, 0, 1], [14, 1, 1, 1]],
   ['Әсел', 8, [55, 60, 35], [1, 2, 1, 3, 1, 2], [9, 2, 2, 3]], ['Тимур', 8, [38, 30, 18], [3, 4, 2, 2, 4, 5], [4, 5, 3, 6]],
   ['Мадина', 8, [66, 52, 44], [0, 2, 0, 2, 1, 2], [10, 2, 2, 2]], ['Олжас', 8, [50, 42, 28], [2, 3, 1, 1, 2, 3], [6, 3, 3, 4]],
@@ -487,16 +522,24 @@ async function teacher() {
   let stop = null;
   let last = '';
   let lastAt = 0;
+  let badAt = 0;
   const handle = text => {
-    const rec = Q.decodePayload(text);
-    if (!rec) { toast(t('badCode')); return; }
     if (text === last && Date.now() - lastAt < 4000) return;
+    const rec = Q.decodePayload(text);
+    if (!rec) {
+      // a foreign QR stays in the frame for seconds: warn at most every 4 s
+      if (Date.now() - badAt > 4000) { badAt = Date.now(); toast(t(String(text).startsWith('IZ') ? 'badCode' : 'notIzden')); }
+      return;
+    }
     last = text; lastAt = Date.now();
     toast(t('added', addStudent(rec)));
     if (navigator.vibrate) navigator.vibrate(80);
     drawReport();
   };
+  let starting = false;
   document.getElementById('scan').addEventListener('click', async () => {
+    if (stop || starting) return; // already running
+    starting = true;
     const box = document.getElementById('scanner');
     try {
       box.hidden = false;
@@ -504,6 +547,8 @@ async function teacher() {
     } catch (e) {
       box.hidden = true;
       toast(t('noCamera'));
+    } finally {
+      starting = false;
     }
   });
   document.getElementById('stop').addEventListener('click', () => { if (stop) stop(); stop = null; document.getElementById('scanner').hidden = true; });
@@ -545,7 +590,7 @@ async function teacher() {
     const rows = list.map(([key, s]) => {
       const ti = s.traps.indexOf(Math.max(...s.traps));
       const top = Math.max(...s.traps) > 0 ? tr('traps', E.TRAPS[ti]) : '—';
-      return `<tr><th scope="row">${esc(s.name)}${s.source === 'demo' ? ` <span class="tag">${t('demoMark')}</span>` : ''}<small>${s.grade} · ${s.lang}</small></th>
+      return `<tr><th scope="row">${esc(s.name)}${s.source === 'demo' ? ` <span class="tag">${t('demoMark')}</span>` : ''}<small>${t('gradeN', s.grade)} · ${s.lang === 'kk' ? 'қаз' : 'рус'}</small></th>
         ${s.p.map(cell).join('')}<td>${s.diag ? s.diag[1] : '—'}</td><td class="small">${esc(top)}</td>
         <td><button class="x" data-del="${esc(key)}" aria-label="${t('removeStudent')}" type="button">×</button></td></tr>`;
     }).join('');
@@ -611,12 +656,12 @@ function sheetHtml(items, { key, sheet, title, tip }) {
   let qn = 0;
   const keyRows = [];
   const body = items.map(({ unit, qs }) => {
-    const nums = evidenceNumbers(unit);
     const qh = qs.map(q => {
       qn += 1;
-      const ci = q.options.findIndex(o => o.correct);
-      keyRows.push(`<tr><td>${qn}</td><td>${'ABCD'[ci]}</td><td>${q.evidence.map(r => nums.get(r) || r).join(', ')}</td><td>${esc(tr('skills', q.process))}</td></tr>`);
-      return `<li class="pq"><p><b>${qn}.</b> ${esc(q.stem)}</p><ol class="popts">${q.options.map((o, i) => `<li><b>${'ABCD'[i]}</b> ${esc(o.text)}</li>`).join('')}</ol></li>`;
+      const opts = displayOrder(unit.id, q).map(k => q.options[k]); // same order as on screen
+      const ci = opts.findIndex(o => o.correct);
+      keyRows.push(`<tr><td>${qn}</td><td>${'ABCD'[ci]}</td><td>${esc(evidenceLabel(unit, q.evidence))}</td><td>${esc(tr('skills', q.process))}</td></tr>`);
+      return `<li class="pq"><p><b>${qn}.</b> ${esc(q.stem)}</p><ol class="popts">${opts.map((o, i) => `<li><b>${'ABCD'[i]}</b> ${esc(o.text)}</li>`).join('')}</ol></li>`;
     }).join('');
     return `<section class="sheet-unit">${renderBlocks(unit, { numbers: true, compact: true })}<ol class="pqs">${qh}</ol></section>`;
   }).join('');
