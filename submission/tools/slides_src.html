@@ -86,7 +86,7 @@ ul.clean.next li:before{background:var(--marker)}
       <h1 style="font-size:70px">Сначала <span class="mark">докажи</span> в тексте —<br>потом ответь</h1>
       <p class="lead">Офлайн-тренажёр читательской грамотности для 7–9 классов на казахском и русском. Отличает понимание от угадывания и говорит учителю, какую ошибку делает класс.</p>
       <p style="font-size:36px;margin-top:34px"><b style="color:var(--teal)">izden.vercel.app</b> &nbsp;·&nbsp; работает в режиме полёта</p>
-      <p class="ph" style="display:inline-block;font-size:30px;margin-top:10px">Команда: {КОМАНДА}</p>
+      [[if team]]<p style="font-size:30px;margin-top:10px;color:var(--ink-2)">Команда «{{t:team}}»[[if members_names]] · {{t:members_names}}[[/if]]</p>[[/if]]
     </div>
     <div class="phone"><img src="{{IMG:shots_hi/s07_q1_highlight.png}}" alt=""></div>
   </div>
@@ -104,7 +104,7 @@ ul.clean.next li:before{background:var(--marker)}
   </div>
   <div class="row" style="margin-top:30px;gap:40px;align-items:flex-start;flex:none">
     <div class="col"><p style="font-size:34px;margin:0">В селе слабый интернет — онлайн-репетитор с ИИ там работает нестабильно. А тест с выбором ответа <b>не отличает понимание от угадывания</b> и не говорит учителю, <b>какую именно ошибку</b> делает класс.</p></div>
-    <div class="col ph" style="flex:.8"><p style="margin:0;font-size:28px">{ПИЛОТ: N учеников; доля ответов «верно без доказательства»}<br>{ЦИТАТА учителя}</p></div>
+    [[if pilot.n]]<div class="col card" style="flex:.8;border-color:var(--teal)"><p style="margin:0;font-size:28px"><b>Пилот:</b> {{t:pilot.n}} учеников[[if pilot.guessed_pct]] — {{t:pilot.guessed_pct}} верных ответов были без доказательства: обычный тест засчитал бы их как понимание[[/if]].[[if pilot.teacher_quote]]<br><i>«{{t:pilot.teacher_quote}}»</i>[[if pilot.teacher_role]] — {{t:pilot.teacher_role}}[[/if]][[/if]]</p></div>[[/if]]
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">2</span>
 </section>
@@ -207,7 +207,7 @@ ul.clean.next li:before{background:var(--marker)}
     </div>
     <div class="col">
       <div class="card" style="margin-bottom:26px;border-color:var(--coral)"><h3 style="color:var(--coral)">Честно</h3><p class="small" style="margin:0">Симуляция проверяет, что модель работает как задумано, — это не эффект на детях. На 8–16 вопросах адаптивный подбор не лучше фиксированного. Все проверки банка — модели одного семейства.</p></div>
-      <div class="ph"><p style="margin:0;font-size:28px"><b>Пилот 26.11:</b> {ПИЛОТ: N учеников, 7–9 кл.}<br>«верно без доказательства»: {ДОЛЯ}<br>понял «сначала докажи» без подсказки: {ДОЛЯ}<br>{ЦИТАТА учителя}</p></div>
+      [[if pilot.n]]<div class="card" style="border-color:var(--teal)"><p style="margin:0;font-size:28px"><b>Пилот[[if pilot.date]] {{t:pilot.date}}[[/if]]:</b> {{t:pilot.n}} учеников[[if pilot.grades]], {{t:pilot.grades}} кл.[[/if]][[if pilot.guessed_pct]]<br>«верно без доказательства»: {{t:pilot.guessed_pct}}[[/if]][[if pilot.understood_mechanic_pct]]<br>понял «сначала докажи» без подсказки: {{t:pilot.understood_mechanic_pct}}[[/if]][[if pilot.teacher_quote]]<br><i>«{{t:pilot.teacher_quote}}»</i>[[/if]]</p></div>[[/if]]
     </div>
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">7</span>
@@ -259,7 +259,7 @@ ul.clean.next li:before{background:var(--marker)}
         <li>Python 3.12 + Pillow — проверки, симуляция; Playwright, ffmpeg, голос macOS — материалы сдачи</li>
         <li>Vercel — статический хостинг</li>
       </ul>
-      <p class="ph small" style="margin-top:18px">Код: {ССЫЛКА НА КОД}</p>
+      [[if code_url]]<p class="small" style="margin-top:18px">Код: <b>{{t:code_url}}</b></p>[[/if]][[if contact]]<p class="small">Контакт: {{t:contact}}</p>[[/if]][[if kk_proofread.by]]<p class="small">Казахский вычитал(а): {{t:kk_proofread.by}}[[if kk_proofread.texts]] ({{t:kk_proofread.texts}} текстов)[[/if]]</p>[[/if]]
     </div>
     <div class="col">
       <h3>Ограничения (честно)</h3>

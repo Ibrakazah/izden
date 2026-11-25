@@ -6,6 +6,9 @@ import base64, io, re
 from pathlib import Path
 from PIL import Image
 from playwright.sync_api import sync_playwright
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import team  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build"
@@ -20,6 +23,7 @@ def data_uri(rel):
 
 
 src = (ROOT / "tools/slides_src.html").read_text()
+src = team.render(src)  # team.json: empty fields -> blocks disappear, nothing like {…} is left
 html = re.sub(r"\{\{IMG:([^}]+)\}\}", lambda m: data_uri(m.group(1)), src)
 out = ROOT / "slides.html"
 out.write_text(html)

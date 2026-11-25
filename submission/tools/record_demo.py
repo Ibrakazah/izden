@@ -41,9 +41,12 @@ def shot(page, name):
 def slow_click(page, sel, pause=700):
     loc = page.locator(sel).first
     loc.scroll_into_view_if_needed()
-    loc.hover()
-    page.wait_for_timeout(250)
-    loc.click()
+    try:
+        loc.hover(timeout=4000)
+        page.wait_for_timeout(250)
+        loc.click(timeout=4000)
+    except Exception:  # element re-rendered or still animating: click it directly
+        loc.click(force=True)
     page.wait_for_timeout(pause)
 
 
