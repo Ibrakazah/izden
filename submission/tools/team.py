@@ -22,6 +22,8 @@ def load():
     for k in ("guessed_share", "understood_mechanic_share", "qr_first_try_share"):
         v = p.get(k)
         p[k.replace("_share", "_pct")] = (f"{round(v * 100) if v <= 1 else round(v)}%" if isinstance(v, (int, float)) else None)
+    g = p.get("guessed_share")
+    p["guessed_num"] = (str(round(g * 100) if g <= 1 else round(g)) if isinstance(g, (int, float)) else None)
     d["pilot"] = p
     return d
 
