@@ -499,3 +499,21 @@ table.report td, table.report th { vertical-align: middle; }
 .brand svg { border-radius: 10px; }
 :root[data-theme="dark"] .brand svg { box-shadow: 0 0 0 1px var(--line); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand svg { box-shadow: 0 0 0 1px var(--line); } }
+
+/* online AI helper (after the first answer; needs internet) */
+.ai { margin: 10px 0 8px; padding: 10px 12px; border-radius: 12px; background: var(--indigo-soft); }
+.ai > .small { margin: 6px 0 0; }
+.ai-open { gap: 6px; }
+.ai-msg { margin: 0 0 8px; }
+.ai-msg b { display: block; font-size: .78rem; color: var(--muted); }
+.ai-msg p { margin: 2px 0 0; }
+.ai-assistant p { background: var(--card); border-radius: 10px; padding: 8px 10px; }
+.ai-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.chip-q { border: 1.5px solid var(--line); background: var(--card); color: var(--ink); border-radius: 99px; padding: 6px 12px; font: inherit; font-size: .88rem; cursor: pointer; }
+.chip-q:hover { border-color: var(--teal-2); }
+.ai-form { display: flex; gap: 8px; }
+.ai-form input { flex: 1; min-width: 0; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--field); font: inherit; font-size: .95rem; }
+.ai-off { color: var(--warn-text); }
+.ai-busy { margin: 0 0 8px; }
+.qpanel .ai-form .btn.primary { width: auto; flex: none; margin: 0; min-height: 42px; }
+.ai-form input { flex: 1 1 auto; width: auto; }

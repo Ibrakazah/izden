@@ -287,6 +287,9 @@ function runQuestion(unit, ses, st, lang) {
   let choice = rec ? (rec.phase === 'retry' ? null : rec.retryChoice || rec.choice) : null;
   let collapsed = false;
   let extraLast = rec ? rec.extra : undefined;
+  // online AI helper: available only after the first check, so the diagnosis is never helped
+  let aiOpen = false, aiBusy = false;
+  const aiMsgs = [];
   const disabled = new Set(rec ? rec.disabled : []);
 
   const persist = () => { ses.answered[q.id] = rec; LS.set('session.' + lang, ses); };
@@ -361,6 +364,43 @@ function runQuestion(unit, ses, st, lang) {
     return `<div class="diag d-${d}"><span class="diag-ico" aria-hidden="true"></span><div><b>${esc(h)}</b><p>${esc(text)}</p></div></div>`;
   }
 
+  function aiHtml() {
+    if (!aiOpen) return `<div class="ai"><button type="button" class="btn ghost small ai-open" id="ai-open"><span aria-hidden="true">✦</span> ${t('aiAsk')}</button><p class="small muted">${t('aiLead')}</p></div>`;
+    const log = aiMsgs.map(m => `<div class="ai-msg ai-${m.role}"><b>${m.role === 'user' ? t('aiYou') : t('aiBot')}</b><p>${esc(m.content)}${m.bank ? ` <span class="tag">${t('aiFromBank')}</span>` : ''}</p></div>`).join('');
+    const chips = aiMsgs.length ? '' : `<div class="ai-chips">${tv(phase === 'done' ? 'aiChipsDone' : 'aiChips').filter((c, i) => !(i === 2 && phase !== 'retry')).map(c => `<button type="button" class="chip-q" data-ask="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+    const off = navigator.onLine ? '' : `<p class="small ai-off">${t('aiOffline')}</p>`;
+    const busy = aiBusy ? `<p class="small muted ai-busy">${t('aiThinking')}</p>` : '';
+    return `<div class="ai open">${log}${busy}${chips}${off}<form class="ai-form" id="ai-form"><input name="m" maxlength="300" autocomplete="off" placeholder="${t('aiPh')}" ${aiBusy || !navigator.onLine ? 'disabled' : ''}><button class="btn primary small" ${aiBusy || !navigator.onLine ? 'disabled' : ''}>${t('aiSend')}</button></form></div>`;
+  }
+
+  async function askAI(text) {
+    text = String(text || '').trim().slice(0, 300);
+    if (!text || aiBusy) return;
+    aiMsgs.push({ role: 'user', content: text });
+    aiBusy = true; draw(extraLast);
+    if (phase !== 'done' && rec && !rec.aiUsed) { rec.aiUsed = true; persist(); }
+    let reply, bank = false;
+    try {
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), 25000);
+      const r = await fetch('/api/ask', { method: 'POST', signal: ac.signal, headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lang, unit: unit.id, q: q.id, phase, choice: rec ? (rec.retryChoice || rec.choice) : null,
+          messages: aiMsgs.filter(m => !m.err).map(m => ({ role: m.role, content: m.content })) }) });
+      clearTimeout(timer);
+      const j = r.ok ? await r.json() : null;
+      if (!j || typeof j.reply !== 'string' || !j.reply.trim()) throw new Error('bad reply');
+      reply = j.reply.trim(); bank = j.mode !== 'ai';
+    } catch (e) {
+      reply = null;
+    }
+    aiBusy = false;
+    if (reply) aiMsgs.push({ role: 'assistant', content: reply, bank });
+    else { aiMsgs.pop(); aiMsgs.push({ role: 'assistant', content: t('aiErr'), err: true }); }
+    draw(extraLast);
+    const inp = panel.querySelector('#ai-form input');
+    if (inp && !inp.disabled) inp.focus({ preventScroll: true });
+  }
+
   const okMsg = txt => `<div class="diag d-understood"><span class="diag-ico"></span><div><b>${txt}</b></div></div>`;
   const badMsg = txt => `<div class="diag d-not_found"><span class="diag-ico"></span><div><b>${txt}</b></div></div>`;
 
@@ -376,19 +416,19 @@ function runQuestion(unit, ses, st, lang) {
         <button type="button" class="btn primary" id="check" ${choice ? '' : 'disabled'}>${t('check')}</button>`;
     } else if (phase === 'retry') {
       body = diagHtml(rec.diag) + trapHtml(rec.choice) + hintsHtml() + optionsHtml(false)
-        + `<button type="button" class="btn primary" id="check" ${choice && !disabled.has(choice) ? '' : 'disabled'}>${t('check')}</button>`;
+        + `<button type="button" class="btn primary" id="check" ${choice && !disabled.has(choice) ? '' : 'disabled'}>${t('check')}</button>` + aiHtml();
     } else if (phase === 'prove') {
-      body = diagHtml('guessed') + optionsHtml(true);
+      body = diagHtml('guessed') + optionsHtml(true) + aiHtml();
     } else if (phase === 'done') {
       let msg;
-      const helped = rec.helped ? ` <span class="tag">${t('withHelp')}</span>` : '';
+      const helped = rec.helped || rec.aiUsed ? ` <span class="tag">${t('withHelp')}</span>` : '';
       if (extra === 'proved') msg = okMsg(t('proved'));
       else if (extra === 'provedNot') msg = badMsg(t('provedNot'));
       else if (extra === 'second') msg = okMsg(t('correctSecond') + helped);
       else if (extra === 'final') msg = badMsg(t('wrongFinal')) + trapHtml(rec.retryChoice);
       else msg = diagHtml(rec.diag);
       const last = ses.i + 1 >= n;
-      body = msg + optionsHtml(true) + `<div class="explain"><p>${esc(q.explain)}</p></div>`
+      body = msg + optionsHtml(true) + `<div class="explain"><p>${esc(q.explain)}</p></div>` + aiHtml()
         + `<button type="button" class="btn primary" id="next">${last ? t('unitDone') + ' →' : t('next')}</button>`;
     }
     panel.className = `qpanel card ph-${phase}${collapsed ? ' collapsed' : ''}`;
@@ -416,6 +456,11 @@ function runQuestion(unit, ses, st, lang) {
       draw();
       if (el) scrollToEl(el);
     });
+    const ao = panel.querySelector('#ai-open');
+    if (ao) ao.addEventListener('click', () => { aiOpen = true; draw(extraLast); const i = panel.querySelector('#ai-form input'); if (i && !i.disabled) i.focus({ preventScroll: true }); });
+    panel.querySelectorAll('[data-ask]').forEach(b => b.addEventListener('click', () => askAI(b.dataset.ask)));
+    const af = panel.querySelector('#ai-form');
+    if (af) af.addEventListener('submit', e => { e.preventDefault(); askAI(af.elements.m.value); });
     const ck = panel.querySelector('#check');
     if (ck) ck.addEventListener('click', check);
     const nx = panel.querySelector('#next');
