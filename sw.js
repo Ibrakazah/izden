@@ -1,6 +1,6 @@
 // Izden service worker: cache-first for the whole app (one download, then works in airplane mode).
 // Bump CACHE version on every release so phones pick up new files.
-const CACHE = 'izden-4434af96a6';
+const CACHE = 'izden-920da0f7e8';
 const ASSETS = [
   './',
   'index.html',
@@ -38,7 +38,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   const req = event.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin || new URL(req.url).pathname.startsWith('/api/')) return;
   if (req.mode === 'navigate') {
     event.respondWith(caches.match('index.html').then(r => r || fetch(req)));
     return;
