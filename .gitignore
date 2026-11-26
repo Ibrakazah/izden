@@ -1,3 +1,15 @@
 .vercel
 tests/out/
 __pycache__/
+
+# от hackathon.kz
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+.idea/
+.vscode/
+.DS_Store
