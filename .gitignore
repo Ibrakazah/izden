@@ -13,3 +13,10 @@ node_modules/
 .idea/
 .vscode/
 .DS_Store
+
+# internal (kept locally)
+CLAUDE.md
+data/staging_dict/todo_*.txt
+data/staging_tr/src_*.json
+evals/math_blind/*.txt
+evals/tr_blind/*.txt

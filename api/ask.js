@@ -28,8 +28,9 @@ function bank(lang) {
 
 // A small per-instance rate limit (best effort: serverless instances do not share memory).
 const hits = new Map();
-function limited(ip) {
-  const now = Date.now(), win = 10 * 60 * 1000, max = 30;
+function limited(ip, max = 30) {
+  const now = Date.now(), win = 10 * 60 * 1000;
+  if (hits.size > 5000) hits.clear();
   const list = (hits.get(ip) || []).filter((x) => now - x < win);
   list.push(now); hits.set(ip, list);
   return list.length > max;
@@ -79,10 +80,25 @@ function systemPrompt(lang, unit, q, phase, choice) {
     '',
     `ВОПРОС: ${q.stem}`,
     'ВАРИАНТЫ: ' + q.options.map((o) => '«' + o.text + '»').join('; '),
-    `ВЕРНЫЙ ОТВЕТ (секрет${phase === 'done' ? '' : ', не раскрывать'}): «${right.text}». Почему: ${q.explain}`,
+    // until the question is finished the model never sees the key, so it cannot leak it, whatever the student asks
+    phase === 'done' ? `ВЕРНЫЙ ОТВЕТ: «${right.text}». Почему: ${q.explain}` : '',
+    phase === 'prove' && chosen ? `Ученик выбрал верный вариант «${chosen.text}», но не нашёл, где это написано.` : '',
     chosen && !chosen.correct ? `Ученик выбрал «${chosen.text}». Ошибка этого варианта: ${chosen.why}` : '',
     'Шаги подсказки из банка: ' + q.hint_steps.join(' / '),
   ].filter((x) => x !== '').join('\n');
+}
+
+// The first model gets 3.5 s alone; if it is slow or fails, the others join and the first good reply wins.
+// This keeps the daily quota of free models for real use instead of spending three calls per question.
+async function firstReply(run) {
+  const [m0, ...rest] = MODELS;
+  const p0 = run(m0);
+  p0.catch(() => {});
+  try {
+    return await Promise.race([p0, new Promise((_, rej) => setTimeout(() => rej(new Error('slow')), 3500))]);
+  } catch (e) {
+    return Promise.any([p0, ...rest.map(run)]);
+  }
 }
 
 async function callModel(model, messages, key) {
@@ -99,8 +115,8 @@ async function callModel(model, messages, key) {
     const text = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
     if (typeof text !== 'string' || !text.trim()) throw new Error('empty reply');
     // free models sometimes slip a word of Chinese or Vietnamese into a Russian or Kazakh reply: drop such words
-    const clean = text.replace(/[*_#`]/g, '')
-      .replace(/\S*[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}À-ɏḀ-ỿ]\S*/gu, '')
+    const clean = text.replace(/[_#`]/g, '').replace(/\*\*/g, '')
+      .replace(/\S*[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u024FḀ-ỿ]\S*/gu, '')
       .replace(/[ \t]{2,}/g, ' ').replace(/ ([,.?!:;])/g, '$1').replace(/\s+\n/g, '\n').trim().slice(0, MAX_REPLY);
     if (clean.length < 8) throw new Error('reply in another language');
     return clean;
@@ -123,11 +139,11 @@ async function translateWord(body, res) {
   const msgs = [{ role: 'system', content: `Ты двуязычный словарь для школьников Казахстана. Переведи слово с ${from} на ${to} язык с учётом предложения. Ответь строго JSON без пояснений: {"lemma":"начальная форма слова на языке оригинала","tr":"перевод начальной формы, 1–3 слова"}` },
     { role: 'user', content: `Слово: ${w}\nПредложение: ${String(ctx || '').slice(0, 300)}` }];
   try {
-    const { reply } = await Promise.any(MODELS.map((model) => callModel(model, msgs, key).then((reply) => {
+    const { reply } = await firstReply((model) => callModel(model, msgs, key).then((reply) => {
       const m = /\{[\s\S]*\}/.exec(reply); const j = m && JSON.parse(m[0]);
       if (!j || typeof j.tr !== 'string' || !j.tr.trim()) throw new Error('bad json');
       return { reply: j };
-    })));
+    }));
     return res.status(200).json({ lemma: String(reply.lemma || w).slice(0, 40), tr: reply.tr.trim().slice(0, 80), mode: 'ai' });
   } catch (e) {
     return res.status(502).json({ error: 'ai unavailable' });
@@ -138,11 +154,14 @@ module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0] || 'local';
-  if (limited(ip)) return res.status(429).json({ error: 'too many requests' });
-
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = null; } }
-  if (body && body.mode === 'word') return translateWord(body, res);
+  // a whole class may share one school IP: the word translator and the helper have separate, larger budgets
+  if (body && body.mode === 'word') {
+    if (limited(ip + '|w', 120)) return res.status(429).json({ error: 'too many requests' });
+    return translateWord(body, res);
+  }
+  const busy = limited(ip, 90);
   const { lang, unit: unitId, q: qId, phase, choice, messages } = body || {};
   if (!['kk', 'ru'].includes(lang) || !PHASES.has(phase) || !Array.isArray(messages) || !messages.length) return res.status(400).json({ error: 'bad request' });
   const unit = bank(lang).units.find((u) => u.id === unitId);
@@ -155,11 +174,11 @@ module.exports = async function handler(req, res) {
 
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'mock' });
+  if (busy) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'fallback' });
 
   const msgs = [{ role: 'system', content: systemPrompt(lang, unit, q, phase, choice) }, ...turns];
-  // ask every model at once and take the first good reply: one slow or rate-limited free model no longer costs 9 s
   try {
-    const { reply, model } = await Promise.any(MODELS.map((model) => callModel(model, msgs, key).then((reply) => ({ reply, model }))));
+    const { reply, model } = await firstReply((model) => callModel(model, msgs, key).then((reply) => ({ reply, model })));
     if (phase !== 'done' && leaks(reply, q)) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'guarded' });
     return res.status(200).json({ reply, mode: 'ai', model });
   } catch (e) {

@@ -50,9 +50,9 @@ async function loadJSON(url) {
   if (!r.ok) throw new Error(url + ' ' + r.status);
   return r.json();
 }
-async function bank(lang) {
-  const k = skey(lang);
-  if (!banks[k]) banks[k] = (await loadJSON(`data/${subject() === 'math' ? 'math' : 'bank'}.${lang}.json`)).units;
+async function bank(lang, subj = subject()) {
+  const k = lang + (subj === 'math' ? '.math' : '');
+  if (!banks[k]) banks[k] = (await loadJSON(`data/${subj === 'math' ? 'math' : 'bank'}.${lang}.json`)).units;
   return banks[k];
 }
 
@@ -230,7 +230,7 @@ async function home() {
   if (ed) ed.addEventListener('click', () => {
     // a new student on the same phone must not inherit (and send by QR) the previous student's progress
     if (!confirm(t('changeProfileConfirm'))) return;
-    ['profile', 'state.kk', 'state.ru', 'session.kk', 'session.ru', 'state.kk.math', 'state.ru.math', 'session.kk.math', 'session.ru.math'].forEach(k => LS.del(k));
+    ['profile', 'state.kk', 'state.ru', 'session.kk', 'session.ru', 'state.kk.math', 'state.ru.math', 'session.kk.math', 'session.ru.math', 'words', 'xlate'].forEach(k => LS.del(k));
     home();
   });
 }
@@ -312,7 +312,9 @@ function wireXlate(unit, lang, ses) {
   }, true);
   document.getElementById('twin-btn').addEventListener('click', async () => {
     const d = document.getElementById('twin-dlg');
-    const tw = await findTwin(unit, lang);
+    if (d.open || d.dataset.busy) return;
+    d.dataset.busy = '1';
+    const tw = await findTwin(unit, lang).finally(() => { delete d.dataset.busy; });
     const q = tw && ses && tw.questions.find(x => x.id === ses.qids[ses.i]);
     d.innerHTML = tw ? `<form method="dialog"><div class="twin-head"><p class="muted small">${t(lang === 'kk' ? 'twinRu' : 'twinKk')}</p><button class="w-x" aria-label="×">×</button></div>${renderBlocks(tw, { compact: true })}
         ${q ? `<p class="twin-q"><b>${esc(q.stem)}</b></p>` : ''}<button class="btn primary">OK</button></form>`
@@ -405,8 +407,12 @@ function runQuestion(unit, ses, st, lang) {
       if (!ok && firstEl) scrollToEl(firstEl);
     }
   };
+  const onKey = ev => {
+    if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList && ev.target.classList.contains('tap')) { ev.preventDefault(); ev.target.click(); }
+  };
   reader.addEventListener('click', onTap);
-  cleanup = () => reader.removeEventListener('click', onTap);
+  reader.addEventListener('keydown', onKey);
+  cleanup = () => { reader.removeEventListener('click', onTap); reader.removeEventListener('keydown', onKey); };
 
   function scrollPanel() {
     if (window.matchMedia('(max-width: 899px)').matches) panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -672,10 +678,15 @@ async function progress() {
       <p class="muted small">${t('shortCode')}</p><p class="short-code" id="scode"></p>
     </section>
     <p class="center"><button class="btn ghost" id="reset" type="button">${t('resetProgress')}</button></p>`;
+  if (subject() === 'math') {
+    // the class report (QR / short code) is built for reading; maths progress stays on the phone for now
+    document.getElementById('share').innerHTML = `<h2>${t('shareTitle')}</h2><p class="muted">${t('shareMathNote')}</p>`;
+  } else {
   const payload = Q.encodePayload({ ...pr, lang }, st);
   document.getElementById('qr').innerHTML = Q.qrSvg(payload);
   document.getElementById('qr').dataset.payload = payload;
   document.getElementById('scode').textContent = Q.encodeShortCode({ ...pr, lang }, st);
+  }
   bindSubj();
   document.getElementById('reset').addEventListener('click', () => {
     if (!confirm(t('resetConfirm'))) return;
@@ -708,7 +719,7 @@ async function teacher() {
   // share of bank questions offering each trap type: estimates exposure for students added by short code
   const trapShareInBank = {};
   for (const l of ['kk', 'ru']) {
-    const qs = (await bank(l)).flatMap(u => u.questions);
+    const qs = (await bank(l, 'read')).flatMap(u => u.questions);
     trapShareInBank[l] = E.TRAPS.map(tp => qs.filter(q => q.options.some(o => !o.correct && o.trap === tp)).length / qs.length);
   }
   const exposureOf = s => {
@@ -863,7 +874,7 @@ async function trapPage(type) {
   const lang = getLang();
   const card = (trapCards[lang] || {})[type];
   if (!card) { location.hash = '#/teacher'; return; }
-  const units = await bank(lang);
+  const units = await bank(lang, 'read');
   // mini-sheet: the unit with the most distractors of this trap type, only its questions that contain it
   let best = null, bestN = 0;
   for (const u of units) {
@@ -967,6 +978,7 @@ function switchLang(l, rerender = true) {
 async function boot() {
   const p = profile();
   D.initDict(LS);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') D.closeSheet(); });
   setLang((p && p.lang) || LS.get('lang', 'kk'));
   renderShell();
   applyTheme(themeMode());

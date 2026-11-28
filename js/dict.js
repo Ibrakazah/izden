@@ -55,24 +55,30 @@ export function wordAt(x, y) {
   const range = document.createRange();
   range.setStart(node, a); range.setEnd(node, b);
   const holder = node.parentElement.closest('.sent, li, tr, .bar-row, .blk-h, .unit-title, figcaption, .stem, .opt') || node.parentElement;
-  return { w, ctx: holder.textContent.replace(/\s+/g, ' ').trim().slice(0, 300), range };
+  const raw = holder.tagName === 'TR' ? [...holder.children].map(c => c.textContent).join(' ') : holder.textContent;
+  return { w, ctx: raw.replace(/\s+/g, ' ').trim().slice(0, 300), range };
 }
 
 // ---- bottom sheet with the translation ----
 let sheet = null;
-export function closeSheet() { if (sheet) { sheet.remove(); sheet = null; } document.querySelectorAll('.w-hl').forEach(e => e.replaceWith(...e.childNodes)); }
+let seq = 0;
+export function closeSheet() { seq++; if (sheet) { sheet.remove(); sheet = null; } document.querySelectorAll('.w-hl').forEach(e => e.replaceWith(...e.childNodes)); }
 
 export async function showWord(hit, lang, { unitId } = {}) {
   closeSheet();
+  const my = ++seq; // a newer tap or a close makes this call stale
   try { const mark = document.createElement('mark'); mark.className = 'w-hl'; hit.range.surroundContents(mark); } catch (e) { /* range crosses nodes */ }
   const to = lang === 'kk' ? 'ru' : 'kk';
   const d = await loadDict(lang);
+  if (my !== seq) return;
   const found = d[norm(hit.w)];
-  sheet = document.createElement('div');
-  sheet.className = 'wsheet';
-  sheet.setAttribute('role', 'dialog');
-  document.body.appendChild(sheet);
+  const el = sheet = document.createElement('div');
+  el.className = 'wsheet';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-label', hit.w);
+  document.body.appendChild(el);
   const draw = (entry, state) => {
+    if (my !== seq) return;
     const lemma = entry ? entry[0] : norm(hit.w);
     const saved = entry && isSaved(lang, lemma);
     const body = entry
@@ -86,12 +92,12 @@ export async function showWord(hit, lang, { unitId } = {}) {
     const saveBtn = entry ? (saved
       ? `<button type="button" class="btn ghost small" disabled>✓ ${t('wSaved')}</button>`
       : `<button type="button" class="btn primary small" data-w="save">＋ ${t('wSave')}</button>`) : '';
-    sheet.innerHTML = `<div class="wsheet-in"><div class="w-head"><b class="w-word">${esc(hit.w)}</b>${entry && norm(entry[0]) !== norm(hit.w) ? `<span class="muted"> → ${esc(entry[0])}</span>` : ''}
-      <button type="button" class="w-x" data-w="close" aria-label="×">×</button></div>${body}<div class="btnrow">${saveBtn}${aiBtn}<a class="btn ghost small" href="#/dict">${t('navDict')}</a></div></div>`;
+    el.innerHTML = `<div class="wsheet-in"><div class="w-head"><b class="w-word">${esc(hit.w)}</b>${entry && norm(entry[0]) !== norm(hit.w) ? `<span class="muted"> → ${esc(entry[0])}</span>` : ''}
+      <button type="button" class="w-x" data-w="close" aria-label="${t('wClose')}">×</button></div>${body}<div class="btnrow">${saveBtn}${aiBtn}<a class="btn ghost small" href="#/dict">${t('navDict')}</a></div></div>`;
   };
   let entry = found || null;
   draw(entry);
-  sheet.addEventListener('click', async e => {
+  el.addEventListener('click', async e => {
     const b = e.target.closest('[data-w]');
     if (!b) return;
     if (b.dataset.w === 'close') closeSheet();
@@ -99,7 +105,10 @@ export async function showWord(hit, lang, { unitId } = {}) {
     if (b.dataset.w === 'ai') {
       draw(null, 'busy');
       try {
-        const r = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'word', lang, word: hit.w, ctx: hit.ctx }) });
+        const ac = new AbortController();
+        const timer = setTimeout(() => ac.abort(), 15000);
+        const r = await fetch('/api/ask', { method: 'POST', signal: ac.signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'word', lang, word: hit.w, ctx: hit.ctx }) });
+        clearTimeout(timer);
         const j = r.ok ? await r.json() : null;
         if (!j || !j.tr) throw new Error('no');
         entry = [j.lemma || norm(hit.w), j.tr, 1];
@@ -115,18 +124,19 @@ export function dictPage(app) {
   const all = words();
   const due = dueWords();
   const learned = all.filter(x => x.box >= 3).length;
-  const list = all.map(x => `<li><div><b>${esc(x.lemma)}</b> <span class="w-flag">${x.lang === 'kk' ? 'ҚАЗ' : 'РУС'}</span> — ${esc(x.tr)}
+  const list = all.map((x, i) => `<li><div><b>${esc(x.lemma)}</b> <span class="w-flag">${x.lang === 'kk' ? 'ҚАЗ' : 'РУС'}</span> — ${esc(x.tr)}
       ${x.ctx ? `<p class="small muted">${esc(x.ctx)}</p>` : ''}</div>
       <span class="w-box" title="${t('wBox')}">${'●'.repeat(Math.min(x.box, 5))}${'○'.repeat(Math.max(0, 5 - x.box))}</span>
-      <button type="button" class="w-x" data-del="${esc(x.lang + '|' + x.lemma)}" aria-label="${t('wDelete')}">×</button></li>`).join('');
+      <button type="button" class="w-x" data-del="${i}" aria-label="${t('wDelete')}">×</button></li>`).join('');
   app.innerHTML = `<section class="card pad"><h1>${t('dictTitle')}</h1>
       <div class="stats"><div><b>${all.length}</b><span>${t('wTotal')}</span></div><div><b>${learned}</b><span>${t('wLearned')}</span></div><div><b>${due.length}</b><span>${t('wDue')}</span></div></div>
       ${all.length ? `<button class="btn primary big" id="w-review" type="button" ${due.length ? '' : 'disabled'}>${due.length ? t('wReview', due.length) : t('wNoDue')}</button>` : ''}
       <p class="muted small">${t('dictLead')}</p></section>
     ${all.length ? `<section class="card pad"><ul class="wlist">${list}</ul></section>` : `<section class="card pad"><p>${t('dictEmpty')}</p><a class="btn primary" href="#/practice">${t('navPractice')}</a></section>`}`;
   app.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => {
-    const [l, lemma] = b.dataset.del.split('|');
-    removeWord(l, lemma); dictPage(app);
+    const x = all[+b.dataset.del];
+    if (x) removeWord(x.lang, x.lemma);
+    dictPage(app);
   }));
   const rv = document.getElementById('w-review');
   if (rv) rv.addEventListener('click', () => review(app));
@@ -142,7 +152,8 @@ function review(app) {
       return;
     }
     const x = deck[i];
-    const ctx = x.ctx ? esc(x.ctx).replace(new RegExp(esc(x.w).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), m => `<b>${m}</b>`) : '';
+    const pat = x.w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const ctx = x.ctx ? esc(x.ctx).replace(new RegExp(`(^|[^\\p{L}&])(${pat})(?=[^\\p{L}]|$)`, 'iu'), (m, a, w) => `${a}<b>${w}</b>`) : '';
     app.innerHTML = `<section class="card pad wcard"><p class="muted small">${i + 1} / ${deck.length}</p>
       <div class="meter"><span style="width:${Math.round(i / deck.length * 100)}%"></span></div>
       <p class="w-front">${esc(x.lemma)} <span class="w-flag">${x.lang === 'kk' ? 'ҚАЗ' : 'РУС'}</span></p>

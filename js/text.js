@@ -90,22 +90,22 @@ export function renderBlocks(unit, { compact = false, numbers = false } = {}) {
     if (b.type === 'h') {
       out.push(`<h3 class="blk-h" data-ev="${b.id}">${esc(b.text)}</h3>`);
     } else if (b.type === 'p') {
-      const ss = splitSentences(b.text).map((s, i) => `<span class="sent tap" data-ev="${b.id}:s${i + 1}">${num(`${b.id}:s${i + 1}`)}${esc(s)}</span>`);
+      const ss = splitSentences(b.text).map((s, i) => `<span class="sent tap" tabindex="0" data-ev="${b.id}:s${i + 1}">${num(`${b.id}:s${i + 1}`)}${esc(s)}</span>`);
       out.push(`<p class="blk-p" data-ev="${b.id}">${ss.join(' ')}</p>`);
     } else if (b.type === 'list') {
-      const li = b.items.map((s, i) => `<li class="tap" data-ev="${b.id}:i${i + 1}">${num(`${b.id}:i${i + 1}`)}${esc(s)}</li>`).join('');
+      const li = b.items.map((s, i) => `<li class="tap" tabindex="0" data-ev="${b.id}:i${i + 1}">${num(`${b.id}:i${i + 1}`)}${esc(s)}</li>`).join('');
       out.push(`<ul class="blk-list" data-ev="${b.id}">${li}</ul>`);
     } else if (b.type === 'table') {
       const [head, ...rows] = b.rows;
       const th = head.map(c => `<th scope="col">${esc(c)}</th>`).join('');
-      const tr = rows.map((r, i) => `<tr class="tap" data-ev="${b.id}:r${i + 1}">${r.map((c, j) => `<td>${j === 0 ? num(`${b.id}:r${i + 1}`) : ''}${esc(c)}</td>`).join('')}</tr>`).join('');
+      const tr = rows.map((r, i) => `<tr class="tap" tabindex="0" data-ev="${b.id}:r${i + 1}">${r.map((c, j) => `<td>${j === 0 ? num(`${b.id}:r${i + 1}`) : ''}${esc(c)}</td>`).join('')}</tr>`).join('');
       out.push(`<figure class="blk-table" data-ev="${b.id}">${b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''}`
         + `<div class="table-scroll" tabindex="0"><table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table></div></figure>`);
     } else if (b.type === 'chart') {
       const max = Math.max(...b.rows.map(r => r[1]), 0) || 1;
       const bars = b.rows.map((r, i) => {
         const w = Math.max(0, (r[1] / max) * 100);
-        return `<div class="bar-row tap" data-ev="${b.id}:r${i + 1}"><span class="bar-label">${num(`${b.id}:r${i + 1}`)}${esc(r[0])}</span>`
+        return `<div class="bar-row tap" tabindex="0" data-ev="${b.id}:r${i + 1}"><span class="bar-label">${num(`${b.id}:r${i + 1}`)}${esc(r[0])}</span>`
           + `<span class="bar-track"><span class="bar" style="width:${w.toFixed(1)}%"></span></span>`
           + `<span class="bar-val">${esc(fmtNum(r[1]))}</span></div>`;
       }).join('');
