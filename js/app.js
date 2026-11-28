@@ -808,7 +808,8 @@ async function teacher() {
     const el = document.getElementById('report');
     const demoBtn = `<button class="btn ghost small" id="demo" type="button">${t('demoClass')}</button>`;
     if (!list.length) {
-      el.innerHTML = `<h2>${t('students')}</h2><p class="muted">${t('noStudents')}</p>${demoBtn}`;
+      el.innerHTML = `<h2>${t('students')}</h2><p class="muted">${t('noStudents')}</p>${demoBtn}
+        <div class="start3"><h3>${t('start3Title')}</h3><ol>${tv('start3').map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>`;
       document.getElementById('demo').addEventListener('click', addDemo);
       return;
     }
