@@ -12,7 +12,8 @@
 
 - **Сайт:** https://izden.vercel.app (учитель: вкладка «Учитель», кнопка «Демо-класс»)
 - **Питч-видео (1:59):** [`submission/pitch.mp4`](submission/pitch.mp4)
-- **Презентация (10 слайдов):** [`submission/slides.pdf`](submission/slides.pdf)
+- **Презентация (11 слайдов, к финалу 29.11):** [`submission/slides.pdf`](submission/slides.pdf)
+- **Сценарий защиты на 7 минут и ответы на вопросы:** [`submission/DEFENSE.md`](submission/DEFENSE.md)
 - **Описание для жюри:** [`submission/DESCRIPTION.md`](submission/DESCRIPTION.md)
 
 ## Проблема

@@ -1,7 +1,24 @@
 {
   "_help": "Заполните то, что есть. Пустая строка, null или [] = блок не показывается на слайдах, в видео, DEFENSE.md и DESCRIPTION.md. После правки: python3 tools/render_docs.py && python3 tools/build_slides.py && python3 tools/make_video.py",
   "team": "",
-  "members": [],
+  "members": [
+    {
+      "name": "Али",
+      "role": "питчер: выступление и защита"
+    },
+    {
+      "name": "Ибрахим",
+      "role": "разработка: код, ИИ-конвейер, проверки"
+    },
+    {
+      "name": "Темирлан",
+      "role": "дизайн: интерфейс и презентация"
+    },
+    {
+      "name": "Адлет",
+      "role": "координация работы команды"
+    }
+  ],
   "_members_example": [
     {
       "name": "Имя Фамилия",

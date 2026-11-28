@@ -74,17 +74,30 @@ ul.clean.next li:before{background:var(--marker)}
 .logo{display:inline-flex;align-items:center;gap:22px}
 .logo i{width:96px;height:96px;border-radius:24px;background:var(--teal);display:inline-flex;align-items:center;justify-content:center;color:var(--marker);font-style:normal;font-size:58px;font-weight:900}
 </style>
+<style>
+.tag{display:inline-block;font-size:22px;font-weight:800;letter-spacing:.06em;padding:4px 14px;border-radius:10px;background:var(--marker-soft);color:#6b4d00;margin-left:12px;vertical-align:middle}
+.trio{display:flex;gap:34px;align-items:flex-start;justify-content:center}
+.trio .step{display:flex;flex-direction:column;align-items:center;gap:14px}
+.trio .cap{font-size:25px;line-height:1.3;text-align:center;max-width:330px;margin:0}
+.timeline{display:flex;gap:18px;margin-top:8px}
+.timeline .t{flex:1;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:22px 24px}
+.timeline .t b{display:block;font-size:24px;color:var(--teal-2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.timeline .t p{font-size:26px;margin:0}
+.cmp td,.cmp th{padding:10px 16px;font-size:27px}
+.appx{position:absolute;right:110px;top:40px;font-size:22px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+</style>
 </head>
 <body>
+
 
 <!-- 1. Title -->
 <section class="slide">
   <div class="row" style="align-items:center">
     <div class="col">
-      <p class="eyebrow">Órleu Hack 2026 · Кейс 3 «Читать и понимать»</p>
+      <p class="eyebrow">Órleu Hack 2026 · Кейс 3 «Читать и понимать» · финал</p>
       <div class="logo" style="margin-bottom:34px"><i>І</i><span style="font-size:120px;font-weight:800;letter-spacing:-.03em">Ізден</span></div>
-      <h1 style="font-size:70px">Сначала <span class="mark">докажи</span> в тексте —<br>потом ответь</h1>
-      <p class="lead">Офлайн-тренажёр читательской грамотности для 7–9 классов на казахском и русском. Отличает понимание от угадывания и говорит учителю, какую ошибку делает класс.</p>
+      <h1 style="font-size:70px">Сначала <span class="mark">докажи</span> —<br>потом ответь</h1>
+      <p class="lead">Офлайн-тренажёр для 7–9 классов сельских школ: чтение и математическая грамотность на казахском и русском. Отличает понимание от угадывания и говорит учителю, какую ошибку делает класс.</p>
       <p style="font-size:36px;margin-top:34px"><b style="color:var(--teal)">izden.vercel.app</b> &nbsp;·&nbsp; работает в режиме полёта</p>
       [[if team]]<p style="font-size:30px;margin-top:10px;color:var(--ink-2)">Команда «{{t:team}}»[[if members_names]] · {{t:members_names}}[[/if]]</p>[[/if]]
     </div>
@@ -95,65 +108,39 @@ ul.clean.next li:before{background:var(--marker)}
 
 <!-- 2. Problem -->
 <section class="slide">
-  <p class="eyebrow">Проблема</p>
-  <h2 style="margin-bottom:30px">[[if pilot.guessed_pct]]В нашем пилоте {{t:pilot.guessed_pct}} верных ответов дети дали, не найдя доказательство в тексте — обычный тест засчитал бы их как «умеет читать»[[else]]Двое из трёх 15-летних не могут найти в тексте нужное и сделать вывод[[/if]]</h2>
+  <p class="eyebrow">Проблема и для кого она важна</p>
+  <h2 style="margin-bottom:30px">Двое из трёх 15-летних не могут найти в тексте нужное и сделать вывод</h2>
   <div class="row" style="gap:40px;flex:none">
     <div class="col card stat"><span class="big coral">36%</span><p>достигли базового 2-го уровня по чтению (ОЭСР — 69%); балл 385 против 461. С 2009 года не растёт: 390 → 385</p><p class="src">PISA 2025, OECD Country Note Kazakhstan</p></div>
-    <div class="col card stat"><span class="big coral">77,9%</span><p>сельских 15-летних ниже уровня 2 по чтению (город — 60,2%); разрыв 37 баллов — вдвое больше 18 по математике</p><p class="src">PISA-2022, национальный отчёт МП РК / «Талдау»</p></div>
-    <div class="col card stat"><span class="big" style="font-size:84px;line-height:1.48">282-НҚ</span><p>приказ МП РК от 24.09.2026: телефон на уроке — только для учебного задания по указанию педагога</p><p class="src">проверено: zakon.kz</p></div>
+    <div class="col card stat"><span class="big coral">77,9%</span><p>сельских 15-летних ниже уровня 2 по чтению (город — 60,2%); разрыв 37 баллов</p><p class="src">PISA-2022, национальный отчёт МП РК / «Талдау»</p></div>
+    <div class="col card stat"><span class="big coral" style="font-size:110px">125</span><p>школ без интернета; высокоскоростной — только в 81%. Телефон на уроке — только по заданию педагога (приказ 282-НҚ)</p><p class="src">МЦРИАП (Kapital.kz); МП РК (24.kz); zakon.kz</p></div>
   </div>
-  <div class="row" style="margin-top:30px;gap:40px;align-items:flex-start;flex:none">
-    <div class="col"><p style="font-size:34px;margin:0">В селе слабый интернет — онлайн-репетитор с ИИ там работает нестабильно. А тест с выбором ответа <b>не отличает понимание от угадывания</b> и не говорит учителю, <b>какую именно ошибку</b> делает класс.</p></div>
-    [[if pilot.n]]<div class="col card" style="flex:.8;border-color:var(--teal)"><p style="margin:0;font-size:28px"><b>Пилот:</b> {{t:pilot.n}} учеников[[if pilot.guessed_pct]] — {{t:pilot.guessed_pct}} верных ответов были без доказательства: обычный тест засчитал бы их как понимание[[/if]].[[if pilot.teacher_quote]]<br><i>«{{t:pilot.teacher_quote}}»</i>[[if pilot.teacher_role]] — {{t:pilot.teacher_role}}[[/if]][[/if]]</p></div>[[/if]]
-  </div>
+  <p style="font-size:36px;margin:40px 0 0">Тест с выбором ответа <b>не отличает понимание от угадывания</b> и не говорит учителю, <span class="mark">какую именно ошибку</span> делает класс. Онлайн-репетиторы в селе работают нестабильно.</p>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">2</span>
 </section>
 
-<!-- 3. User scene -->
-<section class="slide">
-  <p class="eyebrow">Пользователь и момент боли (сцена-пример)</p>
-  <h2>Урок в сельской школе, 8 класс</h2>
-  <div class="row">
-    <div class="col">
-      <div class="card" style="margin-bottom:30px">
-        <h3>Айгерім, 8 сынып</h3>
-        <p style="margin:0">Читает расписание автобуса в райцентр. Выбирает «рейс №107» — смотрит на время <b>отправления</b>, а спрашивали время <b>прибытия</b>. Иногда отвечает верно наугад — и никто этого не замечает.</p>
-      </div>
-      <div class="card">
-        <h3>Учитель</h3>
-        <p style="margin:0">После урока — стопка ответов «A, C, B». Кто понял, а кто угадал? Какую ошибку делает весь класс? Что делать <b>завтра</b>? Интернета для онлайн-платформы нет, телефоны — только по заданию педагога.</p>
-      </div>
-    </div>
-    <div class="col" style="flex:.8;display:flex;flex-direction:column;justify-content:center">
-      <p class="lead" style="font-size:44px;line-height:1.3">Боль: оценка видна,<br><span class="mark">причина ошибки — нет.</span></p>
-      <p class="muted" style="font-size:28px">Ізден нужен в двух местах: у ученика — в момент ответа, у учителя — вечером перед следующим уроком.</p>
-    </div>
-  </div>
-  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">3</span>
-</section>
-
-<!-- 4. Solution -->
+<!-- 3. Solution -->
 <section class="slide">
   <p class="eyebrow">Решение</p>
   <h2>Три вещи, которых нет в обычном тесте</h2>
   <div class="row" style="align-items:center">
     <div class="col">
       <div class="feat"><span class="n">1</span><div><h3>Сначала доказательство, потом ответ</h3><p>Ученик нажимает предложение или строку таблицы. Четыре итога: <span class="pill p-ok">понял</span> <span class="pill p-q">угадал? докажи</span> <span class="pill p-f">нашёл, но вывел неверно</span> <span class="pill p-n">не нашёл</span></p></div></div>
-      <div class="feat"><span class="n">2</span><div><h3>Ловушка по имени + подсказка-шаг</h3><p>У каждого неверного варианта — тип ловушки и объяснение. Подсветка ответа — только по кнопке и помечается «с помощью». Модель навыков подбирает следующий текст под слабый навык.</p></div></div>
-      <div class="feat"><span class="n">3</span><div><h3>Учитель: QR без сети → «что делать завтра»</h3><p>Навыки «найти / понять / оценить», доля «верно без доказательства», главная ловушка класса, приём на 10 минут и печатный лист для учеников без телефона.</p></div></div>
+      <div class="feat"><span class="n">2</span><div><h3>Ловушка по имени + подсказка-шаг</h3><p>У каждого неверного варианта — тип ошибки и объяснение. Модель навыков подбирает следующий текст под самый слабый навык.</p></div></div>
+      <div class="feat"><span class="n">3</span><div><h3>Учитель: QR без сети → «что делать завтра»</h3><p>Кто отвечает верно без доказательства, главная ловушка класса, приём на 10 минут и печатный лист для детей без телефона.</p></div></div>
     </div>
     <div class="phone sm"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div>
     <div class="phone sm"><img src="{{IMG:shots_hi/t04_traps.png}}" alt=""></div>
   </div>
-  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">4</span>
+  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">3</span>
 </section>
 
-<!-- 5. Demo storyboard -->
+<!-- 4. Demo (backup if live demo fails) -->
 <section class="slide">
-  <p class="eyebrow">Демо-сценарий (казахский, режим полёта)</p>
+  <p class="eyebrow">Демонстрация · вживую в режиме полёта (запасной вариант — этот слайд)</p>
   <h2 style="margin-bottom:30px">Угадал → докажи → ловушка класса → приём на завтра</h2>
   <div class="flow">
-    <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div><p class="cap"><b>1.</b> №107: место верное, вывод неверный — ловушка «не та колонка»</p></div>
+    <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div><p class="cap"><b>1.</b> Место верное, вывод неверный — ловушка «не та колонка»</p></div>
     <span class="arrow">→</span>
     <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/s09_q2_prove.png}}" alt=""></div><p class="cap"><b>2.</b> Ответ верный, доказательства нет: «Угадал? Докажи»</p></div>
     <span class="arrow">→</span>
@@ -161,127 +148,126 @@ ul.clean.next li:before{background:var(--marker)}
     <span class="arrow">→</span>
     <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/t05_trapcard.png}}" alt=""></div><p class="cap"><b>4.</b> «Что делать завтра»: приём на 10 минут + мини-лист</p></div>
   </div>
+  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">4</span>
+</section>
+
+<!-- 5. New since the online stage -->
+<section class="slide">
+  <p class="eyebrow">Тот же механизм — шире · добавлено к финалу</p>
+  <h2 style="margin-bottom:26px">Математика, два языка в каждом тексте и свой словарь</h2>
+  <div class="trio">
+    <div class="step"><div class="phone sm" style="height:600px"><img src="{{IMG:shots_new/m1_math_trap.png}}" alt=""></div><p class="cap"><b>Математика:</b> 50 задач, 5 тем. Сначала покажи в условии нужные данные, потом считай</p></div>
+    <div class="step"><div class="phone sm" style="height:600px"><img src="{{IMG:shots_new/w1_word_kk.png}}" alt=""></div><p class="cap"><b>Перевод слова по нажатию</b> kk ↔ ru, без интернета: ≈ 4 300 словоформ на язык</p></div>
+    <div class="step"><div class="phone sm" style="height:600px"><img src="{{IMG:shots_new/w2_twin_ru.png}}" alt=""></div><p class="cap"><b>Тот же текст на втором языке</b> — все 36 текстов переведены, ключи и числа сверены</p></div>
+    <div class="step"><div class="phone sm" style="height:600px"><img src="{{IMG:shots_new/d2_dict_card.png}}" alt=""></div><p class="cap"><b>Словарь с повторением</b> карточками «помню / не помню»: 1–2–4–7–14–30 дней</p></div>
+  </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">5</span>
 </section>
 
-<!-- 6. How it works -->
+<!-- 6. AI -->
 <section class="slide">
-  <p class="eyebrow">Как это работает · где ИИ (честно)</p>
-  <h2 style="margin-bottom:30px">ИИ работает до урока. На телефоне ученика генерации нет</h2>
+  <p class="eyebrow">Где ИИ · честно</p>
+  <h2 style="margin-bottom:30px">ИИ готовит и проверяет задания до урока. Онлайн — помогает, но не говорит ответ</h2>
   <div class="row" style="gap:36px">
-    <div class="zone z-ai" style="flex:1.25">
+    <div class="zone z-ai" style="flex:1.2">
       <span class="ztitle">До урока: конвейер ИИ (Claude)</span>
       <div class="grid4">
-        <div class="box"><h3>1. Генератор</h3><p>тексты из жизни аула и райцентра; kk и ru пишутся отдельно, не переводом</p></div>
-        <div class="box"><h3>2. Слепой решатель</h3><p>другой агент решает без ключа, варианты перемешаны</p></div>
-        <div class="box"><h3>3. Редактор + правщик</h3><p>язык, методика, ловушки; углублённая вычитка kk</p></div>
-        <div class="box"><h3>4. ИИ-ученики</h3><p>4 персоны калибруют сложность и параметры модели</p></div>
+        <div class="box"><h3>1. Генератор</h3><p>тексты и задачи из жизни села: 36 текстов, 50 задач по математике, на kk и ru</p></div>
+        <div class="box"><h3>2. Слепой решатель</h3><p>другой ИИ решает без ключа: чтение <b>165/165</b>, переводы <b>81/81 · 84/84</b>, математика <b>150/150</b> на каждом языке</p></div>
+        <div class="box"><h3>3. Редактор</h3><p>язык, методика, ловушки; 10 из 36 текстов вернул на исправление</p></div>
+        <div class="box"><h3>4. ИИ-ученики</h3><p>4 «ученика» от слабого до сильного калибруют сложность (симуляция, не дети)</p></div>
       </div>
-      <p class="small" style="margin:0"><b>Почему метод:</b> стратегии понимания прочитанного — +7 месяцев прогресса, метапознание — +8 (EEF); отчёт PISA-2022 МП/«Талдау» рекомендует целенаправленно обучать техникам понимания. В обычном классе эффект скромнее (d ≈ 0,19, Okkinga 2018) — поэтому меряем своим тестом до/после.</p>
     </div>
-    <div style="align-self:center;font-size:64px;color:var(--teal)">→</div>
     <div class="zone z-dev" style="flex:1">
-      <span class="ztitle">На устройстве, без сети (~0,9 МБ)</span>
-      <div class="box"><h3>Банк JSON: 36 текстов, 165 вопросов</h3><p>у каждого неверного варианта — ловушка и объяснение</p></div>
-      <div class="box"><h3>Модель навыков (BKT)</h3><p>не генеративный ИИ: по ответу и доказательству оценивает 3 навыка и выбирает следующий текст</p></div>
-      <div class="box"><h3>QR / короткий код → учитель</h3><p>~90 байт, контрольная сумма; печатный лист с ключом</p></div>
+      <span class="ztitle">На телефоне ученика</span>
+      <div class="box"><h3>Без сети (~1,8 МБ)</h3><p>банк заданий, словарь и модель навыков (BKT — не генеративный ИИ) работают в режиме полёта</p></div>
+      <div class="box"><h3>С интернетом: ИИ-помощник</h3><p>открывается только после первой попытки; до конца вопроса модель <b>не видит ключ</b> — выдать ответ не может. Ответ с помощью засчитывается «с помощью»</p></div>
+      <div class="box"><h3>С интернетом: перевод в контексте</h3><p>слово, которого нет в офлайн-словаре, ИИ переводит с учётом предложения</p></div>
     </div>
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">6</span>
 </section>
 
-<!-- 7. Evidence -->
+<!-- 7. Comparison -->
 <section class="slide">
-  <p class="eyebrow">Доказательства (воспроизводимо: evals/, scripts/)</p>
-  <h2 style="margin-bottom:26px">Что проверено и с чем сравнивали</h2>
-  <div class="row" style="gap:44px">
-    <div class="col" style="flex:1.45">
-      <table class="metric">
-        <tr><td>Слепое решение итогового банка (другой ИИ, без ключа)</td><td><b>165 / 165</b> совпали с ключом</td></tr>
-        <tr><td>Тексты, которые редактор вернул на исправление</td><td><b>10 из 36</b> (28%) — исправлены</td></tr>
-        <tr><td>Угадывание по длине вариантов: лучшая стратегия</td><td><b>kk 34%, ru 30%</b> (порог 35%; случайно 25–33%)</td></tr>
-        <tr><td>Ошибка оценки навыка после 40 вопросов (500 синтетических учеников — симуляция, не дети)</td><td><b>0,04</b> адаптивно против <b>0,07</b> фиксированный порядок</td></tr>
-        <tr><td>Освоено навыков после 40 вопросов (симуляция, не дети)</td><td><b>95%</b> против <b>87%</b></td></tr>
-        <tr><td>ИИ-ученики kk: слабый → сильный, верно (симуляция на ИИ-учениках, не дети)</td><td><b>52 / 68 / 87 / 100%</b></td></tr>
-      </table>
-    </div>
-    <div class="col">
-      <div class="card" style="margin-bottom:26px;border-color:var(--coral)"><h3 style="color:var(--coral)">Честно</h3><p class="small" style="margin:0">Симуляция проверяет, что модель работает как задумано, — это не эффект на детях. На 8–16 вопросах адаптивный подбор не лучше фиксированного. Все проверки банка — модели одного семейства.</p></div>
-      [[if pilot.n]]<div class="card" style="border-color:var(--teal)"><p style="margin:0;font-size:28px"><b>Пилот[[if pilot.date]] {{t:pilot.date}}[[/if]]:</b> {{t:pilot.n}} учеников[[if pilot.grades]], {{t:pilot.grades}} кл.[[/if]][[if pilot.guessed_pct]]<br>«верно без доказательства»: {{t:pilot.guessed_pct}}[[/if]][[if pilot.understood_mechanic_pct]]<br>понял «сначала докажи» без подсказки: {{t:pilot.understood_mechanic_pct}}[[/if]][[if pilot.teacher_quote]]<br><i>«{{t:pilot.teacher_quote}}»</i>[[/if]]</p></div>[[/if]]
-    </div>
-  </div>
-  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">7</span>
-</section>
-
-<!-- 8. Comparison -->
-<section class="slide">
-  <p class="eyebrow">Чем лучше существующего</p>
-  <h2 style="margin-bottom:26px">Сравнение</h2>
-  <table>
+  <p class="eyebrow">Чем отличается от существующих</p>
+  <h2 style="margin-bottom:22px">Сравнение</h2>
+  <table class="cmp">
     <tr><th></th><th>Сборники и обычные тесты</th><th>Онлайн-репетиторы с ИИ</th><th>Ізден</th></tr>
     <tr><td><b>Без интернета</b></td><td>бумага — да, онлайн — нет</td><td>нужен постоянный интернет</td><td class="ours yes">да, после одного открытия</td></tr>
     <tr><td><b>Понял или угадал</b></td><td>нет</td><td>частично</td><td class="ours yes">доказательство + 4 итога</td></tr>
-    <tr><td><b>Объяснение ошибки</b></td><td>общий ключ</td><td>да, но может ошибиться</td><td class="ours yes">ловушка + проверенное объяснение</td></tr>
+    <tr><td><b>Объяснение ошибки</b></td><td>общий ключ</td><td>да, но может ошибиться или выдать ответ</td><td class="ours yes">ловушка + проверенное объяснение</td></tr>
     <tr><td><b>Картина класса</b></td><td>вручную</td><td>обычно нет</td><td class="ours yes">QR → навыки, ловушки, приём на завтра</td></tr>
-    <tr><td><b>Сельский контекст, kk и ru</b></td><td>редко</td><td>без проверки</td><td class="ours yes">36 проверенных текстов</td></tr>
-    <tr><td><b>Стоимость на ученика</b></td><td>печать</td><td>подписка или токены</td><td class="ours yes">сайт без сервера</td></tr>
+    <tr><td><b>Казахский и русский</b></td><td>отдельные сборники</td><td>без проверки</td><td class="ours yes">каждый текст на двух языках + перевод слова</td></tr>
+    <tr><td><b>Стоимость на ученика</b></td><td>печать</td><td>подписка или токены</td><td class="ours yes">0 ₸ — сайт без сервера</td></tr>
   </table>
-  <p class="small muted" style="margin-top:22px">Bilimland — раздел «Оқу сауаттылығы» для ЕНТ, офлайн в описании не упомянут; Kundelik — журнал и «тренажёры», по читательской грамотности не нашли; открытого банка НИШ не нашли (по открытым источникам, README).</p>
+  <p class="small muted" style="margin-top:22px">Bilimland — «Оқу сауаттылығы» для ЕНТ, офлайн в описании не упомянут; открытого банка НИШ по читательской грамотности не нашли (по открытым источникам, README).</p>
+  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">7</span>
+</section>
+
+<!-- 8. Launch in Kazakhstan -->
+<section class="slide">
+  <p class="eyebrow">Как запустить в Казахстане</p>
+  <h2 style="margin-bottom:28px">Пользователи · стоимость · первые шаги</h2>
+  <div class="row" style="gap:36px;flex:none">
+    <div class="col card"><h3>Пользователи</h3><p style="margin:0">Ученики 7–9 классов (≈ 1,06 млн), прежде всего сельские школы (67% школ, 2 654 малокомплектные). Канал — учитель: урок по заданию педагога (282-НҚ), домашняя практика, подготовка к «PISA для школ».</p></div>
+    <div class="col card"><h3>Стоимость</h3><p style="margin:0"><b>0 ₸</b> за сервер и <b>0 МБ</b> трафика после первого открытия; без смартфона — печатный лист. Платит район или методкабинет: «пакет района» — новые тексты, вычитка, печать, ≈ 100 тыс. ₸ в год за школу <span class="hyp">гипотеза</span></p></div>
+  </div>
+  <div class="timeline" style="margin-top:30px">
+    <div class="t"><b>Неделя 1–2</b><p>Вычитка казахских текстов учителем-носителем</p></div>
+    <div class="t"><b>Месяц 1</b><p>Пилот: 2 сельские школы, 7–9 классы, тест до и после (протокол готов, docs/PILOT.md)</p></div>
+    <div class="t"><b>Месяц 2–3</b><p>Пересчёт модели навыков на реальных ответах, новые тексты под ловушки класса</p></div>
+    <div class="t"><b>Дальше</b><p>10 школ района через методкабинет → область</p></div>
+  </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">8</span>
 </section>
 
-<!-- 9. Value & scale -->
+<!-- 9. Team -->
 <section class="slide">
-  <p class="eyebrow">Польза и масштаб</p>
-  <h2 style="margin-bottom:30px">Масштабируется как файл, а не как сервер</h2>
-  <div class="row" style="gap:40px">
-    <div class="col">
-      <div class="card" style="margin-bottom:24px"><h3>Охват</h3><p style="margin:0">≈1,06 млн учеников 7–9 классов; 67% школ — в сёлах, 2 654 малокомплектные. Высокоскоростной интернет — в 81% школ, 125 не подключены. Сайт ~0,9 МБ работает в режиме полёта; без смартфона — печатный лист. kk и ru.</p><p class="src" style="margin:6px 0 0">Бюро нацстатистики; Нацдоклад 2025; МП РК (24.kz), МЦРИАП (Kapital.kz)</p></div>
-      <div class="card"><h3>Экономика школы</h3><p style="margin:0"><b>0 ₸</b> за сервер, <b>0 МБ</b> трафика после первого открытия. Урок 45 минут без телефона у каждого: бумажный лист + один телефон учителя.</p><p class="src" style="margin:6px 0 0">Себестоимость текста — оценка ≈ $0,25–1,5 (docs/TECH.md)</p></div>
-    </div>
-    <div class="col">
-      <div class="card" style="margin-bottom:24px"><h3>Бизнес-модель <span class="hyp">гипотеза</span></h3><p style="margin:0">Платит районный отдел образования или методкабинет; ученику и школе — бесплатно. «Пакет района»: N школ, печатные листы, обновление текстов и вычитка — <b>≈ 100 тыс. ₸ в год за школу</b> (<span class="hyp">гипотеза цены</span>). Главные затраты — вычитка и печать (не посчитаны). Путь: 1 школа → 10 школ района → область.</p></div>
-      <div class="card"><h3>Куда встраивается <span class="hyp">гипотеза</span></h3><p style="margin:0">Урок по заданию педагога (282-НҚ), домашняя практика, подготовка к «PISA для школ» — в 2025 году около 1000 школ и 40+ тыс. учеников (gov.kz).</p></div>
-    </div>
-  </div>
+  <p class="eyebrow">Команда и роли</p>
+  <h2>[[if team]]«{{t:team}}»[[else]]Команда[[/if]]</h2>
+  [[if members_line]]<div class="row" style="flex:none;flex-wrap:wrap;gap:30px">{{t:members_cards}}</div>[[else]]<div class="ph"><p style="margin:0">Впишите имена и роли в submission/team.json (members) и пересоберите: python3 tools/build_slides.py</p></div>[[/if]]
+  <p class="lead" style="margin-top:40px">Код открыт: <b>{{t:code_url}}</b></p>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">9</span>
 </section>
 
-<!-- 10. Tools, limits, next -->
+<!-- 10. Close -->
 <section class="slide">
-  <p class="eyebrow">Чем сделано · ограничения · дальше</p>
-  <div class="row" style="gap:44px">
+  <div class="row" style="align-items:center">
     <div class="col">
-      <h3>Инструменты</h3>
-      <ul class="clean small">
-        <li><b>Claude Code / Claude</b> (Anthropic): код; генерация и проверка банка — Opus и Sonnet; ИИ-ученики — Haiku и Sonnet</li>
-        <li>jsQR 1.4.0 (Apache-2.0), qrcode-generator 1.4.4 (MIT) — локально</li>
-        <li>Python 3.12 + Pillow — проверки, симуляция; Playwright, ffmpeg, голос macOS — материалы сдачи</li>
-        <li>Vercel — статический хостинг</li>
-      </ul>
-      [[if code_url]]<p class="small" style="margin-top:18px">Код: <b>{{t:code_url}}</b></p>[[/if]][[if contact]]<p class="small">Контакт: {{t:contact}}</p>[[/if]][[if kk_proofread.by]]<p class="small">Казахский вычитал(а): {{t:kk_proofread.by}}[[if kk_proofread.texts]] ({{t:kk_proofread.texts}} текстов)[[/if]]</p>[[/if]]
+      <div class="logo" style="margin-bottom:30px"><i>І</i><span style="font-size:110px;font-weight:800;letter-spacing:-.03em">Ізден</span></div>
+      <h1 style="font-size:66px">Не «сколько верных»,<br>а <span class="mark">понял или угадал</span></h1>
+      <p class="lead">Нам нужны учителя казахского и русского для вычитки и две сельские школы для пилота.</p>
+      <p style="font-size:44px;margin-top:30px;color:var(--teal)"><b>izden.vercel.app</b></p>
     </div>
-    <div class="col">
-      <h3>Ограничения (честно)</h3>
+    <div class="col" style="flex:.8">
+      <h3>Честно об ограничениях</h3>
       <ul class="clean warn small">
-        <li>Казахские тексты писал и проверял ИИ — нужна вычитка носителем (помечено в паспорте каждого текста)</li>
-        <li>Модель навыков не обучена на детях: ИИ-ученики — имитация</li>
-        <li>18 текстов на язык — на несколько недель, не на год</li>
-        <li>Прогресс хранится на одном телефоне; QR у учителя — копия</li>
+        <li>Пилота на детях ещё не было; ИИ-ученики — имитация</li>
+        <li>Казахский текст, переводы и математику проверял ИИ — нужна вычитка носителем</li>
+        <li>Офлайн-словарь не видит контекста: у омонимов бывают ошибки</li>
+        <li>Прогресс хранится на телефоне ученика; учителю — копия через QR</li>
       </ul>
-    </div>
-    <div class="col">
-      <h3>Следующие шаги</h3>
-      <ul class="clean next small">
-        <li>Пилот: удобство и понятность механики (протокол docs/PILOT.md)</li>
-        <li>Вычитка казахского учителем-носителем</li>
-        <li>Пересчёт параметров модели на реальных ответах</li>
-        <li>Новые тексты тем же конвейером + проверка учителем</li>
-      </ul>
-      <p style="font-size:34px;margin-top:30px;color:var(--teal)"><b>izden.vercel.app</b></p>
     </div>
   </div>
-  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">10</span>
+  <span class="num">10</span>
+</section>
+
+<!-- Appendix: evidence -->
+<section class="slide">
+  <span class="appx">Приложение · для вопросов</span>
+  <p class="eyebrow">Что проверено (воспроизводимо: evals/, scripts/)</p>
+  <h2 style="margin-bottom:26px">Метрики</h2>
+  <table class="metric">
+    <tr><td>Чтение: слепое решение банка другим ИИ, без ключа</td><td><b>165 / 165</b></td></tr>
+    <tr><td>Переводы текстов: слепое решение (kk / ru)</td><td><b>81 / 81 · 84 / 84</b></td></tr>
+    <tr><td>Математика: 50 задач × 2 языка, слепое решение</td><td><b>150 / 150</b> на каждом языке</td></tr>
+    <tr><td>Угадывание по длине вариантов: лучшая стратегия</td><td><b>≈ 30–34%</b> (порог 35%; случайно 25–33%)</td></tr>
+    <tr><td>Модель навыков, 500 синтетических учеников: ошибка оценки после 40 вопросов</td><td><b>0,04</b> адаптивно против <b>0,07</b> (симуляция)</td></tr>
+    <tr><td>Офлайн-словарь: покрытие словоформ из заданий</td><td><b>ru 4 219 / 4 222 · kk 4 381 / 4 381</b></td></tr>
+  </table>
+  <p class="small muted" style="margin-top:18px">Почему метод: стратегии понимания прочитанного — +7 месяцев прогресса (EEF); в обычном классе эффект скромнее (d ≈ 0,19, Okkinga 2018) — поэтому меряем своим тестом до/после.</p>
+  <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">11</span>
 </section>
 
 </body>
