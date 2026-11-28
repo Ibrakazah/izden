@@ -78,12 +78,13 @@ ul.clean.next li:before{background:var(--marker)}
 .tag{display:inline-block;font-size:22px;font-weight:800;letter-spacing:.06em;padding:4px 14px;border-radius:10px;background:var(--marker-soft);color:#6b4d00;margin-left:12px;vertical-align:middle}
 .trio{display:flex;gap:34px;align-items:flex-start;justify-content:center}
 .trio .step{display:flex;flex-direction:column;align-items:center;gap:14px}
-.trio .cap{font-size:24px;line-height:1.28;text-align:center;max-width:380px;margin:0}
+.trio .cap{font-size:30px;line-height:1.25;text-align:center;max-width:400px;margin:0}
 .timeline{display:flex;gap:18px;margin-top:8px}
 .timeline .t{flex:1;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:26px 26px 30px}
 .timeline .t b{display:block;font-size:24px;color:var(--teal-2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
 .timeline .t p{font-size:29px;margin:0}
 .cmp td,.cmp th{padding:13px 18px;font-size:30px}
+.big4 .box p,.box.big4 p{font-size:29px;line-height:1.3}.big4 .box h3,.box.big4 h3{font-size:34px}
 .appx{position:absolute;right:110px;top:40px;font-size:22px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 </style>
 </head>
@@ -156,10 +157,10 @@ ul.clean.next li:before{background:var(--marker)}
   <p class="eyebrow">Тот же механизм — шире · добавлено к финалу</p>
   <h2 style="margin-bottom:18px">Математика, два языка в каждом тексте и свой словарь</h2>
   <div class="trio">
-    <div class="step"><div class="phone sm" style="height:630px"><img src="{{IMG:shots_new/m1_math_trap.png}}" alt=""></div><p class="cap"><b>Математика:</b> 50 задач, 5 тем. Сначала покажи в условии нужные данные, потом считай</p></div>
-    <div class="step"><div class="phone sm" style="height:630px"><img src="{{IMG:shots_new/w1_word_kk.png}}" alt=""></div><p class="cap"><b>Перевод слова по нажатию</b> kk ↔ ru, без интернета: ≈ 4 300 словоформ на язык</p></div>
-    <div class="step"><div class="phone sm" style="height:630px"><img src="{{IMG:shots_new/w2_twin_ru.png}}" alt=""></div><p class="cap"><b>Тот же текст на втором языке</b> — все 36 текстов переведены, ключи и числа сверены</p></div>
-    <div class="step"><div class="phone sm" style="height:630px"><img src="{{IMG:shots_new/d2_dict_card.png}}" alt=""></div><p class="cap"><b>Словарь с повторением</b> карточками «помню / не помню»: 1–2–4–7–14–30 дней</p></div>
+    <div class="step"><div class="phone sm" style="height:670px"><img src="{{IMG:shots_new/m1_math_trap.png}}" alt=""></div><p class="cap"><b>Математика</b><br>50 задач, 5 тем</p></div>
+    <div class="step"><div class="phone sm" style="height:670px"><img src="{{IMG:shots_new/w1_word_kk.png}}" alt=""></div><p class="cap"><b>Перевод слова</b><br>по нажатию, без интернета</p></div>
+    <div class="step"><div class="phone sm" style="height:670px"><img src="{{IMG:shots_new/w2_twin_ru.png}}" alt=""></div><p class="cap"><b>Второй язык</b><br>тот же текст, те же ответы</p></div>
+    <div class="step"><div class="phone sm" style="height:670px"><img src="{{IMG:shots_new/d2_dict_card.png}}" alt=""></div><p class="cap"><b>Свой словарь</b><br>повторение карточками</p></div>
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">5</span>
 </section>
@@ -167,22 +168,22 @@ ul.clean.next li:before{background:var(--marker)}
 <!-- 6. AI -->
 <section class="slide">
   <p class="eyebrow">Где ИИ · честно</p>
-  <h2 style="margin-bottom:30px">ИИ готовит и проверяет задания до урока. Онлайн — помогает, но не говорит ответ</h2>
+  <h2 style="margin-bottom:34px">ИИ готовит и проверяет задания до урока.<br>Онлайн — помогает, но не говорит ответ</h2>
   <div class="row" style="gap:36px">
     <div class="zone z-ai" style="flex:1.2">
-      <span class="ztitle">До урока: конвейер ИИ (Claude)</span>
-      <div class="grid4">
-        <div class="box"><h3>1. Генератор</h3><p>тексты и задачи из жизни села: 36 текстов, 50 задач по математике, на kk и ru</p></div>
-        <div class="box"><h3>2. Слепой решатель</h3><p>другой ИИ решает без ключа: чтение <b>165/165</b>, переводы <b>81/81 · 84/84</b>, математика <b>150/150</b> на каждом языке</p></div>
-        <div class="box"><h3>3. Редактор</h3><p>язык, методика, ловушки; 10 из 36 текстов вернул на исправление</p></div>
-        <div class="box"><h3>4. ИИ-ученики</h3><p>4 «ученика» от слабого до сильного калибруют сложность (симуляция, не дети)</p></div>
+      <span class="ztitle">До урока (Claude)</span>
+      <div class="grid4 big4">
+        <div class="box"><h3>Пишет</h3><p>36 текстов и 50 задач из жизни села, kk и ru</p></div>
+        <div class="box"><h3>Решает вслепую</h3><p><b>165/165</b> · переводы <b>81/81, 84/84</b> · математика <b>150/150</b></p></div>
+        <div class="box"><h3>Редактирует</h3><p>10 из 36 текстов вернул на правку</p></div>
+        <div class="box"><h3>ИИ-ученики</h3><p>калибруют сложность (симуляция, не дети)</p></div>
       </div>
     </div>
     <div class="zone z-dev" style="flex:1">
       <span class="ztitle">На телефоне ученика</span>
-      <div class="box"><h3>Без сети (~1,8 МБ)</h3><p>банк заданий, словарь и модель навыков (BKT — не генеративный ИИ) работают в режиме полёта</p></div>
-      <div class="box"><h3>С интернетом: ИИ-помощник</h3><p>открывается только после первой попытки; до конца вопроса модель <b>не видит ключ</b> — выдать ответ не может. Ответ с помощью засчитывается «с помощью»</p></div>
-      <div class="box"><h3>С интернетом: перевод в контексте</h3><p>слово, которого нет в офлайн-словаре, ИИ переводит с учётом предложения</p></div>
+      <div class="box big4"><h3>Без сети</h3><p>банк заданий, словарь и модель навыков — в телефоне</p></div>
+      <div class="box big4"><h3>ИИ-помощник</h3><p>до конца вопроса не видит ключ — ответ не выдаст</p></div>
+      <div class="box big4"><h3>Перевод в контексте</h3><p>слова, которого нет в словаре</p></div>
     </div>
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">6</span>
