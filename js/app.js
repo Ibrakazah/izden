@@ -838,13 +838,13 @@ async function teacher() {
         if (r > best || (r === best && r > 0 && f > s.traps[ti])) { best = r; ti = i; }
       });
       const top = ti >= 0 ? `${tr('traps', E.TRAPS[ti])} · ${pct(best)}%` : '—';
-      return `<tr><th scope="row">${esc(s.name)}${s.source === 'demo' ? ` <span class="tag">${t('demoMark')}</span>` : ''}<small>${t('gradeN', s.grade)} · ${s.lang === 'kk' ? 'қаз' : 'рус'}</small></th>
-        ${s.p.map(cell).join('')}<td>${s.diag ? s.diag[1] : '—'}</td><td class="small">${esc(top)}</td>
+      return `<tr><th scope="row">${esc(s.name)}${s.source === 'demo' ? ` <span class="tag">${t('demoMark')}</span>` : ''}<small>${t('gradeN', s.grade)} · ${s.lang === 'kk' ? 'қаз' : 'рус'}</small>${ti >= 0 ? `<small class="trap-m">${esc(top)}</small>` : ''}</th>
+        ${s.p.map(cell).join('')}<td>${s.diag ? s.diag[1] : '—'}</td><td class="small col-trap">${esc(top)}</td>
         <td><button class="x" data-del="${esc(key)}" aria-label="${t('removeStudent')}" type="button">×</button></td></tr>`;
     }).join('');
     el.innerHTML = `<h2>${t('students')}: ${list.length}</h2>
-      <div class="table-scroll"><table class="report"><thead><tr><th>${t('name')}</th>${E.SKILLS.map(s => `<th>${tr('skills', s)}</th>`).join('')}<th>${t('diagGuessedCol')}</th><th>${t('topTrap')}</th><th></th></tr></thead>
-      <tbody>${rows}</tbody><tfoot><tr><th>${t('avg')}</th>${avg.map(v => cell(Math.round(v))).join('')}<td></td><td></td><td></td></tr></tfoot></table></div>
+      <div class="table-scroll"><table class="report"><thead><tr><th>${t('name')}</th>${E.SKILLS.map(s => `<th>${tr('skills', s)}</th>`).join('')}<th>${t('diagGuessedCol')}</th><th class="col-trap">${t('topTrap')}</th><th></th></tr></thead>
+      <tbody>${rows}</tbody><tfoot><tr><th>${t('avg')}</th>${avg.map(v => cell(Math.round(v))).join('')}<td></td><td class="col-trap"></td><td></td></tr></tfoot></table></div>
       <div class="insight"><p>${esc(t('classWeak', tr('skills', weakSkill)))}</p>
         <a class="btn ghost small" href="#/print/${weakSkill}">${t('printForSkill')}</a></div>
       <h2>${t('classTraps')}</h2>
