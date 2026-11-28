@@ -115,9 +115,10 @@ function markNav() {
   const r = location.hash.split('/').slice(0, 2).join('/') || '#/';
   document.querySelectorAll('#nav a').forEach(a => a.classList.toggle('on', a.dataset.route === r));
 }
+let swReady = false;
 function updateNetPill() {
   const el = document.getElementById('net');
-  const ready = !!(navigator.serviceWorker && navigator.serviceWorker.controller);
+  const ready = swReady || !!(navigator.serviceWorker && navigator.serviceWorker.controller);
   // compact on phones: icon + short word; the full sentence is in title / for screen readers
   const set = (cls, short, full) => {
     el.className = cls;
@@ -126,7 +127,7 @@ function updateNetPill() {
     el.innerHTML = `<span class="pill-ico" aria-hidden="true"></span><span class="pill-short">${esc(short)}</span><span class="pill-long">${esc(full)}</span>`;
   };
   if (!navigator.onLine) set('pill off', t('offlineShort'), t('offlineNow'));
-  else if (ready) set('pill ok', t('offlineShort'), t('offlineReady'));
+  else if (ready) set('pill ok', t('offlineShort') + ' ✓', t('offlineReady'));
   else { el.innerHTML = ''; el.className = 'pill'; el.removeAttribute('title'); }
 }
 
@@ -187,7 +188,6 @@ async function home() {
   let top;
   if (!pr) {
     top = `<section class="hero">
-      <div class="pick-lang" role="group" aria-label="Тіл / Язык">${Object.entries(LANGS).map(([k, v]) => `<button type="button" data-pick="${k}" aria-pressed="${k === lang}">${v}</button>`).join('')}</div>
       <p class="bilingual"><span lang="kk">Алдымен дәлелде → сосын жауап бер · интернетсіз жұмыс істейді · тапсырмаларды ЖИ жасап, тексерген</span>
         <span lang="ru">Докажи → ответь · работает без интернета · банк заданий от ИИ с проверкой</span></p>
       ${subjTabs()}
@@ -269,7 +269,7 @@ async function practice() {
   app.innerHTML = `
     <div class="practice">
       <div class="topline">
-        ${subjTabs(false)}
+        <div class="subjwrap">${subjTabs()}</div>
         ${skillBars(st, true)}
         <details class="reason" ${r.kind === 'weak' ? 'open' : ''}><summary>${t(subject() === 'math' ? 'whyChosenM' : 'whyChosen')}</summary><p>${esc(reasonText)}${ses.skipped ? ' ' + esc(t('skipped', ses.skipped)) : ''}${allDone ? ' ' + esc(t('allDone')) : ''}</p></details>
       </div>
@@ -369,6 +369,7 @@ function runQuestion(unit, ses, st, lang) {
   let tap = null;
   let choice = rec ? (rec.phase === 'retry' ? null : rec.retryChoice || rec.choice) : null;
   let collapsed = false;
+  let shownPhase = null;
   let extraLast = rec ? rec.extra : undefined;
   // online AI helper: available only after the first check, so the diagnosis is never helped
   let aiOpen = false, aiBusy = false;
@@ -410,9 +411,11 @@ function runQuestion(unit, ses, st, lang) {
   const onKey = ev => {
     if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList && ev.target.classList.contains('tap')) { ev.preventDefault(); ev.target.click(); }
   };
+  const onDown = ev => { if (ev.target.closest && ev.target.closest('.tap')) ev.preventDefault(); };
   reader.addEventListener('click', onTap);
   reader.addEventListener('keydown', onKey);
-  cleanup = () => { reader.removeEventListener('click', onTap); reader.removeEventListener('keydown', onKey); };
+  reader.addEventListener('mousedown', onDown);
+  cleanup = () => { reader.removeEventListener('click', onTap); reader.removeEventListener('keydown', onKey); reader.removeEventListener('mousedown', onDown); };
 
   function scrollPanel() {
     if (window.matchMedia('(max-width: 899px)').matches) panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -484,6 +487,8 @@ function runQuestion(unit, ses, st, lang) {
     if (reply) aiMsgs.push({ role: 'assistant', content: reply, bank });
     else { aiMsgs.pop(); aiMsgs.push({ role: 'assistant', content: t('aiErr'), err: true }); }
     draw(extraLast);
+    const lastMsg = [...panel.querySelectorAll('.ai-msg')].pop();
+    if (lastMsg) panel.scrollTop = Math.max(0, lastMsg.offsetTop - panel.clientHeight + lastMsg.offsetHeight + 90);
     const inp = panel.querySelector('#ai-form input');
     if (inp && !inp.disabled) inp.focus({ preventScroll: true });
   }
@@ -524,6 +529,7 @@ function runQuestion(unit, ses, st, lang) {
     panel.innerHTML = `<div class="qhead"><span class="qnum">${t('questionOf', ses.i + 1, n)}</span><span class="tag sk-${q.process}">${tr('skills', q.process)}</span>
       <button type="button" class="fold" id="fold" aria-expanded="${!collapsed}" aria-label="${t('toText')}">${collapsed ? '▴' : '▾'}</button></div>
       <p class="stem">${esc(q.stem)}</p>${steps}${body}`;
+    if (phase !== shownPhase) { panel.scrollTop = 0; shownPhase = phase; }
     bind();
   }
 
@@ -999,7 +1005,7 @@ async function boot() {
   window.addEventListener('hashchange', route);
   await route();
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-    navigator.serviceWorker.register('sw.js').then(() => navigator.serviceWorker.ready).then(updateNetPill).catch(() => {});
+    navigator.serviceWorker.register('sw.js').then(() => navigator.serviceWorker.ready).then(() => { swReady = true; updateNetPill(); }).catch(() => {});
     navigator.serviceWorker.addEventListener('controllerchange', updateNetPill);
   }
 }

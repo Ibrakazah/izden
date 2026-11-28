@@ -80,10 +80,10 @@ ul.clean.next li:before{background:var(--marker)}
 .trio .step{display:flex;flex-direction:column;align-items:center;gap:14px}
 .trio .cap{font-size:25px;line-height:1.3;text-align:center;max-width:330px;margin:0}
 .timeline{display:flex;gap:18px;margin-top:8px}
-.timeline .t{flex:1;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:22px 24px}
+.timeline .t{flex:1;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:26px 26px 30px}
 .timeline .t b{display:block;font-size:24px;color:var(--teal-2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
-.timeline .t p{font-size:26px;margin:0}
-.cmp td,.cmp th{padding:10px 16px;font-size:27px}
+.timeline .t p{font-size:29px;margin:0}
+.cmp td,.cmp th{padding:13px 18px;font-size:30px}
 .appx{position:absolute;right:110px;top:40px;font-size:22px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 </style>
 </head>
@@ -122,31 +122,31 @@ ul.clean.next li:before{background:var(--marker)}
 <!-- 3. Solution -->
 <section class="slide">
   <p class="eyebrow">Решение</p>
-  <h2>Три вещи, которых нет в обычном тесте</h2>
-  <div class="row" style="align-items:center">
+  <h2 style="margin-bottom:20px">Три вещи, которых нет в обычном тесте</h2>
+  <div class="row" style="align-items:center;gap:40px">
     <div class="col">
       <div class="feat"><span class="n">1</span><div><h3>Сначала доказательство, потом ответ</h3><p>Ученик нажимает предложение или строку таблицы. Четыре итога: <span class="pill p-ok">понял</span> <span class="pill p-q">угадал? докажи</span> <span class="pill p-f">нашёл, но вывел неверно</span> <span class="pill p-n">не нашёл</span></p></div></div>
       <div class="feat"><span class="n">2</span><div><h3>Ловушка по имени + подсказка-шаг</h3><p>У каждого неверного варианта — тип ошибки и объяснение. Модель навыков подбирает следующий текст под самый слабый навык.</p></div></div>
       <div class="feat"><span class="n">3</span><div><h3>Учитель: QR без сети → «что делать завтра»</h3><p>Кто отвечает верно без доказательства, главная ловушка класса, приём на 10 минут и печатный лист для детей без телефона.</p></div></div>
     </div>
-    <div class="phone sm"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div>
-    <div class="phone sm"><img src="{{IMG:shots_hi/t04_traps.png}}" alt=""></div>
+    <div class="phone" style="height:780px"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div>
+    <div class="phone" style="height:780px"><img src="{{IMG:shots_hi/t04_traps.png}}" alt=""></div>
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">3</span>
 </section>
 
 <!-- 4. Demo (backup if live demo fails) -->
 <section class="slide">
-  <p class="eyebrow">Демонстрация · вживую в режиме полёта (запасной вариант — этот слайд)</p>
-  <h2 style="margin-bottom:30px">Угадал → докажи → ловушка класса → приём на завтра</h2>
+  <p class="eyebrow">Демонстрация · вживую в режиме полёта · запасной вариант — видео demo.mp4 (1:20)</p>
+  <h2 style="margin-bottom:22px">Угадал → докажи → ловушка класса → приём на завтра</h2>
   <div class="flow">
-    <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div><p class="cap"><b>1.</b> Место верное, вывод неверный — ловушка «не та колонка»</p></div>
+    <div class="step"><div class="phone sm" style="height:610px"><img src="{{IMG:shots_hi/s06_q1_trap.png}}" alt=""></div><p class="cap"><b>1.</b> Место верное, вывод неверный — ловушка «не та колонка»</p></div>
     <span class="arrow">→</span>
-    <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/s09_q2_prove.png}}" alt=""></div><p class="cap"><b>2.</b> Ответ верный, доказательства нет: «Угадал? Докажи»</p></div>
+    <div class="step"><div class="phone sm" style="height:610px"><img src="{{IMG:shots_hi/s09_q2_prove.png}}" alt=""></div><p class="cap"><b>2.</b> Ответ верный, доказательства нет: «Угадал? Докажи»</p></div>
     <span class="arrow">→</span>
-    <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/t02_scanned.png}}" alt=""></div><p class="cap"><b>3.</b> QR ученика → телефон учителя, без интернета</p></div>
+    <div class="step"><div class="phone sm" style="height:610px"><img src="{{IMG:shots_hi/t02_scanned.png}}" alt=""></div><p class="cap"><b>3.</b> QR ученика → телефон учителя, без интернета</p></div>
     <span class="arrow">→</span>
-    <div class="step"><div class="phone sm" style="height:560px"><img src="{{IMG:shots_hi/t05_trapcard.png}}" alt=""></div><p class="cap"><b>4.</b> «Что делать завтра»: приём на 10 минут + мини-лист</p></div>
+    <div class="step"><div class="phone sm" style="height:610px"><img src="{{IMG:shots_hi/t05_trapcard.png}}" alt=""></div><p class="cap"><b>4.</b> «Что делать завтра»: приём на 10 минут + мини-лист</p></div>
   </div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">4</span>
 </section>
@@ -201,7 +201,6 @@ ul.clean.next li:before{background:var(--marker)}
     <tr><td><b>Казахский и русский</b></td><td>отдельные сборники</td><td>без проверки</td><td class="ours yes">каждый текст на двух языках + перевод слова</td></tr>
     <tr><td><b>Стоимость на ученика</b></td><td>печать</td><td>подписка или токены</td><td class="ours yes">0 ₸ — сайт без сервера</td></tr>
   </table>
-  <p class="small muted" style="margin-top:22px">Bilimland — «Оқу сауаттылығы» для ЕНТ, офлайн в описании не упомянут; открытого банка НИШ по читательской грамотности не нашли (по открытым источникам, README).</p>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">7</span>
 </section>
 
@@ -213,7 +212,8 @@ ul.clean.next li:before{background:var(--marker)}
     <div class="col card"><h3>Пользователи</h3><p style="margin:0">Ученики 7–9 классов (≈ 1,06 млн), прежде всего сельские школы (67% школ, 2 654 малокомплектные). Канал — учитель: урок по заданию педагога (282-НҚ), домашняя практика, подготовка к «PISA для школ».</p></div>
     <div class="col card"><h3>Стоимость</h3><p style="margin:0"><b>0 ₸</b> за сервер и <b>0 МБ</b> трафика после первого открытия; без смартфона — печатный лист. Платит район или методкабинет: «пакет района» — новые тексты, вычитка, печать, ≈ 100 тыс. ₸ в год за школу <span class="hyp">гипотеза</span></p></div>
   </div>
-  <div class="timeline" style="margin-top:30px">
+  <p class="lead" style="margin:34px 0 18px;font-size:34px">Уже готово к запуску: сайт работает сейчас · печатный лист с ключом · отчёт учителю по QR · протокол пилота</p>
+  <div class="timeline">
     <div class="t"><b>Неделя 1–2</b><p>Вычитка казахских текстов учителем-носителем</p></div>
     <div class="t"><b>Месяц 1</b><p>Пилот: 2 сельские школы, 7–9 классы, тест до и после (протокол готов, docs/PILOT.md)</p></div>
     <div class="t"><b>Месяц 2–3</b><p>Пересчёт модели навыков на реальных ответах, новые тексты под ловушки класса</p></div>
@@ -227,7 +227,7 @@ ul.clean.next li:before{background:var(--marker)}
   <p class="eyebrow">Команда и роли</p>
   <h2>[[if team]]«{{t:team}}»[[else]]Команда[[/if]]</h2>
   [[if members_line]]<div class="row" style="flex:none;flex-wrap:wrap;gap:30px">{{t:members_cards}}</div>[[else]]<div class="ph"><p style="margin:0">Впишите имена и роли в submission/team.json (members) и пересоберите: python3 tools/build_slides.py</p></div>[[/if]]
-  <p class="lead" style="margin-top:40px">Код открыт: <b>{{t:code_url}}</b></p>
+  <div class="card" style="margin-top:34px;border-color:var(--teal)"><h3>Чем сделано</h3><p style="margin:0">Claude Code и Claude (Anthropic): код, генерация, слепая проверка и переводы заданий · OpenRouter — онлайн ИИ-помощник · Vercel — хостинг · jsQR, qrcode-generator. Код открыт: <b>{{t:code_url}}</b></p></div>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">9</span>
 </section>
 
@@ -266,7 +266,7 @@ ul.clean.next li:before{background:var(--marker)}
     <tr><td>Модель навыков, 500 синтетических учеников: ошибка оценки после 40 вопросов</td><td><b>0,04</b> адаптивно против <b>0,07</b> (симуляция)</td></tr>
     <tr><td>Офлайн-словарь: покрытие словоформ из заданий</td><td><b>ru 4 219 / 4 222 · kk 4 381 / 4 381</b></td></tr>
   </table>
-  <p class="small muted" style="margin-top:18px">Почему метод: стратегии понимания прочитанного — +7 месяцев прогресса (EEF); в обычном классе эффект скромнее (d ≈ 0,19, Okkinga 2018) — поэтому меряем своим тестом до/после.</p>
+  <p class="small muted" style="margin-top:18px">Аналоги: Bilimland — «Оқу сауаттылығы» для ЕНТ, офлайн в описании не упомянут; открытого банка НИШ по читательской грамотности не нашли (по открытым источникам). Почему метод: стратегии понимания прочитанного — +7 месяцев прогресса (EEF); в обычном классе эффект скромнее (d ≈ 0,19, Okkinga 2018) — поэтому меряем своим тестом до/после.</p>
   <span class="brand"><b>Ізден</b> · izden.vercel.app</span><span class="num">11</span>
 </section>
 

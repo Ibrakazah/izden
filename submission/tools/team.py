@@ -19,7 +19,7 @@ def load():
     d["members_line"] = "; ".join(f"{x['name']} — {x['role']}" if x.get("role") else x["name"] for x in m)
     d["members_names"] = ", ".join(x["name"] for x in m)
     import html as _h
-    d["members_cards"] = "".join(f'<div class="card" style="flex:1 1 40%"><h3>{_h.escape(x["name"])}</h3><p style="margin:0">{_h.escape(x.get("role") or "")}</p></div>' for x in m)
+    d["members_cards"] = "".join(f'<div class="card" style="flex:1 1 40%;padding:34px 38px"><h3 style="font-size:46px;margin-bottom:8px">{_h.escape(x["name"])}</h3><p style="margin:0;font-size:32px">{_h.escape(x.get("role") or "")}</p></div>' for x in m)
     p = d.get("pilot") or {}
     for k in ("guessed_share", "understood_mechanic_share", "qr_first_try_share"):
         v = p.get(k)

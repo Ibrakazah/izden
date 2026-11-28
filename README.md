@@ -11,6 +11,7 @@
 ## Демо
 
 - **Сайт:** https://izden.vercel.app (учитель: вкладка «Учитель», кнопка «Демо-класс»)
+- **Видео-демо к финалу (1:20, запись с прода в режиме полёта):** [`submission/demo.mp4`](submission/demo.mp4)
 - **Питч-видео (1:59):** [`submission/pitch.mp4`](submission/pitch.mp4)
 - **Презентация (11 слайдов, к финалу 29.11):** [`submission/slides.pdf`](submission/slides.pdf)
 - **Сценарий защиты на 7 минут и ответы на вопросы:** [`submission/DEFENSE.md`](submission/DEFENSE.md)
