@@ -112,6 +112,28 @@ function hintReply(lang, q, turn) {
   return (lang === 'kk' ? 'Мәтіннен өзің тауып көр: ' : 'Попробуй найти сам: ') + step;
 }
 
+// Word mode: translate one word in its sentence (kk <-> ru) for words missing from the offline dictionary.
+async function translateWord(body, res) {
+  const { lang, word, ctx } = body;
+  const w = String(word || '').trim().slice(0, 40);
+  if (!['kk', 'ru'].includes(lang) || !/^[\p{L}\p{M}-]{2,40}$/u.test(w)) return res.status(400).json({ error: 'bad request' });
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) return res.status(503).json({ error: 'no key' });
+  const from = lang === 'kk' ? 'казахского' : 'русского', to = lang === 'kk' ? 'русский' : 'казахский';
+  const msgs = [{ role: 'system', content: `Ты двуязычный словарь для школьников Казахстана. Переведи слово с ${from} на ${to} язык с учётом предложения. Ответь строго JSON без пояснений: {"lemma":"начальная форма слова на языке оригинала","tr":"перевод начальной формы, 1–3 слова"}` },
+    { role: 'user', content: `Слово: ${w}\nПредложение: ${String(ctx || '').slice(0, 300)}` }];
+  try {
+    const { reply } = await Promise.any(MODELS.map((model) => callModel(model, msgs, key).then((reply) => {
+      const m = /\{[\s\S]*\}/.exec(reply); const j = m && JSON.parse(m[0]);
+      if (!j || typeof j.tr !== 'string' || !j.tr.trim()) throw new Error('bad json');
+      return { reply: j };
+    })));
+    return res.status(200).json({ lemma: String(reply.lemma || w).slice(0, 40), tr: reply.tr.trim().slice(0, 80), mode: 'ai' });
+  } catch (e) {
+    return res.status(502).json({ error: 'ai unavailable' });
+  }
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
@@ -120,6 +142,7 @@ module.exports = async function handler(req, res) {
 
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = null; } }
+  if (body && body.mode === 'word') return translateWord(body, res);
   const { lang, unit: unitId, q: qId, phase, choice, messages } = body || {};
   if (!['kk', 'ru'].includes(lang) || !PHASES.has(phase) || !Array.isArray(messages) || !messages.length) return res.status(400).json({ error: 'bad request' });
   const unit = bank(lang).units.find((u) => u.id === unitId);

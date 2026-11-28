@@ -3,6 +3,7 @@ import { t, tr, tv, setLang, getLang, LANGS } from './i18n.js';
 import * as E from './engine.js';
 import { renderBlocks, showEvidence, clearEvidence, evidenceMatches, evidenceLabel, displayOrder, esc } from './text.js';
 import * as Q from './qr.js';
+import * as D from './dict.js';
 
 const app = document.getElementById('app');
 // localStorage with an in-memory fallback (private mode / blocked storage): the app keeps working, a toast warns.
@@ -101,6 +102,7 @@ function renderShell() {
   document.getElementById('nav').innerHTML = [
     ['#/practice', 'navPractice', 'M4 5h7a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H4zM20 5h-4a3 3 0 0 0-3 3'],
     ['#/progress', 'navProgress', 'M4 19V9M10 19V5M16 19v-7M22 19H2'],
+    ['#/dict', 'navDict', 'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11M9 8h6'],
     ['#/teacher', 'navTeacher', 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM18 18h3v3h-3z'],
     ['#/print', 'navPrint', 'M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z'],
   ].map(([h, k, d]) => `<a href="${h}" data-route="${h}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg><span>${t(k)}</span></a>`).join('');
@@ -137,10 +139,11 @@ function toast(msg) {
 }
 
 // ---------- router ----------
-const routes = { '': home, practice, progress, teacher, print: printPage, trap: trapPage };
+const routes = { '': home, practice, progress, dict: async () => D.dictPage(app), teacher, print: printPage, trap: trapPage };
 let cleanup = null;
 async function route() {
   if (cleanup) { try { cleanup(); } catch (e) { /* ignore */ } cleanup = null; }
+  D.closeSheet();
   const parts = location.hash.replace(/^#\/?/, '').split('/');
   const name = parts[0] || '';
   const fn = routes[name] || home;
@@ -272,21 +275,61 @@ async function practice() {
       </div>
       <div class="reader card" id="reader">
         <div class="unit-meta"><span class="tag">${t('gradeN', unit.grade)}</span>${unit.topic ? `<span class="tag">${esc(tr('mtopics', unit.topic))}</span>` : ''}<button type="button" class="link" id="pass-btn">${t('passport')}</button></div>
+        <div class="xbar"><button type="button" class="chip-q" id="xlate-btn" aria-pressed="${LS.get('xlate', false)}"><span aria-hidden="true">Aa</span> ${t('xlate')}</button><button type="button" class="chip-q" id="twin-btn">⇄ ${t(lang === 'kk' ? 'twinRu' : 'twinKk')}</button></div>
+        <p class="small muted xhint" id="xhint" ${LS.get('xlate', false) ? '' : 'hidden'}>${t('xlateHint')}</p>
         ${renderBlocks(unit)}
       </div>
       <section class="qpanel card" id="qpanel" aria-live="polite"></section>
     </div>
-    <dialog id="pass-dlg" class="dlg"></dialog>`;
+    <dialog id="pass-dlg" class="dlg"></dialog><dialog id="twin-dlg" class="dlg twin-dlg"></dialog>`;
+  wireXlate(unit, lang, ses);
   document.getElementById('pass-btn').addEventListener('click', () => openPassport(unit));
   bindSubj();
   runQuestion(unit, ses, st, lang);
+}
+
+// word translation mode + the same text in the other language
+async function findTwin(unit, lang) {
+  const other = lang === 'kk' ? 'ru' : 'kk';
+  const units = await bank(other);
+  if (unit.twin) return units.find(u => u.id === unit.twin);
+  return units.find(u => u.twin === unit.id) || units.find(u => u.id === other + unit.id.slice(2));
+}
+function wireXlate(unit, lang, ses) {
+  const root = app.querySelector('.practice');
+  const btn = document.getElementById('xlate-btn');
+  const setMode = on => { LS.set('xlate', on); btn.setAttribute('aria-pressed', on); root.classList.toggle('xlate', on); document.getElementById('xhint').hidden = !on; if (!on) D.closeSheet(); };
+  setMode(LS.get('xlate', false));
+  btn.addEventListener('click', () => setMode(!LS.get('xlate', false)));
+  // capture phase: in translate mode a tap on the text translates a word instead of choosing evidence
+  root.addEventListener('click', ev => {
+    if (!LS.get('xlate', false)) return;
+    const inText = ev.target.closest('#reader .unit-text, #qpanel .stem');
+    if (!inText) return;
+    ev.stopPropagation(); ev.preventDefault();
+    const hit = D.wordAt(ev.clientX, ev.clientY);
+    if (hit) D.showWord(hit, lang, { unitId: unit.id });
+  }, true);
+  document.getElementById('twin-btn').addEventListener('click', async () => {
+    const d = document.getElementById('twin-dlg');
+    const tw = await findTwin(unit, lang);
+    const q = tw && ses && tw.questions.find(x => x.id === ses.qids[ses.i]);
+    d.innerHTML = tw ? `<form method="dialog"><div class="twin-head"><p class="muted small">${t(lang === 'kk' ? 'twinRu' : 'twinKk')}</p><button class="w-x" aria-label="×">×</button></div>${renderBlocks(tw, { compact: true })}
+        ${q ? `<p class="twin-q"><b>${esc(q.stem)}</b></p>` : ''}<button class="btn primary">OK</button></form>`
+      : `<form method="dialog"><p>${t('twinNone')}</p><button class="btn primary">OK</button></form>`;
+    if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+  });
 }
 
 function openPassport(unit) {
   const d = document.getElementById('pass-dlg');
   const p = passport[unit.id];
   const items = [];
-  if (p && p.math) {
+  if (p && p.tr) {
+    items.push(t('pTr', p.tr.from));
+    items.push(t('pTrCheck'));
+    if (p.blind) items.push(t('pBlindM', p.blind.match, p.blind.total));
+  } else if (p && p.math) {
     items.push(t('pGenM'));
     items.push(t('pBlindM', p.blind.match, p.blind.total));
     items.push(t('pParM'));
@@ -302,7 +345,7 @@ function openPassport(unit) {
     if (p.ai_students && p.ai_students.p_ai != null) items.push(t('pStudents', pct(p.ai_students.p_ai)));
     items.push(t('pRejected'));
   }
-  const status = p && p.math ? t('pStatusM') : unit.id.startsWith('kk-') ? t('pNative') : t('pNativeRu');
+  const status = p && p.tr ? t('pStatusTr') : p && p.math ? t('pStatusM') : unit.id.startsWith('kk-') ? t('pNative') : t('pNativeRu');
   d.innerHTML = `<form method="dialog"><h2>${t('passport')}</h2><p class="muted">${t('passportLead')}</p>
     <ol class="pass-steps">${items.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
     <p class="pass-status">${esc(status)}</p><button class="btn primary">OK</button></form>`;
@@ -923,6 +966,7 @@ function switchLang(l, rerender = true) {
 // ---------- boot ----------
 async function boot() {
   const p = profile();
+  D.initDict(LS);
   setLang((p && p.lang) || LS.get('lang', 'kk'));
   renderShell();
   applyTheme(themeMode());
