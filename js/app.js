@@ -172,7 +172,7 @@ function bindSubj() {
   const on = app.querySelector('.mtopics [aria-pressed="true"]');
   if (on && on.dataset.mtopic !== 'all') on.parentElement.scrollLeft = on.offsetLeft - 8;
   app.querySelectorAll('[data-subj]').forEach(b => b.addEventListener('click', () => {
-    if (b.dataset.subj !== subject()) { LS.set('subject', b.dataset.subj); route(); }
+    if (b.dataset.subj !== subject()) { LS.set('subject', b.dataset.subj); LS.set('xlate', false); route(); }
   }));
   app.querySelectorAll('[data-mtopic]').forEach(b => b.addEventListener('click', () => {
     if (b.dataset.mtopic === mtopic()) return;
@@ -467,7 +467,8 @@ function runQuestion(unit, ses, st, lang) {
   function aiHtml() {
     if (!aiOpen) return `<div class="ai"><button type="button" class="btn ghost small ai-open" id="ai-open"><span aria-hidden="true">✦</span> ${t('aiAsk')}</button><p class="small muted">${t('aiLead')}</p></div>`;
     const log = aiMsgs.map(m => `<div class="ai-msg ai-${m.role}"><b>${m.role === 'user' ? t('aiYou') : t('aiBot')}</b><p>${esc(m.content)}${m.bank ? ` <span class="tag">${t('aiFromBank')}</span>` : ''}</p></div>`).join('');
-    const chips = aiMsgs.length ? '' : `<div class="ai-chips">${tv(phase === 'done' ? 'aiChipsDone' : 'aiChips').filter((c, i) => !(i === 2 && phase !== 'retry')).map(c => `<button type="button" class="chip-q" data-ask="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+    const asked = new Set(aiMsgs.filter(m => m.role === 'user').map(m => m.content));
+    const chips = aiBusy ? '' : `<div class="ai-chips">${tv(phase === 'done' ? 'aiChipsDone' : 'aiChips').filter((c, i) => !(i === 2 && phase !== 'retry') && !asked.has(c)).map(c => `<button type="button" class="chip-q" data-ask="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
     const off = navigator.onLine ? '' : `<p class="small ai-off">${t('aiOffline')}</p>`;
     const busy = aiBusy ? `<p class="small muted ai-busy">${t('aiThinking')}</p>` : '';
     return `<div class="ai open">${log}${busy}${chips}${off}<form class="ai-form" id="ai-form"><input name="m" maxlength="300" autocomplete="off" placeholder="${t('aiPh')}" ${aiBusy || !navigator.onLine ? 'disabled' : ''}><button class="btn primary small" ${aiBusy || !navigator.onLine ? 'disabled' : ''}>${t('aiSend')}</button></form></div>`;

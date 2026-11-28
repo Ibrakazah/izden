@@ -178,7 +178,9 @@ module.exports = async function handler(req, res) {
 
   const msgs = [{ role: 'system', content: systemPrompt(lang, unit, q, phase, choice) }, ...turns];
   try {
-    const { reply, model } = await firstReply((model) => callModel(model, msgs, key).then((reply) => ({ reply, model })));
+    let { reply, model } = await firstReply((model) => callModel(model, msgs, key).then((reply) => ({ reply, model })));
+    const last = turns[turns.length - 1].content.trim();
+    if (last.length > 3) { const i = reply.lastIndexOf(last); if (i > 20 && i + last.length >= reply.length - 2) reply = reply.slice(0, i).trim(); }
     if (phase !== 'done' && leaks(reply, q)) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'guarded' });
     return res.status(200).json({ reply, mode: 'ai', model });
   } catch (e) {

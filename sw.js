@@ -1,6 +1,6 @@
 // Izden service worker: cache-first for the whole app (one download, then works in airplane mode).
 // Bump CACHE version on every release so phones pick up new files.
-const CACHE = 'izden-a085397a48';
+const CACHE = 'izden-0a6d2ae9e0';
 const ASSETS = [
   './',
   'index.html',
