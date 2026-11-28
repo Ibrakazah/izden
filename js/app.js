@@ -188,11 +188,11 @@ async function home() {
   let top;
   if (!pr) {
     top = `<section class="hero">
-      <p class="bilingual"><span lang="kk">Алдымен дәлелде → сосын жауап бер · интернетсіз жұмыс істейді · тапсырмаларды ЖИ жасап, тексерген</span>
-        <span lang="ru">Докажи → ответь · работает без интернета · банк заданий от ИИ с проверкой</span></p>
+      <div class="hero-badges">${tv('heroBadges').map(x => `<span>${esc(x)}</span>`).join('')}</div>
       ${subjTabs()}
       <h1>${t(subject() === 'math' ? 'welcomeTitleM' : 'welcomeTitle')}</h1>
       <p class="lead">${t(subject() === 'math' ? 'welcomeLeadM' : 'welcomeLead')}</p>
+      <ol class="how3">${tv(subject() === 'math' ? 'how3M' : 'how3').map((x, i) => `<li><b>${i + 1}</b><span>${esc(x)}</span></li>`).join('')}</ol>
       <form id="onb" class="card form">
         <label>${t('yourName')}<input name="name" required maxlength="24" autocomplete="given-name" placeholder="${t('namePh')}"></label>
         <div>
@@ -538,6 +538,9 @@ function runQuestion(unit, ses, st, lang) {
     panel.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', () => {
       choice = b.dataset.opt;
       draw(extraLast);
+      // keep the check button in view after choosing (long questions on small phones)
+      const ck = panel.querySelector('#check');
+      if (ck) { const need = ck.offsetTop + ck.offsetHeight + 12 - panel.clientHeight; if (need > panel.scrollTop) panel.scrollTo({ top: need, behavior: 'smooth' }); }
     }));
     const noEv = panel.querySelector('#no-ev');
     if (noEv) noEv.addEventListener('click', () => { tap = null; phase = 'answer'; draw(); });

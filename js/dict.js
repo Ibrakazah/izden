@@ -129,7 +129,7 @@ export function dictPage(app) {
       <span class="w-box" title="${t('wBox')}">${'●'.repeat(Math.min(x.box, 5))}${'○'.repeat(Math.max(0, 5 - x.box))}</span>
       <button type="button" class="w-x" data-del="${i}" aria-label="${t('wDelete')}">×</button></li>`).join('');
   app.innerHTML = `<section class="card pad"><h1>${t('dictTitle')}</h1>
-      <div class="stats"><div><b>${all.length}</b><span>${t('wTotal')}</span></div><div><b>${learned}</b><span>${t('wLearned')}</span></div><div><b>${due.length}</b><span>${t('wDue')}</span></div></div>
+      <div class="stats s3"><div><b>${all.length}</b><span>${t('wTotal')}</span></div><div><b>${learned}</b><span>${t('wLearned')}</span></div><div><b>${due.length}</b><span>${t('wDue')}</span></div></div>
       ${all.length ? `<button class="btn primary big" id="w-review" type="button" ${due.length ? '' : 'disabled'}>${due.length ? t('wReview', due.length) : t('wNoDue')}</button>` : ''}
       <p class="muted small">${t('dictLead')}</p></section>
     ${all.length ? `<section class="card pad"><ul class="wlist">${list}</ul></section>` : `<section class="card pad"><p>${t('dictEmpty')}</p><a class="btn primary" href="#/practice">${t('navPractice')}</a></section>`}`;

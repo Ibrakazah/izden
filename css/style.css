@@ -584,6 +584,25 @@ mark.w-hl { background: var(--teal-soft); color: inherit; border-radius: 4px; bo
 @media (max-width: 600px) {
   .report .col-trap { display: none; }
   .report .trap-m { display: block; color: var(--coral); font-weight: 600; white-space: normal; max-width: 150px; line-height: 1.25; margin-top: 2px; }
-  /* the check button stays reachable without scrolling inside the question panel */
-  .qpanel #check { position: sticky; bottom: -16px; z-index: 2; box-shadow: 0 -10px 14px -6px var(--card); }
+  /* answer phase: options and the check button fit without scrolling inside the panel */
+  .qpanel.ph-answer { max-height: 52vh; }
+  .qpanel.ph-answer .steps, .qpanel.ph-answer .instr { display: none; }
+  .qpanel.ph-answer .opt { min-height: 44px; padding-top: 8px; padding-bottom: 8px; }
 }
+
+/* first screen: what it is in three badges and how it works in three steps */
+.hero-badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 12px; }
+.hero-badges span { font-size: .78rem; font-weight: 700; padding: 5px 11px; border-radius: 99px; background: var(--teal-soft); color: var(--teal); }
+.hero-badges span:first-child::before { content: "✈ "; }
+.how3 { list-style: none; padding: 0; margin: 14px 0 4px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.how3 li { background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 10px 12px; display: flex; flex-direction: column; gap: 7px; font-size: .84rem; line-height: 1.3; font-weight: 600; color: var(--ink-2); }
+.how3 b { width: 26px; height: 26px; border-radius: 50%; background: var(--teal); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; font-size: .85rem; }
+.how3 li:last-child { border-color: var(--marker); background: var(--notice-bg); }
+.how3 li:last-child b { background: var(--marker); color: var(--marker-text); }
+.stats.s3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 520px) { .grid3 .check { grid-column: 1 / -1; } }
+/* compact skill bars read as three separate chips, not one run-on line */
+.skills.compact { gap: 6px; }
+.skills.compact .skill { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px 7px; }
+.skills.compact .meter { height: 6px; }
+.skill.unrated .meter { background: var(--paper-2); }
