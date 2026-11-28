@@ -101,7 +101,11 @@ export async function showWord(hit, lang, { unitId } = {}) {
     const b = e.target.closest('[data-w]');
     if (!b) return;
     if (b.dataset.w === 'close') closeSheet();
-    if (b.dataset.w === 'save') { addWord({ lang, w: hit.w, lemma: entry[0], tr: entry[1], ctx: hit.ctx, unit: unitId || '' }); draw(entry); }
+    if (b.dataset.w === 'save') {
+      addWord({ lang, w: hit.w, lemma: entry[0], tr: entry[1], ctx: hit.ctx, unit: unitId || '' });
+      draw(entry);
+      setTimeout(() => { if (my === seq) closeSheet(); }, 1100); // saved: let the student see it, then get out of the way
+    }
     if (b.dataset.w === 'ai') {
       draw(null, 'busy');
       try {

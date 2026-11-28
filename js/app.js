@@ -652,6 +652,7 @@ function unitSummary(unit, ses, st, lang) {
   const dc = {};
   ses.diag.forEach(d => { dc[d] = (dc[d] || 0) + 1; });
   const diag = E.DIAGNOSES.filter(d => dc[d]).map(d => `<span class="chip d-${d}">${esc(tr('diagShort', d))}: ${dc[d]}</span>`).join(' ');
+  document.getElementById('qpanel').scrollTop = 0;
   document.getElementById('qpanel').innerHTML = `<h2>${t('unitDone')}</h2><p>${t('unitDoneLead')}</p><ul class="deltas">${rows}</ul>
     <p class="chips">${diag}</p>
     <button class="btn primary big" id="next-unit" type="button">${t('nextText')} →</button>

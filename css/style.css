@@ -461,7 +461,7 @@ table.report td, table.report th { vertical-align: middle; }
 .paper .unit-text { font-size: 14px; line-height: 1.5; }
 .paper .unit-title { font-size: 18px; }
 .paper .sheet-head h1 { font-size: 20px; }
-.evn { font-size: .68em; font-weight: 700; color: #fff; background: #333; border-radius: 4px; padding: 0 3px; margin-right: 3px; vertical-align: .35em; }
+.evn { display: inline-block; min-width: 1.6em; text-align: center; font-size: .7em; font-weight: 800; line-height: 1.5; color: #fff; background: #333; border-radius: 99px; padding: 0 5px; margin-right: 6px; vertical-align: .15em; }
 .pqs { list-style: none; padding: 0; }
 .pq { margin: 10px 0; break-inside: avoid; }
 .popts { list-style: none; padding-left: 14px; margin: 4px 0; }
