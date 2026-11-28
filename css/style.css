@@ -384,7 +384,7 @@ tr.ev-on td:first-child { box-shadow: inset 4px 0 0 var(--marker-edge); }
 
 /* mobile: question panel docks to the bottom while the text scrolls above it */
 @media (max-width: 899px) {
-  .qpanel { position: sticky; bottom: calc(60px + env(safe-area-inset-bottom)); max-height: 48vh; overflow-y: auto; z-index: 10;
+  .qpanel { position: sticky; bottom: calc(60px + env(safe-area-inset-bottom)); max-height: 43vh; overflow-y: auto; z-index: 10;
     box-shadow: var(--shadow-up); border-radius: 18px 18px 14px 14px; }
   .qpanel.ph-evidence { max-height: 32vh; }
   .qpanel.ph-prove { max-height: 36vh; }

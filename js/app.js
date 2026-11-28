@@ -687,6 +687,9 @@ async function progress() {
   if (subject() === 'math') {
     // the class report (QR / short code) is built for reading; maths progress stays on the phone for now
     document.getElementById('share').innerHTML = `<h2>${t('shareTitle')}</h2><p class="muted">${t('shareMathNote')}</p>`;
+  } else if (!nTot) {
+    // nothing to send yet: an empty QR would only add a blank student to the teacher's report
+    document.getElementById('share').innerHTML = `<h2>${t('shareTitle')}</h2><p class="muted">${t('shareEmpty')}</p><a class="btn primary" href="#/practice">${t('navPractice')}</a>`;
   } else {
   const payload = Q.encodePayload({ ...pr, lang }, st);
   document.getElementById('qr').innerHTML = Q.qrSvg(payload);
