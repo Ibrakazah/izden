@@ -415,7 +415,17 @@ function runQuestion(unit, ses, st, lang) {
   reader.addEventListener('click', onTap);
   reader.addEventListener('keydown', onKey);
   reader.addEventListener('mousedown', onDown);
-  cleanup = () => { reader.removeEventListener('click', onTap); reader.removeEventListener('keydown', onKey); reader.removeEventListener('mousedown', onDown); };
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY;
+    if ((phase === 'evidence' || phase === 'prove') && !collapsed && y > lastY + 24 && window.matchMedia('(max-width: 899px)').matches) panel.classList.add('peek');
+    lastY = y;
+  };
+  if (window.__izScroll) window.removeEventListener('scroll', window.__izScroll);
+  window.__izScroll = onScroll;
+  window.addEventListener('scroll', onScroll, { passive: true });
+  panel.onclick = ev => { if (panel.classList.contains('peek')) { panel.classList.remove('peek'); ev.stopPropagation(); } };
+  cleanup = () => { reader.removeEventListener('click', onTap); reader.removeEventListener('keydown', onKey); reader.removeEventListener('mousedown', onDown); window.removeEventListener('scroll', onScroll); window.__izScroll = null; };
 
   function scrollPanel() {
     if (window.matchMedia('(max-width: 899px)').matches) panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -846,7 +856,10 @@ async function teacher() {
         ${s.p.map(cell).join('')}<td>${s.diag ? s.diag[1] : '—'}</td><td class="small col-trap">${esc(top)}</td>
         <td><button class="x" data-del="${esc(key)}" aria-label="${t('removeStudent')}" type="button">×</button></td></tr>`;
     }).join('');
-    el.innerHTML = `<h2>${t('students')}: ${list.length}</h2>
+    let und = 0, gue = 0;
+    for (const [, st] of list) if (st.diag) { und += st.diag[0] || 0; gue += st.diag[1] || 0; }
+    const kpi = und + gue ? `<div class="kpi-guess"><b>${pct(gue / (und + gue))}%</b><p>${t('kpiGuess')}</p></div>` : '';
+    el.innerHTML = `<h2>${t('students')}: ${list.length}</h2>${kpi}
       <div class="table-scroll"><table class="report"><thead><tr><th>${t('name')}</th>${E.SKILLS.map(s => `<th>${tr('skills', s)}</th>`).join('')}<th>${t('diagGuessedCol')}</th><th class="col-trap">${t('topTrap')}</th><th></th></tr></thead>
       <tbody>${rows}</tbody><tfoot><tr><th>${t('avg')}</th>${avg.map(v => cell(Math.round(v))).join('')}<td></td><td class="col-trap"></td><td></td></tr></tfoot></table></div>
       <div class="insight"><p>${esc(t('classWeak', tr('skills', weakSkill)))}</p>

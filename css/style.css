@@ -606,3 +606,19 @@ mark.w-hl { background: var(--teal-soft); color: inherit; border-radius: 4px; bo
 .skills.compact .skill { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px 7px; }
 .skills.compact .meter { height: 6px; }
 .skill.unrated .meter { background: var(--paper-2); }
+
+/* reading mode: the question panel shrinks to a peek while the student scrolls the text */
+@media (max-width: 899px) {
+  .qpanel.peek { max-height: 96px; overflow: hidden; cursor: pointer; }
+  .qpanel.peek::after { content: "▴"; position: absolute; left: 0; right: 0; bottom: 0; height: 34px; display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 4px; color: var(--teal); font-size: .9rem; background: linear-gradient(transparent, var(--card) 60%); }
+}
+/* teacher: the key number of the product */
+.kpi-guess { display: flex; gap: 14px; align-items: center; margin: 4px 0 14px; padding: 14px 16px; border-radius: 14px; background: var(--notice-bg); border: 1.5px solid var(--marker); }
+.kpi-guess b { font-size: 2.2rem; line-height: 1; color: var(--warn-text); flex: none; }
+.kpi-guess p { margin: 0; font-size: .92rem; font-weight: 600; color: var(--ink-2); }
+@media (max-width: 899px) {
+  .qpanel.ph-evidence .ai.locked { display: none; }
+  .qpanel .ai.locked { padding: 6px 10px; }
+  .qpanel .ai.locked p { display: none; }
+}

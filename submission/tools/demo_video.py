@@ -160,8 +160,7 @@ async def main():
         await tap_word(page, '[data-ev="b4:s1"]', 'жеңілдікпен')
         await page.wait_for_selector('.wsheet .w-tr')
         await asyncio.sleep(1.8)
-        await tap(page, '.wsheet [data-w="save"]', pause=1.2)
-        await tap(page, '.wsheet [data-w="close"]', pause=0.4)
+        await tap(page, '.wsheet [data-w="save"]', pause=1.6)   # the sheet closes by itself after saving
         await scroll_to(page, '#twin-btn', top=80)
         r.mark('twin')
         await tap(page, '#twin-btn', pause=2.2)
