@@ -238,13 +238,14 @@ ul.clean.next li:before{background:var(--marker)}
     <div class="col">
       <div class="logo" style="margin-bottom:30px"><i>І</i><span style="font-size:110px;font-weight:800;letter-spacing:-.03em">Ізден</span></div>
       <h1 style="font-size:66px">Не «сколько верных»,<br>а <span class="mark">понял или угадал</span></h1>
+      [[if pilot.n]]<div class="card" style="border-color:var(--teal);margin:0 0 22px"><p style="margin:0;font-size:30px"><b>Проверка с учениками[[if pilot.date]] {{t:pilot.date}}[[/if]]:</b> {{t:pilot.n}} чел.[[if pilot.understood_mechanic_pct]] · поняли «сначала докажи» без подсказки — <b>{{t:pilot.understood_mechanic_pct}}</b>[[/if]][[if pilot.guessed_pct]] · верно без доказательства — <b>{{t:pilot.guessed_pct}}</b> ответов[[/if]][[if pilot.qr_first_try_pct]] · QR с первой попытки — <b>{{t:pilot.qr_first_try_pct}}</b>[[/if]][[if pilot.teacher_quote]]<br><i>«{{t:pilot.teacher_quote}}»</i>[[/if]]</p></div>[[/if]]
       <p class="lead">Нам нужны учителя казахского и русского для вычитки и две сельские школы для пилота.</p>
       <p style="font-size:44px;margin-top:30px;color:var(--teal)"><b>izden.vercel.app</b></p>
     </div>
     <div class="col" style="flex:.8">
       <h3>Честно об ограничениях</h3>
       <ul class="clean warn small">
-        <li>Пилота на детях ещё не было; ИИ-ученики — имитация</li>
+        [[if pilot.n]]<li>Проверили только удобство на {{t:pilot.n}} учениках, не эффект на навык; ИИ-ученики — имитация</li>[[else]]<li>Пилота на детях ещё не было; ИИ-ученики — имитация</li>[[/if]]
         <li>Казахский текст, переводы и математику проверял ИИ — нужна вычитка носителем</li>
         <li>Офлайн-словарь не видит контекста: у омонимов бывают ошибки</li>
         <li>Прогресс хранится на телефоне ученика; учителю — копия через QR</li>
