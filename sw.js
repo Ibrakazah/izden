@@ -1,6 +1,6 @@
 // Izden service worker: cache-first for the whole app (one download, then works in airplane mode).
 // Bump CACHE version on every release so phones pick up new files.
-const CACHE = 'izden-920da0f7e8';
+const CACHE = 'izden-68a83bfc34';
 const ASSETS = [
   './',
   'index.html',
@@ -15,6 +15,8 @@ const ASSETS = [
   'vendor/jsQR.js',
   'data/bank.kk.json',
   'data/bank.ru.json',
+  'data/math.kk.json',
+  'data/math.ru.json',
   'data/bkt_params.json',
   'data/passport.json',
   'data/trap_cards.json',

@@ -325,7 +325,7 @@ def check_sw():
             errs.append(f"sw.js ASSETS: missing file {a}")
     # every local js module / css / data referenced by the app should be cached
     must = [p for p in ROOT.glob("js/*.js")] + list(ROOT.glob("css/*.css")) + list(ROOT.glob("vendor/*.js")) \
-        + [ROOT / "data/bank.kk.json", ROOT / "data/bank.ru.json", ROOT / "data/bkt_params.json", ROOT / "data/passport.json", ROOT / "data/trap_cards.json", ROOT / "index.html",
+        + [ROOT / "data/bank.kk.json", ROOT / "data/bank.ru.json", ROOT / "data/math.kk.json", ROOT / "data/math.ru.json", ROOT / "data/bkt_params.json", ROOT / "data/passport.json", ROOT / "data/trap_cards.json", ROOT / "index.html",
            ROOT / "manifest.webmanifest"]
     norm = {a.lstrip("./") for a in assets}
     for p in must:

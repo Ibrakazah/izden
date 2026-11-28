@@ -15,7 +15,14 @@ const PHASES = new Set(['retry', 'prove', 'done']);
 
 const banks = {};
 function bank(lang) {
-  if (!banks[lang]) banks[lang] = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', `bank.${lang}.json`), 'utf8'));
+  if (!banks[lang]) {
+    // reading bank plus the maths bank (if deployed): the helper serves both subjects
+    const units = [];
+    for (const name of ['bank', 'math']) {
+      try { units.push(...JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', `${name}.${lang}.json`), 'utf8')).units); } catch (e) { if (name === 'bank') throw e; }
+    }
+    banks[lang] = { units };
+  }
   return banks[lang];
 }
 
@@ -60,7 +67,9 @@ function systemPrompt(lang, unit, q, phase, choice) {
       ? 'Ученик выбрал верный ответ, но не показал, где в тексте доказательство. Не показывай точное место (строку, предложение): подскажи, какую часть текста или колонку перечитать и что в ней искать.'
       : 'Ученик ошибся. НИКОГДА не называй верный вариант, его номер или текст, не подтверждай и не опровергай догадки о других вариантах. Объясни, что важно в вопросе, и задай один наводящий вопрос, чтобы он сам нашёл ответ в тексте.';
   return [
-    'Ты — помощник по чтению в тренажёре «Ізден» для учеников 7–9 классов из сельских школ Казахстана.',
+    unit.subject === 'math'
+      ? 'Ты — помощник по математике в тренажёре «Ізден» для учеников 7–9 классов из сельских школ Казахстана. Не называй итоговое число ответа и не делай последнее вычисление за ученика: подскажи, какие данные из условия взять и какое действие сделать первым.'
+      : 'Ты — помощник по чтению в тренажёре «Ізден» для учеников 7–9 классов из сельских школ Казахстана.',
     `Отвечай на ${L} языке, просто и дружелюбно, 1–3 коротких предложения, без markdown и списков.`,
     'Говори только об этом тексте и вопросе; на другие темы мягко возвращай к заданию. Не придумывай факты, которых нет в тексте.',
     rules,
@@ -125,14 +134,14 @@ module.exports = async function handler(req, res) {
   if (!key) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'mock' });
 
   const msgs = [{ role: 'system', content: systemPrompt(lang, unit, q, phase, choice) }, ...turns];
-  for (const model of MODELS) {
-    try {
-      const reply = await callModel(model, msgs, key);
-      if (phase !== 'done' && leaks(reply, q)) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'guarded' });
-      return res.status(200).json({ reply, mode: 'ai', model });
-    } catch (e) { /* try the next model */ }
+  // ask every model at once and take the first good reply: one slow or rate-limited free model no longer costs 9 s
+  try {
+    const { reply, model } = await Promise.any(MODELS.map((model) => callModel(model, msgs, key).then((reply) => ({ reply, model }))));
+    if (phase !== 'done' && leaks(reply, q)) return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'guarded' });
+    return res.status(200).json({ reply, mode: 'ai', model });
+  } catch (e) {
+    return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'fallback' });
   }
-  return res.status(200).json({ reply: hintReply(lang, q, userTurns), mode: 'fallback' });
 };
 
 module.exports.leaks = leaks;

@@ -25,7 +25,7 @@
   ],
   "functions": {
     "api/ask.js": {
-      "includeFiles": "data/bank.*.json",
+      "includeFiles": "data/*.json",
       "maxDuration": 30
     }
   }

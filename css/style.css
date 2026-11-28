@@ -517,3 +517,16 @@ table.report td, table.report th { vertical-align: middle; }
 .ai-busy { margin: 0 0 8px; }
 .qpanel .ai-form .btn.primary { width: auto; flex: none; margin: 0; min-height: 42px; }
 .ai-form input { flex: 1 1 auto; width: auto; }
+
+/* subject switch + maths topics */
+.subj { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 0 0 10px; padding: 4px; background: var(--teal-soft); border-radius: 14px; }
+.subj button { min-height: 40px; border: 0; border-radius: 10px; background: transparent; font: inherit; font-weight: 700; color: var(--ink-2); cursor: pointer; }
+.subj button[aria-pressed="true"] { background: var(--card); color: var(--teal); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.mtopics { display: flex; flex-wrap: nowrap; gap: 6px; margin: 0 0 10px; padding: 0 0 2px; max-width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.mtopics::-webkit-scrollbar { display: none; }
+.mtopics .chip-q { flex: none; white-space: nowrap; min-height: 36px; }
+.unit-meta .tag { white-space: nowrap; }
+.mtopics .chip-q[aria-pressed="true"] { border-color: var(--teal); background: var(--teal-soft); color: var(--teal); font-weight: 700; }
+.ai.locked .btn[disabled] { opacity: .55; cursor: not-allowed; }
+@media print { .subj, .mtopics { display: none; } }
+@media (min-width: 900px) { .practice .topline .mtopics { grid-column: 1 / -1; margin: 0 0 4px; padding: 0; flex-wrap: wrap; } }

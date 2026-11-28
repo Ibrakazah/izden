@@ -35,6 +35,12 @@ const LS = {
 
 let params = null;
 const banks = {};
+// subject: reading (default) or maths; each subject keeps its own progress and session per language
+const SUBJECTS = ['read', 'math'];
+const MTOPICS = ['all', 'percent', 'money', 'ratio', 'data', 'geometry'];
+const subject = () => (LS.get('subject', 'read') === 'math' ? 'math' : 'read');
+const skey = lang => lang + (subject() === 'math' ? '.math' : '');
+const mtopic = () => { const v = LS.get('mtopic', 'all'); return MTOPICS.includes(v) ? v : 'all'; };
 let passport = {};
 let trapCards = {};
 
@@ -44,19 +50,20 @@ async function loadJSON(url) {
   return r.json();
 }
 async function bank(lang) {
-  if (!banks[lang]) banks[lang] = (await loadJSON(`data/bank.${lang}.json`)).units;
-  return banks[lang];
+  const k = skey(lang);
+  if (!banks[k]) banks[k] = (await loadJSON(`data/${subject() === 'math' ? 'math' : 'bank'}.${lang}.json`)).units;
+  return banks[k];
 }
 
 // ---------- profile & state ----------
 const profile = () => LS.get('profile', null);
 function loadState(lang) {
-  const s = LS.get('state.' + lang, null);
+  const s = LS.get('state.' + skey(lang), null);
   if (!s || s.v !== 2) return E.newState(params);
   if (!s.exposure) s.exposure = E.newState(params).exposure; // saved before exposure counting existed
   return s;
 }
-const saveState = (lang, s) => LS.set('state.' + lang, s);
+const saveState = (lang, s) => LS.set('state.' + skey(lang), s);
 const pct = p => Math.round(p * 100);
 
 // ---------- theme: auto (device) -> light -> dark ----------
@@ -149,6 +156,26 @@ async function route() {
   window.scrollTo(0, 0);
 }
 
+// ---------- subject switch ----------
+function subjTabs(withTabs = true) {
+  const s = subject();
+  const tabs = !withTabs ? '' : `<div class="subj" role="group">${SUBJECTS.map(k => `<button type="button" data-subj="${k}" aria-pressed="${k === s}">${t(k === 'math' ? 'subjMath' : 'subjRead')}</button>`).join('')}</div>`;
+  const tp = mtopic();
+  const chips = s === 'math' ? `<div class="mtopics">${MTOPICS.map(k => `<button type="button" class="chip-q" data-mtopic="${k}" aria-pressed="${k === tp}">${esc(tr('mtopics', k))}</button>`).join('')}</div>` : '';
+  return tabs + chips;
+}
+function bindSubj() {
+  const on = app.querySelector('.mtopics [aria-pressed="true"]');
+  if (on && on.dataset.mtopic !== 'all') on.parentElement.scrollLeft = on.offsetLeft - 8;
+  app.querySelectorAll('[data-subj]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.subj !== subject()) { LS.set('subject', b.dataset.subj); route(); }
+  }));
+  app.querySelectorAll('[data-mtopic]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.mtopic === mtopic()) return;
+    LS.set('mtopic', b.dataset.mtopic); LS.del('session.' + skey(getLang())); route();
+  }));
+}
+
 // ---------- home / onboarding ----------
 async function home() {
   const pr = profile();
@@ -160,8 +187,9 @@ async function home() {
       <div class="pick-lang" role="group" aria-label="Тіл / Язык">${Object.entries(LANGS).map(([k, v]) => `<button type="button" data-pick="${k}" aria-pressed="${k === lang}">${v}</button>`).join('')}</div>
       <p class="bilingual"><span lang="kk">Алдымен дәлелде → сосын жауап бер · интернетсіз жұмыс істейді · тапсырмаларды ЖИ жасап, тексерген</span>
         <span lang="ru">Докажи → ответь · работает без интернета · банк заданий от ИИ с проверкой</span></p>
-      <h1>${t('welcomeTitle')}</h1>
-      <p class="lead">${t('welcomeLead')}</p>
+      ${subjTabs()}
+      <h1>${t(subject() === 'math' ? 'welcomeTitleM' : 'welcomeTitle')}</h1>
+      <p class="lead">${t(subject() === 'math' ? 'welcomeLeadM' : 'welcomeLead')}</p>
       <form id="onb" class="card form">
         <label>${t('yourName')}<input name="name" required maxlength="24" autocomplete="given-name" placeholder="${t('namePh')}"></label>
         <div>
@@ -175,6 +203,7 @@ async function home() {
     top = `<section class="hero">
       <h1>${esc(pr.name)}</h1>
       <p class="lead">${t('gradeN', pr.grade)} · ${LANGS[lang]}</p>
+      ${subjTabs()}
       ${skillBars(st, true)}
       <a class="btn primary big" href="#/practice">${st.answered ? t('continue') : t('start')}</a>
       <button class="btn ghost" id="edit-prof" type="button">${t('changeProfile')}</button>
@@ -184,6 +213,7 @@ async function home() {
     <section class="card pad"><h2>${t('modesTitle')}</h2><ul class="modes">${modes}</ul></section>
     <section class="card pad about"><p>${t('aboutAi')}</p>${lang === 'kk' ? `<p class="muted small">${t('kkNote')}</p>` : ''}</section>`;
   app.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => switchLang(b.dataset.pick)));
+  bindSubj();
   const f = document.getElementById('onb');
   if (f) f.addEventListener('submit', ev => {
     ev.preventDefault();
@@ -197,7 +227,7 @@ async function home() {
   if (ed) ed.addEventListener('click', () => {
     // a new student on the same phone must not inherit (and send by QR) the previous student's progress
     if (!confirm(t('changeProfileConfirm'))) return;
-    ['profile', 'state.kk', 'state.ru', 'session.kk', 'session.ru'].forEach(k => LS.del(k));
+    ['profile', 'state.kk', 'state.ru', 'session.kk', 'session.ru', 'state.kk.math', 'state.ru.math', 'session.kk.math', 'session.ru.math'].forEach(k => LS.del(k));
     home();
   });
 }
@@ -215,9 +245,11 @@ function skillBars(st, compact = false) {
 async function practice() {
   const pr = profile();
   const lang = getLang();
-  const units = await bank(lang);
+  const allUnits = await bank(lang);
+  const tp = subject() === 'math' ? mtopic() : 'all';
+  const units = tp === 'all' ? allUnits : allUnits.filter(u => u.topic === tp);
   const st = loadState(lang);
-  let ses = LS.get('session.' + lang, null);
+  let ses = LS.get('session.' + skey(lang), null);
   let unit = ses && units.find(u => u.id === ses.unitId);
   if (!unit || ses.i >= ses.qids.length) {
     const sel = E.selectNextUnit(st, params, units, pr.grade);
@@ -226,7 +258,7 @@ async function practice() {
     ses = { unitId: unit.id, qids: qs.map(q => q.id), i: 0, reason: sel.reason,
       skipped: unit.questions.length - qs.length,
       start: Object.fromEntries(E.SKILLS.map(s => [s, st.skills[s].p])), diag: [] };
-    LS.set('session.' + lang, ses);
+    LS.set('session.' + skey(lang), ses);
   }
   const allDone = units.every(u => st.done[u.id]);
   const r = ses.reason;
@@ -234,17 +266,19 @@ async function practice() {
   app.innerHTML = `
     <div class="practice">
       <div class="topline">
+        ${subjTabs(false)}
         ${skillBars(st, true)}
-        <details class="reason" ${r.kind === 'weak' ? 'open' : ''}><summary>${t('whyChosen')}</summary><p>${esc(reasonText)}${ses.skipped ? ' ' + esc(t('skipped', ses.skipped)) : ''}${allDone ? ' ' + esc(t('allDone')) : ''}</p></details>
+        <details class="reason" ${r.kind === 'weak' ? 'open' : ''}><summary>${t(subject() === 'math' ? 'whyChosenM' : 'whyChosen')}</summary><p>${esc(reasonText)}${ses.skipped ? ' ' + esc(t('skipped', ses.skipped)) : ''}${allDone ? ' ' + esc(t('allDone')) : ''}</p></details>
       </div>
       <div class="reader card" id="reader">
-        <div class="unit-meta"><span class="tag">${t('gradeN', unit.grade)}</span><button type="button" class="link" id="pass-btn">${t('passport')}</button></div>
+        <div class="unit-meta"><span class="tag">${t('gradeN', unit.grade)}</span>${unit.topic ? `<span class="tag">${esc(tr('mtopics', unit.topic))}</span>` : ''}<button type="button" class="link" id="pass-btn">${t('passport')}</button></div>
         ${renderBlocks(unit)}
       </div>
       <section class="qpanel card" id="qpanel" aria-live="polite"></section>
     </div>
     <dialog id="pass-dlg" class="dlg"></dialog>`;
   document.getElementById('pass-btn').addEventListener('click', () => openPassport(unit));
+  bindSubj();
   runQuestion(unit, ses, st, lang);
 }
 
@@ -252,7 +286,11 @@ function openPassport(unit) {
   const d = document.getElementById('pass-dlg');
   const p = passport[unit.id];
   const items = [];
-  if (p) {
+  if (p && p.math) {
+    items.push(t('pGenM'));
+    items.push(t('pBlindM', p.blind.match, p.blind.total));
+    items.push(t('pParM'));
+  } else if (p) {
     items.push(t('pGen', p.round, p.batch));
     if (p.blind_round1) items.push(t('pBlind1', p.blind_round1.match, p.blind_round1.total));
     items.push(t('pBlindFinal', p.blind_final.match, p.blind_final.total, p.blind_final.ambiguous));
@@ -264,7 +302,7 @@ function openPassport(unit) {
     if (p.ai_students && p.ai_students.p_ai != null) items.push(t('pStudents', pct(p.ai_students.p_ai)));
     items.push(t('pRejected'));
   }
-  const status = unit.id.startsWith('kk-') ? t('pNative') : t('pNativeRu');
+  const status = p && p.math ? t('pStatusM') : unit.id.startsWith('kk-') ? t('pNative') : t('pNativeRu');
   d.innerHTML = `<form method="dialog"><h2>${t('passport')}</h2><p class="muted">${t('passportLead')}</p>
     <ol class="pass-steps">${items.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
     <p class="pass-status">${esc(status)}</p><button class="btn primary">OK</button></form>`;
@@ -292,7 +330,7 @@ function runQuestion(unit, ses, st, lang) {
   const aiMsgs = [];
   const disabled = new Set(rec ? rec.disabled : []);
 
-  const persist = () => { ses.answered[q.id] = rec; LS.set('session.' + lang, ses); };
+  const persist = () => { ses.answered[q.id] = rec; LS.set('session.' + skey(lang), ses); };
   const markPicked = ref => {
     reader.querySelectorAll('.picked').forEach(x => x.classList.remove('picked'));
     const el = ref && reader.querySelector(`[data-ev="${CSS.escape(ref)}"]`);
@@ -406,14 +444,16 @@ function runQuestion(unit, ses, st, lang) {
 
   function draw(extra) {
     extraLast = extra;
-    const steps = `<ol class="steps"><li class="${phase === 'evidence' ? 'cur' : 'ok'}">1. ${t('step1')}</li><li class="${phase === 'answer' ? 'cur' : (phase === 'evidence' ? '' : 'ok')}">2. ${t('step2')}</li></ol>`;
+    const steps = `<ol class="steps"><li class="${phase === 'evidence' ? 'cur' : 'ok'}">1. ${t(unit.subject === 'math' ? 'step1M' : 'step1')}</li><li class="${phase === 'answer' ? 'cur' : (phase === 'evidence' ? '' : 'ok')}">2. ${t('step2')}</li></ol>`;
     let body = '';
+    // the helper is announced from the start but opens only after the first check, so the diagnosis stays the student's own
+    const aiLocked = `<div class="ai locked"><button type="button" class="btn ghost small ai-open" disabled><span aria-hidden="true">✦</span> ${t('aiAsk')}</button><p class="small muted">${t('aiLocked')}</p></div>`;
     if (phase === 'evidence') {
-      body = `<p class="instr">${t('tapEvidence')}</p>${optionsHtml(true)}
-        <button type="button" class="link" id="no-ev">${t('noEvidence')}</button>`;
+      body = `<p class="instr">${t(unit.subject === 'math' ? 'tapEvidenceM' : 'tapEvidence')}</p>${optionsHtml(true)}
+        <button type="button" class="link" id="no-ev">${t('noEvidence')}</button>` + aiLocked;
     } else if (phase === 'answer') {
       body = `<p class="instr small muted">${tap ? t('changeEvidence') : ''}</p>${optionsHtml(false)}
-        <button type="button" class="btn primary" id="check" ${choice ? '' : 'disabled'}>${t('check')}</button>`;
+        <button type="button" class="btn primary" id="check" ${choice ? '' : 'disabled'}>${t('check')}</button>` + aiLocked;
     } else if (phase === 'retry') {
       body = diagHtml(rec.diag) + trapHtml(rec.choice) + hintsHtml() + optionsHtml(false)
         + `<button type="button" class="btn primary" id="check" ${choice && !disabled.has(choice) ? '' : 'disabled'}>${t('check')}</button>` + aiHtml();
@@ -518,7 +558,7 @@ function runQuestion(unit, ses, st, lang) {
     reader.classList.remove('picking');
     reader.querySelectorAll('.picked').forEach(x => x.classList.remove('picked'));
     ses.i += 1;
-    LS.set('session.' + lang, ses);
+    LS.set('session.' + skey(lang), ses);
     if (ses.i < n) { cleanup(); runQuestion(unit, ses, st, lang); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     E.markUnitDone(st, unit.id);
     saveState(lang, st);
@@ -558,7 +598,7 @@ function unitSummary(unit, ses, st, lang) {
     <p class="chips">${diag}</p>
     <button class="btn primary big" id="next-unit" type="button">${t('nextText')} →</button>
     <a class="btn ghost" href="#/progress">${t('navProgress')}</a>`;
-  LS.del('session.' + lang);
+  LS.del('session.' + skey(lang));
   document.getElementById('next-unit').addEventListener('click', () => practice().then(() => window.scrollTo(0, 0)));
 }
 
@@ -573,7 +613,8 @@ async function progress() {
   const diagTot = E.DIAGNOSES.reduce((a, d) => a + (st.diag[d] || 0), 0) || 1;
   app.innerHTML = `
     <section class="card pad"><h1>${t('progressTitle')}</h1>
-      <p class="muted">${esc(pr.name)} · ${t('gradeN', pr.grade)} · ${LANGS[lang]}</p>
+      <p class="muted">${esc(pr.name)} · ${t('gradeN', pr.grade)} · ${LANGS[lang]} · ${t(subject() === 'math' ? 'subjMath' : 'subjRead')}</p>
+      ${subjTabs()}
       <div class="stats"><div><b>${nTot}</b><span>${t('answered')}</span></div><div><b>${nTot ? pct(cTot / nTot) : 0}%</b><span>${t('firstTry')}</span></div></div>
       <h2>${t('pKnow')}</h2>${skillBars(st)}
     </section>
@@ -592,9 +633,10 @@ async function progress() {
   document.getElementById('qr').innerHTML = Q.qrSvg(payload);
   document.getElementById('qr').dataset.payload = payload;
   document.getElementById('scode').textContent = Q.encodeShortCode({ ...pr, lang }, st);
+  bindSubj();
   document.getElementById('reset').addEventListener('click', () => {
     if (!confirm(t('resetConfirm'))) return;
-    LS.del('state.' + lang); LS.del('session.' + lang);
+    LS.del('state.' + skey(lang)); LS.del('session.' + skey(lang));
     progress();
   });
 }
